@@ -1,0 +1,3 @@
+<template>
+  <PButton></PButton>
+</template>
