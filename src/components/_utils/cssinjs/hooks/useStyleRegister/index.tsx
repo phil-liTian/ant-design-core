@@ -66,6 +66,9 @@ export const parseStyle = (
 }
 
 export function normalizeStyle(styleStr: string): string {
+  // compile函数用于将原始的样式字符串（styleStr）编译成 Stylis 内部的抽象语法树（AST）格式或者其他中间表示形式。
+
+  // 在compile函数将样式字符串转换为内部表示形式之后，serialize函数用于将这个中间表示形式重新转换为字符串格式。
   const serialized = serialize(compile(styleStr), stringify)
   return serialized.replace(/\{%%%\:[^;];}/g, ';')
 }
