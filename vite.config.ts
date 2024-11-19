@@ -14,6 +14,10 @@ export default defineConfig({
     UnoCSS(),
     // vueDevTools(),
   ],
+  server: {
+    open: true,
+    port: 3132,
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
