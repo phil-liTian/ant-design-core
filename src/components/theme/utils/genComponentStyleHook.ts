@@ -3,6 +3,7 @@ import type { ComponentTokenMap } from '../interface'
 import useStyleRegister, {
   type CSSInterpolation,
 } from '@/components/_utils/cssinjs/hooks/useStyleRegister'
+import { useToken } from '../internal'
 
 export type OverrideTokenWithoutDerivative = ComponentTokenMap
 export type OverrideComponent = keyof OverrideTokenWithoutDerivative
@@ -21,6 +22,7 @@ export default function genComponentStyleHook<ComponentName extends OverrideComp
 ) {
   return (_prefixCls?: Ref<string>) => {
     const prefixCls = computed(() => _prefixCls?.value)
+    const [theme, token] = useToken()
 
     const componentInfo = computed(() => {})
     const componentCls = `.${prefixCls.value}`

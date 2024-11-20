@@ -1,6 +1,7 @@
-import type { ComputedRef, InjectionKey, PropType } from 'vue'
+import type { ComputedRef, ExtractPropTypes, InjectionKey, PropType } from 'vue'
 import { computed, provide, inject } from 'vue'
 import type { AliasToken } from '../theme/interface/alias'
+import { BooleanType, ObjectType } from '../_utils/type'
 
 export type SizeType = 'small' | 'middle' | 'large' | undefined
 
@@ -11,16 +12,16 @@ export interface ThemeConfig {
 // config provider可接收的props
 export const configProviderProps = () => ({
   prefixCls: String,
-  autoInsertSpaceInButton: { type: Boolean, default: true },
+  autoInsertSpaceInButton: BooleanType(true),
   direction: {
     type: String as PropType<'ltr' | 'rtl'>,
     default: 'ltr',
   },
-  theme: {
-    type: Object as PropType<ThemeConfig>,
-    default: () => ({}),
-  },
+  // 自定义主题
+  theme: ObjectType<ThemeConfig>(),
 })
+
+export type ConfigProviderProps = Partial<ExtractPropTypes<ReturnType<typeof configProviderProps>>>
 
 export interface ConfigProviderInnerProps {
   direction?: ComputedRef<'ltr' | 'rtl'>

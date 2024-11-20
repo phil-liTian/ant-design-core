@@ -7,7 +7,9 @@ const genSharedButtonStyle = (token) => {
   const { componentCls } = token
   return {
     [componentCls]: {
-      color: 'blue',
+      outline: 'none',
+      cursor: 'pointer',
+      backgroundColor: 'transparent',
     },
   }
 }

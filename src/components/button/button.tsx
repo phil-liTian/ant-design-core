@@ -59,7 +59,7 @@ export default defineComponent({
       if (child.type === Text) {
         let text = (child.children as string).trim()
         if (isTwoCNChar(text)) {
-          // 两个中文
+          // 两个中文中间加空格
           text = text.split('').join(SPACE)
         }
 

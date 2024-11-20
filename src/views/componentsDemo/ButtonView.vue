@@ -6,6 +6,7 @@
 
   <!-- antdv button -->
   <AButton>phil</AButton>
+  <AButton type="primary">phil</AButton>
 </template>
 
 <script setup lang="ts"></script>

@@ -5,6 +5,8 @@ import {
   type ConfigProviderInnerProps,
 } from './context'
 
+export type { ConfigProviderProps } from './context'
+
 export type { SizeType } from './context'
 
 const ConfigProvider = defineComponent({

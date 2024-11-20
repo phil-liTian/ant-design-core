@@ -1,5 +1,4 @@
 export function updateCss(css: string) {
-  console.log('css', css)
   injectCss(css)
 }
 

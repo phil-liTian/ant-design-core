@@ -7,7 +7,7 @@ type ArrayCSSInterpolation = readonly CSSInterpolation[]
 
 export type CSSInterpolation = ArrayCSSInterpolation
 
-export default function useStyleRegister(info, styleFn: () => CSSInterpolation) {
+export default function useStyleRegister(info: any, styleFn: () => CSSInterpolation) {
   const styleObj = styleFn()
 
   const [parsedStyle] = parseStyle(styleObj)
