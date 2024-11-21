@@ -2,7 +2,7 @@
   <div>
     <AlertView />
 
-    <ButtonView />
+    <!-- <ButtonView /> -->
   </div>
 </template>
 

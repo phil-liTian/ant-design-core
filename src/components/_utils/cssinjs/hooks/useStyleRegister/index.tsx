@@ -3,7 +3,23 @@ import { compile, serialize, stringify } from 'stylis'
 import type { VueNode } from '@/components/_utils/type'
 import { updateCss } from '@/components/vc-util/Dom/dynamicCSS'
 
+type CSSPropertiesWithMultiValues = {
+  [K in keyof CSSProperties]: CSSProperties[K]
+}
+
 type ArrayCSSInterpolation = readonly CSSInterpolation[]
+
+export type InterpolationPrimitive =
+  | undefined
+  | null
+  | false
+  | number
+  | string
+  | ArrayCSSInterpolation
+  | CSSObject
+
+// export interface CSSObject extends CSSPropertiesWithMultiValues {}
+export type CSSObject = any
 
 export type CSSInterpolation = ArrayCSSInterpolation
 

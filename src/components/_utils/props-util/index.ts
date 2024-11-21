@@ -49,4 +49,10 @@ export function isEmptyElement(c: any) {
   return c && c.children.length === 0
 }
 
+function getPropsSlot(slots: any, props: any, prop = 'default') {
+  return props[prop] ?? slots[prop]?.()
+}
+
 export default initDefaultProps
+
+export { getPropsSlot }

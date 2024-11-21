@@ -15,3 +15,9 @@ export type { ConfigProviderProps } from './config-provider'
  */
 export { default as Alert } from './alert'
 export type { AlertProps } from './alert'
+
+/**
+ * Switch
+ */
+export { default as Switch } from './switch'
+export type { SwitchProps } from './switch'

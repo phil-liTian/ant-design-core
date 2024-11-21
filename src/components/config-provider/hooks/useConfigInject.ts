@@ -1,5 +1,5 @@
 import { computed } from 'vue'
-import { useConfigContextInject } from '../context'
+import { useConfigContextInject, type SizeType } from '../context'
 
 export default (name: string, props: Record<any, any>) => {
   const configProvider = useConfigContextInject()
@@ -10,9 +10,12 @@ export default (name: string, props: Record<any, any>) => {
 
   const autoInsertSpaceInButton = computed(() => configProvider.autoInsertSpaceInButton?.value)
 
+  const size = computed(() => props.size as SizeType)
+
   return {
     prefixCls,
     direction,
     autoInsertSpaceInButton,
+    size,
   }
 }
