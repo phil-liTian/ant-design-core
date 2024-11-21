@@ -1,10 +1,10 @@
 <template>
   <div>
-    <p-alert></p-alert>
+    <p-alert message="phil alert"></p-alert>
 
     <hr class="my-10px" />
 
-    <a-alert message="12312"></a-alert>
+    <a-alert message="ant alert"></a-alert>
   </div>
 </template>
 

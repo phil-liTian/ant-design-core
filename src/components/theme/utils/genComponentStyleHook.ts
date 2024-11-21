@@ -26,8 +26,10 @@ export default function genComponentStyleHook<ComponentName extends OverrideComp
 
     const componentInfo = computed(() => {})
     const componentCls = `.${prefixCls.value}`
+
     const mergedToken = {
       componentCls,
+      ...token.value,
     }
 
     return [

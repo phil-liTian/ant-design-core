@@ -52,24 +52,25 @@ const Alert = defineComponent({
       appear: true,
       onAfterLeave: () => {},
     })
-
-    return wrapSSR(
-      closed.value ? null : (
-        <Transition {...transitionProps}>
-          <div role="alert" class={[alertCls]} v-show={closing.value}>
-            {showIcon ? '' : null}
-            <div class={`${prefixClsValue}-content`}>
-              {message ? <div class={`${prefixClsValue}-message`}>{message}</div> : null}
-              {description ? (
-                <div class={`${prefixClsValue}-description`}>{description}</div>
-              ) : null}
+    return () => {
+      return wrapSSR(
+        closed.value ? null : (
+          <Transition {...transitionProps}>
+            <div role="alert" class={[alertCls]} v-show={!closing.value}>
+              {showIcon ? '' : null}
+              <div class={`${prefixClsValue}-content`}>
+                {message ? <div class={`${prefixClsValue}-message`}>{message}</div> : null}
+                {description ? (
+                  <div class={`${prefixClsValue}-description`}>{description}</div>
+                ) : null}
+              </div>
+              {action ? <div class={`${prefixClsValue}-action`}>{action}</div> : null}
+              {closeIcon}
             </div>
-            {action ? <div class={`${prefixClsValue}-action`}>{action}</div> : null}
-            {closeIcon}
-          </div>
-        </Transition>
-      ),
-    )
+          </Transition>
+        ),
+      )
+    }
   },
 })
 

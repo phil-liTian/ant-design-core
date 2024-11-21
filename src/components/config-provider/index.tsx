@@ -14,7 +14,7 @@ const ConfigProvider = defineComponent({
   props: configProviderProps(),
   setup(props, { slots }) {
     const getPrefixCls = (suffixCls?: string, customizePrefixCls?: string) => {
-      const { prefixCls = 'ant' } = props
+      const { prefixCls = 'phil' } = props
       if (customizePrefixCls) return customizePrefixCls
       return suffixCls ? `${prefixCls}-${suffixCls}` : prefixCls
     }

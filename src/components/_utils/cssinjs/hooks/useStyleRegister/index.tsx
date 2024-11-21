@@ -68,7 +68,10 @@ export const parseStyle = (
 
           styleStr += `${mergedKey}${parsedStr}`
         } else {
-          styleStr += `${key}:${value};`
+          // 允许js使用驼峰处理样式
+          const styleName = key.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`)
+
+          styleStr += `${styleName}:${value};`
         }
       })
     }

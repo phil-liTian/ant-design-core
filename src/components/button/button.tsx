@@ -25,6 +25,8 @@ export default defineComponent({
     const pre = prefixCls.value
     const innerLoading = shallowRef<Loading>(false)
 
+    console.log('props', props.type)
+
     const classes = computed(() => {
       const { type, danger, block, ghost } = props
 
@@ -77,7 +79,7 @@ export default defineComponent({
 
     return () => {
       const children = flattenChildren(slots.default?.() as any)
-      const { icon = slots.icon?.() } = props
+      const { icon = slots.icon?.(), htmlType } = props
       isNeedInserted = children.length === 1 && !icon && !isUnBorderedButtonType(props.type)
       const { href, target } = props
       const kids = children.map((child) =>
@@ -93,7 +95,11 @@ export default defineComponent({
         )
       }
 
-      let buttonNode = <button {...buttonProps}>{kids}</button>
+      let buttonNode = (
+        <button {...buttonProps} type={htmlType}>
+          {kids}
+        </button>
+      )
 
       return wrapSSR(buttonNode)
     }

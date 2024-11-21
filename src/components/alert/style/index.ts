@@ -17,6 +17,10 @@ const genBaseStyle = (token): CSSObject => {
       backgroundColor: '#fafafa',
       border: '1px solid #d9d9d9',
       color: '#666',
+
+      [`${componentCls}-content`]: {
+        flex: 1,
+      },
     },
   }
 }

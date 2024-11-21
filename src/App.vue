@@ -3,7 +3,7 @@ import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <p-config-provider prefixCls="cc">
+  <p-config-provider>
     <RouterView />
   </p-config-provider>
 </template>

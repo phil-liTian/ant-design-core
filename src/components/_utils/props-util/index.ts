@@ -17,8 +17,17 @@ const initDefaultProps = <T>(
   const propTypes: T = { ...types }
 
   Object.keys(defaultProps).forEach((k) => {
-    if (propTypes[k] === null || propTypes[k] === undefined) {
-      propTypes[k] = defaultProps[k]
+    // if (propTypes[k] === null || propTypes[k] === undefined) {
+    //   propTypes[k] = defaultProps[k]
+    // }
+    const prop = propTypes[k]
+
+    console.log('prop---->', prop.type)
+    console.log('prop---->', prop.default)
+    console.log('prop---->', prop.def)
+
+    if (prop) {
+      propTypes[k] = { type: prop, default: defaultProps[k] }
     }
   })
 
