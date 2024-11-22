@@ -1,45 +1,24 @@
-# ant-design-core
+### 样式处理流程
 
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+```
+在config-provider中使用 provide/inject 配置全局变量。组件config-provider可作为变量的输入口。
+在各组件中使用genComponentStyleHook生成wrapSSR即useStyleRegister钩子，在useStyleRegister钩
+子中对styleFn返回的styleInterplation进行处理。用parseStyle将styleInterplation递归处理成一个字符串。
+使用injectCss方法将处理的到css字符串用style标签包裹插入到container中。
 ```
 
-### Compile and Hot-Reload for Development
+如何注入全局style token?
 
-```sh
-npm run dev
+```
+1.全局的seedToken在useCacheToken中开始注入. 将defaultPresetColorss进行衍生，通过@ant-design/color中的generate方法生成对应的色值。比如 blue => [blue, blue-1, blue-2, ...]。
+2.使用genColorMapToken根据SeedToken生成对应的色值，同样的，也是利用color中的generate方法。
+...
+
+上述方法生成的mergedDerivativeToken都通过styleFn传到各个组件中，在组件内部通过css变量的方式使用。从而大大的提供了样式的灵活性！
 ```
 
-### Type-Check, Compile and Minify for Production
+js的key只能是驼峰, 在处理样式时又是如何将驼峰转换成kebab-case?
 
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
+```js
+const styleName = key.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`)
 ```

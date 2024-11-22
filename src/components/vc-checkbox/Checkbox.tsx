@@ -1,7 +1,11 @@
 import { defineComponent, ref } from 'vue'
 import initDefaultProps from '../_utils/props-util'
-import { checkboxProps } from '../checkbox/interface'
 import classNames from '../_utils/classNames'
+
+export const checkboxProps = {
+  prefixCls: String,
+  type: String,
+}
 
 export default defineComponent({
   name: 'Checkbox',

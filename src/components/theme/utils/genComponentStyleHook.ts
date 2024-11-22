@@ -1,5 +1,5 @@
 import { computed, type CSSProperties, type Ref } from 'vue'
-import type { ComponentTokenMap } from '../interface'
+import type { ComponentTokenMap, GlobalToken } from '../interface'
 import useStyleRegister, {
   type CSSInterpolation,
 } from '@/components/_utils/cssinjs/hooks/useStyleRegister'
@@ -7,10 +7,18 @@ import { useToken } from '../internal'
 
 export type OverrideTokenWithoutDerivative = ComponentTokenMap
 export type OverrideComponent = keyof OverrideTokenWithoutDerivative
-export type GlobalTokenWithComponent<ComponentName extends OverrideComponent> =
+export type GlobalTokenWithComponent<ComponentName extends OverrideComponent> = GlobalToken &
   ComponentTokenMap[ComponentName]
 
-export type TokenWithCommonCls<T> = T & {}
+export type TokenWithCommonCls<T> = T & {
+  componentCls: string
+
+  prefixCls: string
+
+  iconCls: string
+
+  antCls: string
+}
 
 export type FullToken<ComponentName extends OverrideComponent> = TokenWithCommonCls<
   GlobalTokenWithComponent<ComponentName>

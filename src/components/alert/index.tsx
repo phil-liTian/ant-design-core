@@ -1,4 +1,4 @@
-import { defineComponent, shallowRef, Transition, type ExtractPropTypes } from 'vue'
+import { computed, defineComponent, shallowRef, Transition, type ExtractPropTypes } from 'vue'
 import { CloseOutlined } from '@ant-design/icons-vue'
 import { BooleanType, FunctionType, tuple, withInstall } from '../_utils/type'
 import PropTypes from '../_utils/vue-types'
@@ -37,6 +37,13 @@ const Alert = defineComponent({
     const { showIcon, action } = props
     const closed = shallowRef(false)
     const closing = shallowRef(false)
+    const mergedType = computed(() => {
+      if (props.type !== undefined) {
+        return props.type
+      }
+
+      return 'info'
+    })
     const { prefixCls } = useConfigInject('alert', props)
     const [wrapSSR] = useStyle(prefixCls)
     const message = props.message ?? slots.message?.()
@@ -44,7 +51,9 @@ const Alert = defineComponent({
 
     const prefixClsValue = prefixCls.value
 
-    const alertCls = classNames(prefixClsValue, {})
+    const alertCls = classNames(prefixClsValue, {
+      [`${prefixClsValue}-${mergedType.value}`]: true,
+    })
 
     const closeIcon = <CloseOutlined />
 
