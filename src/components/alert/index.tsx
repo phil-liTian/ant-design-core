@@ -6,7 +6,17 @@ import {
   type CSSProperties,
   type ExtractPropTypes,
 } from 'vue'
-import { CloseOutlined } from '@ant-design/icons-vue'
+import {
+  CheckCircleFilled,
+  CheckCircleOutlined,
+  CloseCircleFilled,
+  CloseCircleOutlined,
+  CloseOutlined,
+  ExclamationCircleFilled,
+  ExclamationCircleOutlined,
+  InfoCircleFilled,
+  InfoCircleOutlined,
+} from '@ant-design/icons-vue'
 import { BooleanType, FunctionType, tuple, withInstall } from '../_utils/type'
 import PropTypes from '../_utils/vue-types'
 import useConfigInject from '../config-provider/hooks/useConfigInject'
@@ -15,6 +25,20 @@ import classNames from '../_utils/classNames'
 import { getTransitionProps } from '../_utils/transition'
 
 const AlertTypes = tuple('success', 'info', 'warning', 'error')
+
+const iconMapFilled = {
+  success: CheckCircleFilled,
+  info: InfoCircleFilled,
+  error: CloseCircleFilled,
+  warning: ExclamationCircleFilled,
+}
+
+const iconMapOutlined = {
+  success: CheckCircleOutlined,
+  info: InfoCircleOutlined,
+  error: CloseCircleOutlined,
+  warning: ExclamationCircleOutlined,
+}
 
 export const alertProps = () => ({
   type: PropTypes.oneOf(AlertTypes),
@@ -41,23 +65,25 @@ const Alert = defineComponent({
   name: 'PAlert',
   props: alertProps(),
   setup(props, { slots, attrs, emit, expose }) {
-    const {
+    let {
       showIcon,
       closeText,
       action,
       closable,
+      banner,
       closeIcon: customCloseIcon = slots.closeIcon?.(),
     } = props
     const closed = shallowRef(false)
     const closing = shallowRef(false)
+    showIcon = banner && showIcon === undefined ? true : showIcon
     const mergedType = computed(() => {
       if (props.type !== undefined) {
         return props.type
       }
 
-      return 'info'
+      return banner ? 'warning' : 'info'
     })
-    const { prefixCls } = useConfigInject('alert', props)
+    const { prefixCls, direction } = useConfigInject('alert', props)
     const [wrapSSR] = useStyle(prefixCls)
     const message = props.message ?? slots.message?.()
     const description = props.description ?? slots.description?.()
@@ -66,6 +92,12 @@ const Alert = defineComponent({
 
     const alertCls = classNames(prefixClsValue, {
       [`${prefixClsValue}-${mergedType.value}`]: true,
+      [`${prefixClsValue}-closing`]: closing.value,
+      [`${prefixClsValue}-with-description`]: !!description,
+      [`${prefixClsValue}-banner`]: !!banner,
+      [`${prefixClsValue}-no-icon`]: !showIcon,
+      [`${prefixClsValue}-closable`]: closable,
+      [`${prefixClsValue}-rtl`]: direction.value === 'rtl',
     })
 
     const handleClose = (e: MouseEvent) => {
@@ -92,6 +124,8 @@ const Alert = defineComponent({
       </button>
     ) : null
 
+    const IconNode = (description ? iconMapOutlined : iconMapFilled)[mergedType.value]
+
     const transitionProps = getTransitionProps(`${prefixClsValue}-motion`, {
       appear: false,
       css: true,
@@ -117,7 +151,7 @@ const Alert = defineComponent({
               style={[attrs.style as CSSProperties]}
               v-show={!closing.value}
             >
-              {showIcon ? '' : null}
+              {showIcon ? <IconNode class={`${prefixClsValue}-icon`} /> : null}
               <div class={`${prefixClsValue}-content`}>
                 {message ? <div class={`${prefixClsValue}-message`}>{message}</div> : null}
                 {description ? (

@@ -30,3 +30,16 @@ js的key只能是驼峰, 在处理样式时又是如何将驼峰转换成kebab-c
 ```js
 const styleName = key.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`)
 ```
+
+### Alert
+
+```js
+1. 使用closing在控制元素的显示状态, 添加transition动画效果。在animationEnd事件中，将closed置为true, 从而实现删除dom元素。解决了在tsx中无法使用v-if的问题。
+2. 使用tsx的组件更加灵活，比如需要一个组件的属性既支持props，又支持slots, 可使用如下语法：
+const description = props.description ?? slots.description?.()
+
+```
+
+### Button
+
+### Modal

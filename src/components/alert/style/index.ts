@@ -24,6 +24,7 @@ const genAlertTypeStyle = (
 ) => ({
   backgroundColor: bgColor,
   border: `1px solid ${borderColor}`,
+
   [`${alertCls}-icon`]: {
     color: iconColor,
   },
@@ -54,6 +55,10 @@ const genBaseStyle = (token: AlertToken): CSSObject => {
         flex: 1,
       },
 
+      [`${componentCls}-icon`]: {
+        marginInlineEnd: '10px',
+      },
+
       '&-message': {
         color: colorText,
       },
@@ -73,6 +78,10 @@ const genBaseStyle = (token: AlertToken): CSSObject => {
     },
 
     [`${componentCls}-with-description`]: {},
+
+    [`${componentCls}-banner`]: {
+      border: '0 !important',
+    },
   }
 }
 

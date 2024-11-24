@@ -13,7 +13,7 @@ export const formatToken = (token: RawMergedToken) => {
     paddingContentHorizontalLG: token.sizeLG,
     paddingContentVertical: token.size,
     paddingContentVerticalLG: token.sizeLG,
-    paddingContentVerticalSM: token.sizeSM,
+    paddingContentVerticalSM: token.sizeXS,
   }
 
   return aliasToken
