@@ -12,6 +12,14 @@
 ```
 1.全局的seedToken在useCacheToken中开始注入. 将defaultPresetColorss进行衍生，通过@ant-design/color中的generate方法生成对应的色值。比如 blue => [blue, blue-1, blue-2, ...]。
 2.使用genColorMapToken根据SeedToken生成对应的色值，同样的，也是利用color中的generate方法。
+
+整体思路如下:
+在themes/seed中定义需要用到的常量, 然后在shared中衍生或计算出系统中需要用到的各种样式值。
+1.generateColorPalettes 使用generate方法生成颜色面板
+2.getAlphaColor使用@ctrl/tinycolor生成带有不同透明度的颜色。
+
+formatToken方法根据前面生成的基础样式，生成一些比较杂一点的样式
+
 ...
 
 上述方法生成的mergedDerivativeToken都通过styleFn传到各个组件中，在组件内部通过css变量的方式使用。从而大大的提供了样式的灵活性！
