@@ -5,6 +5,7 @@ import defaultDerivative from '../theme/themes/default'
 import defaultSeedToken from '../theme/themes/seed'
 import type { CSSInterpolation } from '../_utils/cssinjs/hooks/useStyleRegister'
 import type { AliasToken } from './interface/alias'
+import { formatToken } from './utils/alias'
 export type { PresetColorKey, PresetColorsType, ColorPalettes } from './interface'
 
 const defaultTheme = createTheme(defaultDerivative)
@@ -15,6 +16,7 @@ export function useToken(): [any, ComputedRef<any>] {
   const cacheToken = useCacheToken(
     mergedTheme,
     computed(() => [defaultSeedToken]),
+    computed(() => ({ formatToken })),
   )
 
   return ['', computed(() => cacheToken.value[0])]

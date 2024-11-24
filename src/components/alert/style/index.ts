@@ -2,6 +2,7 @@ import type {
   CSSInterpolation,
   CSSObject,
 } from '@/components/_utils/cssinjs/hooks/useStyleRegister'
+import { resetComponent } from '@/components/style'
 import type { GenerateStyle } from '@/components/theme/internal'
 import genComponentStyleHook, {
   type FullToken,
@@ -28,21 +29,47 @@ const genAlertTypeStyle = (
   },
 })
 
-const genBaseStyle = (token): CSSObject => {
-  const { componentCls } = token
+const genBaseStyle = (token: AlertToken): CSSObject => {
+  const {
+    componentCls,
+    motionEaseInOutCirc,
+    motionDurationSlow: duration,
+    borderRadiusLG: borderRadius,
+    colorText,
+    paddingContentVerticalSM, //
+    alertPaddingHorizontal,
+    alertIconSizeLG,
+  } = token
   return {
     [componentCls]: {
+      ...resetComponent(token),
       display: 'flex',
       alignItems: 'center',
-      padding: '8px 16px',
-      borderRadius: '4px',
+      padding: `${paddingContentVerticalSM}px ${alertPaddingHorizontal}px`,
+      borderRadius: `${borderRadius}px`,
       backgroundColor: '#fafafa',
       border: '1px solid #d9d9d9',
-      color: '#666',
 
       [`${componentCls}-content`]: {
         flex: 1,
       },
+
+      '&-message': {
+        color: colorText,
+      },
+    },
+
+    [`${componentCls}-motion-leave`]: {
+      opacity: 1,
+      transition: `opacity ${duration} ${motionEaseInOutCirc}, max-height ${duration} ${motionEaseInOutCirc}, padding-top ${duration} ${motionEaseInOutCirc}, padding-bottom ${duration} ${motionEaseInOutCirc}, margin-bottom ${duration} ${motionEaseInOutCirc}`,
+    },
+
+    [`${componentCls}-motion-leave-active`]: {
+      maxHeight: 0,
+      paddingBottom: 0,
+      paddingTop: 0,
+      marginBottom: 0,
+      opacity: 0,
     },
 
     [`${componentCls}-with-description`]: {},
@@ -91,10 +118,41 @@ const genTypeStyle: GenerateStyle<AlertToken> = (token: AlertToken): CSSObject =
   }
 }
 
-const genActionStyle = (token) => {}
+const genActionStyle = (token) => {
+  const { componentCls, closeIcon } = token
 
-export const genAlertStyle = (token): CSSInterpolation => [genBaseStyle(token), genTypeStyle(token)]
+  return {
+    [`${componentCls}`]: {
+      '&-action': {},
+
+      '&-close-icon': {
+        backgroundColor: 'transparent',
+        border: 'none',
+        outline: 'none',
+        cursor: 'pointer',
+        padding: 0,
+        overflow: 'hidden',
+      },
+
+      '&-close-text': {
+        color: closeIcon,
+      },
+    },
+  }
+}
+
+export const genAlertStyle = (token): CSSInterpolation => [
+  genBaseStyle(token),
+  genTypeStyle(token),
+  genActionStyle(token),
+]
 
 export default genComponentStyleHook('Alert', (token) => {
-  return [genAlertStyle(token)]
+  const alertToken: AlertToken = {
+    ...token,
+    alertIconSizeLG: token.fontSizeLG * 1.7142,
+    alertPaddingHorizontal: 12,
+  }
+
+  return [genAlertStyle(alertToken)]
 })

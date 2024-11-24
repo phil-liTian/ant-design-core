@@ -1,4 +1,11 @@
-import { computed, defineComponent, shallowRef, Transition, type ExtractPropTypes } from 'vue'
+import {
+  computed,
+  defineComponent,
+  shallowRef,
+  Transition,
+  type CSSProperties,
+  type ExtractPropTypes,
+} from 'vue'
 import { CloseOutlined } from '@ant-design/icons-vue'
 import { BooleanType, FunctionType, tuple, withInstall } from '../_utils/type'
 import PropTypes from '../_utils/vue-types'
@@ -13,7 +20,7 @@ export const alertProps = () => ({
   type: PropTypes.oneOf(AlertTypes),
 
   // 是否可关闭
-  closeable: BooleanType(undefined),
+  closable: BooleanType(undefined),
   closeText: PropTypes.any,
   message: PropTypes.any,
   description: PropTypes.any,
@@ -33,8 +40,14 @@ export type AlertProps = Partial<ExtractPropTypes<ReturnType<typeof alertProps>>
 const Alert = defineComponent({
   name: 'PAlert',
   props: alertProps(),
-  setup(props, { slots, attrs, emit }) {
-    const { showIcon, action } = props
+  setup(props, { slots, attrs, emit, expose }) {
+    const {
+      showIcon,
+      closeText,
+      action,
+      closable,
+      closeIcon: customCloseIcon = slots.closeIcon?.(),
+    } = props
     const closed = shallowRef(false)
     const closing = shallowRef(false)
     const mergedType = computed(() => {
@@ -55,17 +68,55 @@ const Alert = defineComponent({
       [`${prefixClsValue}-${mergedType.value}`]: true,
     })
 
-    const closeIcon = <CloseOutlined />
+    const handleClose = (e: MouseEvent) => {
+      e.preventDefault()
 
-    const transitionProps = getTransitionProps(prefixClsValue, {
-      appear: true,
-      onAfterLeave: () => {},
+      closing.value = true
+      emit('close', e)
+    }
+
+    const animationEnd = () => {
+      closed.value = true
+      closing.value = false
+      props.afterClose?.()
+    }
+
+    expose({ animationEnd })
+    const closeIcon = closable ? (
+      <button onClick={handleClose} class={`${prefixClsValue}-close-icon`}>
+        {closeText ? (
+          <span class={`${prefixClsValue}-close-text`}>{closeText}</span>
+        ) : (
+          customCloseIcon || <CloseOutlined />
+        )}
+      </button>
+    ) : null
+
+    const transitionProps = getTransitionProps(`${prefixClsValue}-motion`, {
+      appear: false,
+      css: true,
+      // @ts-ignore
+      onBeforeLeave: (node: HTMLDivElement) => {
+        node.style.maxHeight = `${node.offsetHeight}px`
+      },
+      // @ts-ignore
+      onLeave: (node: HTMLDivElement) => {
+        node.style.maxHeight = '0px'
+      },
+      onAfterLeave: animationEnd,
     })
+
     return () => {
       return wrapSSR(
         closed.value ? null : (
-          <Transition {...transitionProps}>
-            <div role="alert" class={[alertCls]} v-show={!closing.value}>
+          <Transition name="fade" {...transitionProps}>
+            <div
+              role="alert"
+              {...attrs}
+              class={[alertCls]}
+              style={[attrs.style as CSSProperties]}
+              v-show={!closing.value}
+            >
               {showIcon ? '' : null}
               <div class={`${prefixClsValue}-content`}>
                 {message ? <div class={`${prefixClsValue}-message`}>{message}</div> : null}

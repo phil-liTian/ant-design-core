@@ -1,4 +1,4 @@
-import type { ColorNeutralMapToken } from '../interface/maps/color'
+import type { ColorNeutralMapToken } from '../interface'
 
 export interface ColorMap {
   1: string

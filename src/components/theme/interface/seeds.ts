@@ -23,4 +23,32 @@ export interface SeedToken {
    * 错误色
    */
   colorError: string
+
+  // ---------------- line -------------------
+  lineWidth: number
+
+  // ---------------- motion -------------------
+
+  // 时长变化单位
+  motionUnit: number
+
+  // 基础动画时长
+  motionBase: number
+  motionEaseInOutCirc: string
+
+  // 基础圆角
+  borderRadius: number
+
+  // 默认字号
+  fontSize: number
+
+  //
+  colorBgBase: string
+  colorTextBase: string
+
+  // ===================size=====================
+  // 尺寸变化单位
+  sizeUnit: number
+  // 尺寸步长
+  sizeStep: number
 }

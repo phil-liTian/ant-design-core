@@ -8,3 +8,9 @@ export type { PresetColorKey, PresetColorsType, ColorPalettes, PresetColors } fr
 export type { SeedToken } from './seeds'
 
 export type GlobalToken = AliasToken & ComponentTokenMap
+
+export type { ColorNeutralMapToken } from './maps'
+
+export type OverrideToken = {
+  [key in keyof ComponentTokenMap]?: Partial<ComponentTokenMap[key]> & Partial<AliasToken>
+}

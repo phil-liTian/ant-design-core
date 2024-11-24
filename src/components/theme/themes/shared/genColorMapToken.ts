@@ -3,7 +3,7 @@ import type { GenerateColorMap, GenerateNeutralColorMap } from '../ColorMap'
 
 interface PaletteGenerators {
   generateColorPalettes: GenerateColorMap
-  generateNeutralColorPalettes?: GenerateNeutralColorMap
+  generateNeutralColorPalettes: GenerateNeutralColorMap
 }
 
 export default function genColorMapToken(
@@ -16,16 +16,22 @@ export default function genColorMapToken(
     colorError: colorErrorBase,
     colorSuccess: colorSuccessBase,
     colorWarning: colorWarningBase,
+    colorBgBase,
+    colorTextBase,
   } = seed
 
+  // 处理颜色
   const infoColors = generateColorPalettes(colorInfoBase)
   const successColors = generateColorPalettes(colorSuccessBase)
   const warningColors = generateColorPalettes(colorWarningBase)
   const errorColors = generateColorPalettes(colorErrorBase)
   const primaryColors = generateColorPalettes(colorPrimaryBase)
-  console.log('infoColors', infoColors)
+
+  // 处理中性色
+  const neutralColors = generateNeutralColorPalettes(colorBgBase, colorTextBase)
 
   return {
+    ...neutralColors,
     // success
     colorSuccessBg: successColors[1],
     colorSuccessBorder: successColors[3],

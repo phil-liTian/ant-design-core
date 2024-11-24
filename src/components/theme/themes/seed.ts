@@ -23,6 +23,29 @@ const seedToken: SeedToken = {
   colorWarning: '#faad14',
   colorError: '#ff4d4f',
   colorInfo: '#1677ff',
+
+  // Line
+  lineWidth: 1,
+
+  // motion
+  motionBase: 0,
+  motionUnit: 0.1,
+  motionEaseInOutCirc: 'cubic-bezier(0.78, 0.14, 0.15, 0.86)',
+
+  // Radius
+  borderRadius: 6,
+
+  // Font
+  fontSize: 14,
+
+  //
+  colorBgBase: '',
+
+  colorTextBase: '',
+
+  // size
+  sizeStep: 4,
+  sizeUnit: 4,
 }
 
 export default seedToken

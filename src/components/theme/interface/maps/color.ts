@@ -4,6 +4,23 @@ export interface ColorNeutralMapToken {
    * 比如: 默认按钮
    */
   colorBgContainer: string
+
+  /**
+   * 一级文本颜色
+   */
+  colorText: string
+  /**
+   * 二级文本颜色
+   */
+  colorTextSecondary: string
+  /**
+   * 三级文本颜色
+   */
+  colorTextTertiary: string
+  /**
+   * 四级文本颜色
+   */
+  colorTextQuaternary: string
 }
 
 interface ColorPrimaryMapToken {
