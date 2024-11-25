@@ -1,8 +1,6 @@
 <template>
   <div>
-    <p-modal />
-    <hr class="my-2px" />
-    <a-modal :open="true"></a-modal>
+    <a-checkbox></a-checkbox>
   </div>
 </template>
 

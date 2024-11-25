@@ -1,8 +1,8 @@
 <template>
   <div>
-    <p-modal />
+    <p-switch :checked="true"></p-switch>
     <hr class="my-2px" />
-    <a-modal :open="true"></a-modal>
+    <a-switch :checked="true"></a-switch>
   </div>
 </template>
 

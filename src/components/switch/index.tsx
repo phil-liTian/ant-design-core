@@ -34,8 +34,9 @@ const Switch = defineComponent({
   name: 'PSwitch',
   props: switchProps(),
   setup(props, { expose, emit, slots, attrs }) {
-    const [wrapSSR] = useStyle()
     const { prefixCls, direction, size } = useConfigInject('switch', props)
+    const [wrapSSR] = useStyle(prefixCls)
+
     const prefixClsValue = prefixCls.value
     const mergedDisabled = computed(() => props.disabled)
 
@@ -58,12 +59,13 @@ const Switch = defineComponent({
       [`${prefixClsValue}`]: true,
       [`${prefixClsValue}-small`]: size.value === 'small',
       [`${prefixClsValue}-loading`]: props.loading,
-      [`${prefixClsValue}-checked}`]: checkedStatus.value,
+      [`${prefixClsValue}-checked`]: checkedStatus.value,
       [`${prefixClsValue}-disabled`]: mergedDisabled.value,
       [`${prefixClsValue}-rtl`]: direction.value === 'rtl',
     }))
 
     expose({ focus, blur })
+
     return () =>
       wrapSSR(
         <button class={[classes.value, attrs.class]} ref={refSwitchNode}>

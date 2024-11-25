@@ -46,4 +46,8 @@ const description = props.description ?? slots.description?.()
 2. 对button wave的处理--点击后的波纹效果。封装Wave组件，给wave组件添加点击事件。创建一个holder元素, 使用render函数将WaveEffect渲染后holder元素中。WaveEffect才是真正实现波纹效果的组件，在点击结束后, 移除当前holder元素。
 ```
 
+### Switch
+
+### Checkbox
+
 ### Modal
