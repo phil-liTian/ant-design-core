@@ -15,4 +15,13 @@ export interface AliasToken extends MapToken {
   paddingContentHorizontal: number
   paddingContentHorizontalSM: number
   paddingContentHorizontalLG: number
+
+  // switch & button default outline
+  controlTmpOutline: string
+
+  // text
+  colorTextLightSolid: string
+
+  //
+  colorLink: string
 }

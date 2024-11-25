@@ -7,6 +7,7 @@ import genCommonMapToken from '../shared/genCommonMapToken'
 import { genFontMapToken } from '../shared/genFontMapToken'
 import genFontSizes from '../shared/genFontSizes'
 import { genSizeMapToken } from '../shared/genSizeMapToken'
+import { genControlHeightToken } from '../shared/genControlHeightToken'
 
 export default function derivative(token: SeedToken) {
   const colorPalettes = Object.keys(defaultPresetColors)
@@ -40,5 +41,8 @@ export default function derivative(token: SeedToken) {
 
     // size
     ...genSizeMapToken(token),
+
+    // 生成control height
+    ...genControlHeightToken(token),
   }
 }

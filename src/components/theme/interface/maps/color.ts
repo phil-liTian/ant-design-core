@@ -6,6 +6,11 @@ export interface ColorNeutralMapToken {
   colorBgContainer: string
 
   /**
+   * borderColor
+   */
+  colorBorder: string
+
+  /**
    * 一级文本颜色
    */
   colorText: string
@@ -57,6 +62,7 @@ interface ColorInfoMapToken {
   colorInfo: string
   colorInfoBg: string
   colorInfoBorder: string
+  colorInfoText: string
 }
 
 interface ColorErrorMapToken {

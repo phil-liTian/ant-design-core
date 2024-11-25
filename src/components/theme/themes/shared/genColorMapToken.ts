@@ -1,3 +1,4 @@
+import { TinyColor } from '@ctrl/tinycolor'
 import type { SeedToken } from '../../interface'
 import type { GenerateColorMap, GenerateNeutralColorMap } from '../ColorMap'
 
@@ -41,6 +42,7 @@ export default function genColorMapToken(
     colorInfoBg: infoColors[1],
     colorInfoBorder: infoColors[3],
     colorInfo: infoColors[6],
+    colorInfoText: infoColors[9],
 
     // warning
     colorWarningBg: warningColors[1],
@@ -51,5 +53,8 @@ export default function genColorMapToken(
     colorErrorBg: errorColors[1],
     colorErrorBorder: errorColors[3],
     colorError: errorColors[6],
+
+    colorBgMask: new TinyColor('#000').lighten(0.45).toRgbString(),
+    colorWhite: '#fff',
   }
 }

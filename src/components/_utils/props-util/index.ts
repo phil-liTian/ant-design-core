@@ -1,5 +1,5 @@
-import { isVNode, type PropType } from 'vue'
-import { func, type VueTypeDef, type VueTypeValidableDef } from 'vue-types'
+import { isVNode, type ComponentPublicInstance, type PropType } from 'vue'
+import { type VueTypeDef, type VueTypeValidableDef } from 'vue-types'
 import isValid from '../isValid'
 
 const initDefaultProps = <T>(
@@ -55,6 +55,14 @@ function getPropsSlot(slots: any, props: any, prop = 'default') {
   return props[prop] ?? slots[prop]?.()
 }
 
+const fineDOMNode = (instance: any) => {
+  let node = instance?.vnode?.el || (instance && (instance.$el || instance))
+  while (node && !node.tagName) {
+    node = node.nextSibling
+  }
+  return node
+}
+
 export default initDefaultProps
 
-export { getPropsSlot }
+export { getPropsSlot, fineDOMNode }

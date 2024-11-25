@@ -26,6 +26,7 @@ const seedToken: SeedToken = {
 
   // Line
   lineWidth: 1,
+  lineType: 'solid',
 
   // motion
   motionBase: 0,
@@ -46,6 +47,9 @@ const seedToken: SeedToken = {
   // size
   sizeStep: 4,
   sizeUnit: 4,
+
+  // height
+  controlHeight: 32,
 }
 
 export default seedToken

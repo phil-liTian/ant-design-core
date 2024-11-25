@@ -6,6 +6,7 @@ import defaultSeedToken from '../theme/themes/seed'
 import type { CSSInterpolation } from '../_utils/cssinjs/hooks/useStyleRegister'
 import type { AliasToken } from './interface/alias'
 import { formatToken } from './utils/alias'
+import { merge as mergeToken } from './utils/statistic'
 export type { PresetColorKey, PresetColorsType, ColorPalettes } from './interface'
 
 const defaultTheme = createTheme(defaultDerivative)
@@ -26,3 +27,5 @@ export type GenerateStyle<
   ComponentToken extends object = AliasToken,
   ReturnType = CSSInterpolation,
 > = (token: ComponentToken) => ReturnType
+
+export { mergeToken }

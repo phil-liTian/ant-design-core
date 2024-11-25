@@ -1,8 +1,7 @@
 <template>
   <div>
-    <AlertView />
-
-    <!-- <ButtonView /> -->
+    <!-- <AlertView /> -->
+    <ButtonView />
   </div>
 </template>
 

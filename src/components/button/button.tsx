@@ -3,6 +3,7 @@ import useConfigInject from '../config-provider/hooks/useConfigInject'
 import useStyle from './style'
 import initDefaultProps, { flattenChildren } from '../_utils/props-util'
 import { buttonProps, type ButtonType } from './buttonTypes'
+import Wave from '../_utils/wave'
 
 type Loading = boolean | number
 
@@ -25,15 +26,17 @@ export default defineComponent({
     const pre = prefixCls.value
     const innerLoading = shallowRef<Loading>(false)
 
-    console.log('props', props.type)
-
     const classes = computed(() => {
-      const { type, danger, block, ghost } = props
+      const { type, danger, block, ghost, size } = props
+      const sizeClassNameMap = { large: 'lg', small: 'sm' }
+      const sizeFullname = size
+      const sizeCls = sizeClassNameMap[sizeFullname!]
 
       return [
         {
           [`${pre}`]: true,
           [`${pre}-${type}`]: type,
+          [`${pre}-${sizeCls}`]: sizeCls,
           [`${pre}-background-ghost`]: ghost,
           [`${pre}-dangerous`]: !!danger,
           [`${pre}-block`]: block,
@@ -79,7 +82,7 @@ export default defineComponent({
 
     return () => {
       const children = flattenChildren(slots.default?.() as any)
-      const { icon = slots.icon?.(), htmlType } = props
+      const { icon = slots.icon?.(), htmlType, type } = props
       isNeedInserted = children.length === 1 && !icon && !isUnBorderedButtonType(props.type)
       const { href, target } = props
       const kids = children.map((child) =>
@@ -100,6 +103,14 @@ export default defineComponent({
           {kids}
         </button>
       )
+
+      if (!isUnBorderedButtonType(type)) {
+        buttonNode = (
+          <Wave disabled={true} ref="wave">
+            {buttonNode}
+          </Wave>
+        )
+      }
 
       return wrapSSR(buttonNode)
     }

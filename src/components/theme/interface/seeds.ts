@@ -26,6 +26,7 @@ export interface SeedToken {
 
   // ---------------- line -------------------
   lineWidth: number
+  lineType: string
 
   // ---------------- motion -------------------
 
@@ -51,4 +52,7 @@ export interface SeedToken {
   sizeUnit: number
   // 尺寸步长
   sizeStep: number
+
+  // 基础高度
+  controlHeight: number
 }

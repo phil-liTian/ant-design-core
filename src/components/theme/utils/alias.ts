@@ -8,12 +8,17 @@ export const formatToken = (token: RawMergedToken) => {
   const aliasToken: AliasToken = {
     ...token,
 
+    colorLink: token.colorInfoText,
+
     paddingContentHorizontalSM: token.sizeSM,
     paddingContentHorizontal: token.size,
     paddingContentHorizontalLG: token.sizeLG,
     paddingContentVertical: token.size,
     paddingContentVerticalLG: token.sizeLG,
     paddingContentVerticalSM: token.sizeXS,
+
+    // Text
+    colorTextLightSolid: token.colorWhite,
   }
 
   return aliasToken
