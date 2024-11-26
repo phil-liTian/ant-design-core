@@ -3,6 +3,8 @@ import { fineDOMNode } from '../props-util'
 import useConfigInject from '@/components/config-provider/hooks/useConfigInject'
 import useWave from './useWave'
 import classNames from '../classNames'
+import useStyle from './style'
+export type { ComponentToken } from './style'
 
 export default defineComponent({
   name: 'Wave',
@@ -11,7 +13,8 @@ export default defineComponent({
   },
   setup(props, { slots }) {
     const instance = getCurrentInstance()
-    const { prefixCls, wave = () => {} } = useConfigInject('wave', props)
+    const { prefixCls, wave } = useConfigInject('wave', props)
+    useStyle(prefixCls)
     let onClick: (e: MouseEvent) => void
     const showWave = useWave(
       computed(() => classNames(prefixCls.value)),

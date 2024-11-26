@@ -1,5 +1,9 @@
 <template>
   <div>
+    <p-checkbox></p-checkbox>
+
+    <hr />
+
     <a-checkbox></a-checkbox>
   </div>
 </template>

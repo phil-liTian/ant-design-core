@@ -27,7 +27,7 @@ export default defineComponent({
     const innerLoading = shallowRef<Loading>(false)
 
     const classes = computed(() => {
-      const { type, danger, block, ghost, size } = props
+      const { type, danger, block, ghost, size, shape } = props
       const sizeClassNameMap = { large: 'lg', small: 'sm' }
       const sizeFullname = size
       const sizeCls = sizeClassNameMap[sizeFullname!]
@@ -35,9 +35,10 @@ export default defineComponent({
       return [
         {
           [`${pre}`]: true,
+          [`${pre}-${shape}`]: shape !== 'default' && shape,
           [`${pre}-${type}`]: type,
           [`${pre}-${sizeCls}`]: sizeCls,
-          [`${pre}-background-ghost`]: ghost,
+          [`${pre}-background-ghost`]: ghost && !isUnBorderedButtonType(type),
           [`${pre}-dangerous`]: !!danger,
           [`${pre}-block`]: block,
           [`${pre}-rtl`]: direction.value === 'rtl',

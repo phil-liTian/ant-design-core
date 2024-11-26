@@ -10,5 +10,6 @@ export function injectCss(css: string) {
 }
 
 function getContainer() {
-  return document.body
+  const header = document.querySelector('head')
+  return header || document.body
 }

@@ -32,6 +32,11 @@ export function StringType<T extends string = string>(defaultValue?: T) {
   return { type: String as unknown as PropType<T>, default: defaultValue as T }
 }
 
+// 定义array类型的props
+export function ArrayType<T = any>(defaultValue?: T[]) {
+  return { type: Array as unknown as PropType<T[]>, default: defaultValue as T[] }
+}
+
 export const withInstall = <T>(comp: T) => {
   const c = comp as any
   c.install = (app: App) => {

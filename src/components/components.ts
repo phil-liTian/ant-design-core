@@ -21,3 +21,15 @@ export type { AlertProps } from './alert'
  */
 export { default as Switch } from './switch'
 export type { SwitchProps } from './switch'
+
+/**
+ * checkBox
+ */
+export { default as Checkbox, CheckboxGroup } from './checkbox'
+export type { CheckboxProps } from './checkbox'
+
+/**
+ * radio
+ */
+export { default as Radio, RadioButton, RadioGroup } from './radio'
+export type { RadioProps, RadioGroupProps } from './radio'

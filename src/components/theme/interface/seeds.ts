@@ -36,6 +36,7 @@ export interface SeedToken {
   // 基础动画时长
   motionBase: number
   motionEaseInOutCirc: string
+  motionEaseOutCirc: string
 
   // 基础圆角
   borderRadius: number

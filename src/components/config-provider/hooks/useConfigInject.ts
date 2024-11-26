@@ -12,10 +12,18 @@ export default (name: string, props: Record<any, any>) => {
 
   const size = computed(() => props.size as SizeType)
 
+  // 表单类组件是否禁用
+  const disabled = computed<boolean>(() => props.disabled)
+
+  // 是否带波纹
+  const wave = computed<{ disabled: boolean }>(() => props.wave ?? configProvider.wave?.value)
+
   return {
     prefixCls,
     direction,
     autoInsertSpaceInButton,
     size,
+    wave,
+    disabled,
   }
 }

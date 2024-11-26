@@ -18,7 +18,7 @@ export default defineComponent({
   name: 'PButtonGroup',
   props: buttonGroupProps(),
   setup(props, { slots }) {
-    const { prefixCls } = useConfigInject('button-group', props)
+    const { prefixCls } = useConfigInject('btn-group', props)
     GroupSizeContext.useProvide(
       reactive({
         size: computed(() => props.size),

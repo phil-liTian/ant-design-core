@@ -27,6 +27,12 @@ const genSharedButtonStyle = (token): CSSObject => {
 const genDefaultButtonStyle = (token): CSSObject => ({
   backgroundColor: token.colorBgContainer,
   borderColor: token.colorBorder,
+
+  ...genGhostButtonStyle(token.componentCls, token.colorBgContainer, token.colorBgContainer, {
+    backgroundColor: token.colorBgContainer,
+    borderColor: token.colorPrimary,
+    color: token.colorPrimary,
+  }),
 })
 
 // primary
@@ -73,6 +79,21 @@ const genTypeButtonStyle = (token): CSSObject => {
   }
 }
 
+// ===========================shape=========================
+
+const genCircleButtonStyle = (token) => ({
+  minWidth: `${token.controlHeight}px`,
+  borderRadius: '50%',
+  paddingInlineStart: 0,
+  paddingInlineEnd: 0,
+})
+
+const genRoundButtonStyle = (token) => ({
+  borderRadius: `${token.controlHeight}px`,
+  paddingInlineStart: `${token.controlHeight / 2}px`,
+  paddingInlineEnd: `${token.controlHeight / 2}px`,
+})
+
 // ===========================size=========================
 
 // common
@@ -96,6 +117,15 @@ const genSizeButtonStyle = (token: ButtonToken, sizePrefixCls: string = ''): CSS
         padding: `${paddingVertical}px ${paddingHorizontal}px`,
         borderRadius: `${borderRadius}px`,
         height: `${controlHeight}px`,
+      },
+    },
+
+    {
+      [`${componentCls}-circle`]: {
+        ...genCircleButtonStyle(token),
+      },
+      [`${componentCls}-round`]: {
+        ...genRoundButtonStyle(token),
       },
     },
   ]
@@ -131,6 +161,31 @@ const genBlockButtonStyle = (token): CSSObject => {
   }
 }
 
+// ===========================ghost=========================
+
+const genHoverActiveButtonStyle = (hoverStyle: CSSObject) => {
+  return {
+    '&:hover': hoverStyle,
+  }
+}
+
+const genGhostButtonStyle = (
+  btnCls: string,
+  textColor: string,
+  borderColor: string,
+  hoverStyle: CSSObject,
+): CSSObject => {
+  return {
+    [`&${btnCls}-background-ghost`]: {
+      backgroundColor: 'transparent',
+      borderColor: borderColor || undefined,
+      color: textColor || undefined,
+
+      ...genHoverActiveButtonStyle(hoverStyle),
+    },
+  }
+}
+
 export default genComponentStyleHook('Button', (token) => {
   const { controlTmpOutline, paddingContentHorizontal } = token
   const buttonToken = mergeToken<ButtonToken>(token, {
@@ -151,5 +206,7 @@ export default genComponentStyleHook('Button', (token) => {
 
     // block
     genBlockButtonStyle(buttonToken),
+
+    // ghost
   ]
 })

@@ -20,9 +20,12 @@ export default defineComponent({
     const classString = classNames(prefixCls)
 
     return () => {
+      const inputProps = {
+        type,
+      }
       return (
         <span class={classString}>
-          <input ref={inputRef} />
+          <input ref={inputRef} {...inputProps} />
           <span class={`${prefixCls}-inner`} />
         </span>
       )

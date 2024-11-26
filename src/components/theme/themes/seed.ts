@@ -32,6 +32,7 @@ const seedToken: SeedToken = {
   motionBase: 0,
   motionUnit: 0.1,
   motionEaseInOutCirc: 'cubic-bezier(0.78, 0.14, 0.15, 0.86)',
+  motionEaseOutCirc: 'cubic-bezier(0.08, 0.82, 0.17, 1)',
 
   // Radius
   borderRadius: 6,

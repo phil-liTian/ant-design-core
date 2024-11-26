@@ -19,6 +19,7 @@ export const configProviderProps = () => ({
   },
   // 自定义主题
   theme: ObjectType<ThemeConfig>(),
+  wave: ObjectType<{ disabled?: boolean }>(),
 })
 
 export type ConfigProviderProps = Partial<ExtractPropTypes<ReturnType<typeof configProviderProps>>>
@@ -27,6 +28,7 @@ export interface ConfigProviderInnerProps {
   direction?: ComputedRef<'ltr' | 'rtl'>
   autoInsertSpaceInButton?: ComputedRef<boolean>
   getPrefixCls?: (suffixCls?: string, customizePrefixCls?: string) => string
+  wave?: ComputedRef<{ disabled?: boolean }>
 }
 
 export const configProviderKey: InjectionKey<ConfigProviderInnerProps> = Symbol('configProvider')
