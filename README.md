@@ -30,6 +30,12 @@ js的key只能是驼峰, 在处理样式时又是如何将驼峰转换成kebab-c
 const styleName = key.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`)
 ```
 
+### ConfigProvider
+
+```重要
+接收参数, 比如weve、disabled、direction、PrefixCls、token等等，注入到全局的context中, 可供整个系统中的组件共用。
+```
+
 ### Alert
 
 ```js
@@ -58,9 +64,16 @@ css属性
 ```js
 1. 结构处理: handle,作为中间移动的block, 可自定义checked和unChecked中的内容
 2. 如何处理inner-children的动画效果？？？
-``
+```
 
 ### Checkbox
 
+### Radio
+
+### Input
+
 ### Modal
+
+```
+
 ```
