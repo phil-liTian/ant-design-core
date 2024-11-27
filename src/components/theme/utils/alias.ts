@@ -19,6 +19,8 @@ export const formatToken = (token: RawMergedToken) => {
 
     // Text
     colorTextLightSolid: token.colorWhite,
+
+    opacityLoading: 0.65,
   }
 
   return aliasToken

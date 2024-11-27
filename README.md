@@ -32,8 +32,8 @@ const styleName = key.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`)
 
 ### ConfigProvider
 
-```重要
-接收参数, 比如weve、disabled、direction、PrefixCls、token等等，注入到全局的context中, 可供整个系统中的组件共用。
+```js
+1. 接收参数, 比如weve、disabled、direction、PrefixCls、token等等，注入到全局的context中, 可供整个系统中的组件共用。
 ```
 
 ### Alert
@@ -44,7 +44,7 @@ const styleName = key.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`)
 const description = props.description ?? slots.description?.()
 ```
 
-### Button
+### Button & ButtonGroup
 
 ```js
 1. 对button type、size等样式分开处理，方便后续维护。
@@ -52,6 +52,7 @@ const description = props.description ?? slots.description?.()
 3. 给WaveEffect添加transition动画效果。
 4. wrapperRaf添加兼容requestAnimationFrame的动画效果; 增加useState hooks实现状态管理。
 5. 在wave transition动画结束之后, 应该移除当前holder元素(使用removeDom方法移除)
+6. 设置ButtonGroup下元素的样式。非最后一个子元素borderStartEndRadius、borderEndEndRadius为0，非第一个元素的borderStartStartRadius、borderEndStartRadius为0.
 
 css属性
 1. currentColor 代表了当前元素的文本颜色
@@ -63,7 +64,8 @@ css属性
 
 ```js
 1. 结构处理: handle,作为中间移动的block, 可自定义checked和unChecked中的内容
-2. 如何处理inner-children的动画效果？？？
+2. 处理inner-children的动画效果: 使用paddingInlineStart和paddingInlineEnd将checked状态时的uncheckedChildren挤出当前inner元素的边界。在改变checked状态时，修改paddingInlineStart和paddingInlineEnd的值，实现动画效果。
+3. 在handle元素中添加loading状态
 ```
 
 ### Checkbox

@@ -14,6 +14,10 @@
   <PButton shape="circle">phil</PButton>
   <PButton shape="round">phil</PButton>
   <PButton ghost>phil</PButton>
+  <p-button-group>
+    <p-button>phil1</p-button>
+    <p-button type="primary">phil2</p-button>
+  </p-button-group>
 
   <hr class="my-10px" />
 

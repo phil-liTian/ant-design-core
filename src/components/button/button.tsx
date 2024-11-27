@@ -4,6 +4,7 @@ import useStyle from './style'
 import initDefaultProps, { flattenChildren } from '../_utils/props-util'
 import { buttonProps, type ButtonType } from './buttonTypes'
 import Wave from '../_utils/wave'
+import { GroupSizeContext } from './button-group'
 
 type Loading = boolean | number
 
@@ -19,8 +20,9 @@ export default defineComponent({
   name: 'PButton',
   props: initDefaultProps(buttonProps(), { type: 'default' }),
   setup(props, { slots, attrs, emit }) {
-    const { prefixCls, direction, autoInsertSpaceInButton } = useConfigInject('btn', props)
+    const { prefixCls, direction, autoInsertSpaceInButton, size } = useConfigInject('btn', props)
     const [wrapSSR] = useStyle(prefixCls)
+    const groupSizeContext = GroupSizeContext.useInject()
     let isNeedInserted = false
 
     const pre = prefixCls.value
@@ -29,7 +31,7 @@ export default defineComponent({
     const classes = computed(() => {
       const { type, danger, block, ghost, size, shape } = props
       const sizeClassNameMap = { large: 'lg', small: 'sm' }
-      const sizeFullname = size
+      const sizeFullname = groupSizeContext?.size || size
       const sizeCls = sizeClassNameMap[sizeFullname!]
 
       return [

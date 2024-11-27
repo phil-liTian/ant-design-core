@@ -1,6 +1,7 @@
 import type { CSSObject } from '@/components/_utils/cssinjs/hooks/useStyleRegister'
 import genComponentStyleHook, { type FullToken } from '../../theme/utils/genComponentStyleHook'
 import { mergeToken } from '@/components/theme/internal'
+import genGroupStyle from './group'
 
 export interface ComponentToken {}
 
@@ -208,5 +209,8 @@ export default genComponentStyleHook('Button', (token) => {
     genBlockButtonStyle(buttonToken),
 
     // ghost
+
+    // group
+    genGroupStyle(buttonToken),
   ]
 })

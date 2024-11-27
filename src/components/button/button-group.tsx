@@ -18,7 +18,7 @@ export default defineComponent({
   name: 'PButtonGroup',
   props: buttonGroupProps(),
   setup(props, { slots }) {
-    const { prefixCls } = useConfigInject('btn-group', props)
+    const { prefixCls, direction } = useConfigInject('btn-group', props)
     GroupSizeContext.useProvide(
       reactive({
         size: computed(() => props.size),
@@ -26,8 +26,18 @@ export default defineComponent({
     )
 
     const classes = computed(() => {
+      const { size } = props
+      const prefixClsVal = prefixCls.value
+      const sizeCls =
+        {
+          large: 'lg',
+          small: 'sm',
+        }[size!] || undefined
+
       return {
-        [`${prefixCls.value}`]: true,
+        [`${prefixClsVal}`]: true,
+        [`${prefixClsVal}-${sizeCls}`]: sizeCls,
+        [`${prefixClsVal}-rtl`]: direction.value === 'rtl',
       }
     })
 

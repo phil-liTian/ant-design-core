@@ -24,4 +24,7 @@ export interface AliasToken extends MapToken {
 
   //
   colorLink: string
+
+  // opacity
+  opacityLoading: number
 }

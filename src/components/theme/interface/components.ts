@@ -10,4 +10,5 @@ export interface ComponentTokenMap {
   Checkbox?: {}
   Modal?: ModalComponentToken
   Wave?: WaveToken
+  Input?: {}
 }

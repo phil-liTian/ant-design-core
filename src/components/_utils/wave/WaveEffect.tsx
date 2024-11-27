@@ -33,10 +33,10 @@ const WaveEffect = defineComponent({
       setWaveColor(getTargetWaveColor(target))
 
       const { borderLeftWidth, borderTopWidth } = nodeStyle
-
       // top left width height
-      setTop(parseFloat(borderTopWidth))
-      setLeft(parseFloat(borderLeftWidth))
+
+      setTop(nodeStyle.position === 'static' ? target.offsetTop : parseFloat(borderTopWidth))
+      setLeft(nodeStyle.position === 'static' ? target.offsetLeft : parseFloat(borderLeftWidth))
       setWidth(target.offsetWidth)
       setHeight(target.offsetHeight)
 

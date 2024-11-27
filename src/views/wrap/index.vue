@@ -5,6 +5,7 @@
     <SwitchView />
     <!-- <CheckboxView /> -->
     <!-- <ModalView /> -->
+    <!-- <InputView /> -->
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import ButtonView from '../componentsDemo/ButtonView.vue'
 import SwitchView from '../componentsDemo/SwitchView.vue'
 import CheckboxView from '../componentsDemo/CheckboxView.vue'
 import ModalView from '../componentsDemo/ModalView.vue'
+import InputView from '../componentsDemo/InputView.vue'
 </script>
 
 <style lang="less" scoped></style>
