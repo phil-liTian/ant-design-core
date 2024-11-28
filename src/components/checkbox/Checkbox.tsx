@@ -16,7 +16,7 @@ export default defineComponent({
     const prefixClsValue = prefixCls.value
     const { class: calssName, style, ...restAttrs } = attrs
     const { indeterminate, ...restProps } = props
-    const checkboxGroup = inject(CheckboxGroupContextKey)
+    const checkboxGroup = inject(CheckboxGroupContextKey, undefined)
 
     const mergedDisabled = computed(() => {
       return checkboxGroup?.disabled.value || props.disabled
@@ -28,28 +28,37 @@ export default defineComponent({
       emit('change', event)
     }
 
-    const checkboxProps: CheckboxProps = {
-      ...restProps,
-      prefixCls: prefixCls.value,
-      disabled: mergedDisabled.value,
-    }
-
-    if (checkboxGroup) {
-      // 被group包裹
-    } else {
-      checkboxProps.onChange = handleChange
-    }
-
-    const classString = classNames(
-      {
-        [`${prefixClsValue}-wrapper`]: true,
-        [`${prefixClsValue}-rtl`]: direction.value === 'rtl',
-        [`${prefixClsValue}-wrapper-checked`]: checkboxProps.checked,
-      },
-      calssName,
-    )
-
     return () => {
+      const checkboxProps: CheckboxProps = {
+        ...restProps,
+        prefixCls: prefixCls.value,
+        disabled: mergedDisabled.value,
+      }
+
+      if (checkboxGroup) {
+        // 被group包裹
+        checkboxProps.checked = checkboxGroup.mergedValue.value.includes(props.value)
+
+        checkboxProps.onChange = (...args) => {
+          emit('change', ...args)
+          checkboxGroup.toggleOption({
+            label: slots.default?.(),
+            value: props.value,
+          })
+        }
+      } else {
+        checkboxProps.onChange = handleChange
+      }
+
+      const classString = classNames(
+        {
+          [`${prefixClsValue}-wrapper`]: true,
+          [`${prefixClsValue}-rtl`]: direction.value === 'rtl',
+          [`${prefixClsValue}-wrapper-checked`]: checkboxProps.checked,
+        },
+        calssName,
+      )
+
       const children = flattenChildren(slots.default?.() as any)
       return wrapSSR(
         <label class={classString} style={style as CSSProperties}>

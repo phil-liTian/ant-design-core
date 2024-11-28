@@ -1,7 +1,7 @@
 import type { App } from 'vue'
 import Checkbox from './Checkbox'
 import CheckboxGroup from './Group'
-export type { CheckboxProps } from './interface'
+export type { CheckboxProps, CheckboxGroupProps } from './interface'
 
 Checkbox.group = CheckboxGroup
 

@@ -5,6 +5,8 @@ import genComponentStyleHook, {
   type FullToken,
 } from '@/components/theme/utils/genComponentStyleHook'
 
+export interface ComponentToken {}
+
 interface SwitchToken extends FullToken<'Switch'> {
   switchMinWidth: number
   switchHeight: number

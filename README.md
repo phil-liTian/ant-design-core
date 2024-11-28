@@ -79,11 +79,16 @@ setup() {
   }
 }
 2. vcCheckbox中包含一个type为checkbox的input元素, 内部操作的是input，实际渲染的是inner元素。
+3. 如何实现group上双向绑定value, 控制checkbox的选中内容呢？使用provide提供mergedValue, 在checkbox中通过判断mergedValue中是否包含value来实现选中效果。
+4. label同时支持在options中自定义vnode类型的label, 或者也可以在template中自定义统一的label。
+slots.label ? slots.label(option) : option.label
 ```
 
 ### Radio & RadioGroup
 
 ### Input
+
+### Select
 
 ### Modal
 

@@ -33,7 +33,6 @@ export default defineComponent({
       // if (props.checked === undefined) {
       checked.value = e.target.checked
       // }
-      console.log('checked', checked)
 
       const eventObj = {
         target: {

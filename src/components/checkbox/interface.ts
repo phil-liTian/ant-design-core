@@ -35,6 +35,9 @@ export const abstractCheckboxProps = () => {
 
 export const checkboxGroupProps = () => ({
   ...abstractCheckboxGroupProps(),
+  defaultValue: ArrayType<CheckboxValueType>(),
+  value: ArrayType<CheckboxValueType>(),
+  onChange: FunctionType<(checkedValues: CheckboxValueType[], e) => void>(),
 })
 
 export const checkboxProps = () => ({
@@ -43,10 +46,13 @@ export const checkboxProps = () => ({
 })
 
 export type CheckboxProps = Partial<ExtractPropTypes<ReturnType<typeof checkboxProps>>>
+export type CheckboxGroupProps = Partial<ExtractPropTypes<ReturnType<typeof checkboxGroupProps>>>
 
 export interface CheckboxGroupContext {
   name: ComputedRef<string>
   disabled: Ref<boolean>
+  toggleOption: (option: CheckOptionType) => void
+  mergedValue: Ref<CheckboxValueType[]>
 }
 
 export const CheckboxGroupContextKey: InjectionKey<CheckboxGroupContext> =
