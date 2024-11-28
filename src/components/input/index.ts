@@ -3,6 +3,7 @@ import Input from './Input'
 import Password from './Password'
 import Textarea from './Textarea'
 import Group from './Group'
+export type { InputProps } from './inputProps'
 
 Input.Password = Password
 Input.Textarea = Textarea
@@ -18,4 +19,5 @@ Input.install = (app: App) => {
 }
 
 export { Password as InputPassword, Textarea as InputTextarea, Group as InputGroup }
+
 export default Input

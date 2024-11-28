@@ -2,10 +2,10 @@
   <div>
     <!-- <AlertView /> -->
     <!-- <ButtonView /> -->
-    <SwitchView />
-    <!-- <CheckboxView /> -->
-    <!-- <ModalView /> -->
+    <!-- <SwitchView /> -->
+    <CheckboxView />
     <!-- <InputView /> -->
+    <!-- <ModalView /> -->
   </div>
 </template>
 

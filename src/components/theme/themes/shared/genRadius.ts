@@ -11,6 +11,10 @@ export const genRadius = (
   let radiusXS = radiusBase
   let radiusOuter = radiusBase
 
+  if (radiusBase < 7 && radiusBase >= 5) {
+    radiusSM = 4
+  }
+
   return {
     borderRadius: radiusBase,
     borderRadiusLG: radiusLG,

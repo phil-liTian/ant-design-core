@@ -7,6 +7,7 @@ import { isString, isArray, isObject } from './util'
  */
 function classNames(...args: any[]) {
   let classes: string[] = []
+
   for (let i = 0; i < args.length; i++) {
     const value = args[i]
     if (!value) continue

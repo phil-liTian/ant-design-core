@@ -27,4 +27,16 @@ export interface AliasToken extends MapToken {
 
   // opacity
   opacityLoading: number
+
+  // Control
+  controlInteractiveSize: number
+
+  // padding
+  paddingXXS: number
+  paddingXS: number
+  paddingSM: number
+  padding: number
+  paddingMD: number
+  paddingLG: number
+  paddingXL: number
 }

@@ -21,6 +21,17 @@ export const formatToken = (token: RawMergedToken) => {
     colorTextLightSolid: token.colorWhite,
 
     opacityLoading: 0.65,
+
+    controlInteractiveSize: token.controlHeight / 2,
+
+    // padding
+    paddingXXS: token.sizeXXS,
+    paddingXS: token.sizeXS,
+    paddingSM: token.sizeSM,
+    padding: token.size,
+    paddingMD: token.sizeMD,
+    paddingLG: token.sizeLG,
+    paddingXL: token.sizeXL,
   }
 
   return aliasToken

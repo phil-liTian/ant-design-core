@@ -23,6 +23,12 @@ export { default as Switch } from './switch'
 export type { SwitchProps } from './switch'
 
 /**
+ * input
+ */
+export { default as Input } from './input'
+export type { InputProps } from './input'
+
+/**
  * checkBox
  */
 export { default as Checkbox, CheckboxGroup } from './checkbox'

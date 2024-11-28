@@ -1,4 +1,4 @@
-import { computed, defineComponent, inject, type CSSProperties } from 'vue'
+import { computed, defineComponent, inject, watch, type CSSProperties } from 'vue'
 import { CheckboxGroupContextKey, checkboxProps, type CheckboxProps } from './interface'
 import VcCheckbox from '../vc-checkbox/Checkbox'
 import useStyle from './style'
@@ -9,6 +9,7 @@ import { flattenChildren } from '../_utils/props-util'
 export default defineComponent({
   name: 'PCheckbox',
   props: checkboxProps(),
+  emits: ['update:checked', 'change'],
   setup(props, { emit, slots, attrs }) {
     const { prefixCls, direction, disabled } = useConfigInject('checkbox', props)
     const [wrapSSR] = useStyle(prefixCls)
@@ -28,6 +29,7 @@ export default defineComponent({
     }
 
     const checkboxProps: CheckboxProps = {
+      ...restProps,
       prefixCls: prefixCls.value,
       disabled: mergedDisabled.value,
     }
@@ -42,7 +44,7 @@ export default defineComponent({
       {
         [`${prefixClsValue}-wrapper`]: true,
         [`${prefixClsValue}-rtl`]: direction.value === 'rtl',
-        [`${prefixClsValue}-wrapper-checked`]: props.checked,
+        [`${prefixClsValue}-wrapper-checked`]: checkboxProps.checked,
       },
       calssName,
     )

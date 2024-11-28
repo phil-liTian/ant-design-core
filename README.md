@@ -68,9 +68,20 @@ css属性
 3. 在handle元素中添加loading状态
 ```
 
-### Checkbox
+### Checkbox & CheckboxGroup
 
-### Radio
+```js
+1. 将每次重新渲染都需要重新执行的逻辑放到setup的返回函数内部执行！！
+setup() {
+  return () => {
+    // 返回函数会当作render函数执行, 每次patch都会重新执行
+    return <div />
+  }
+}
+2. vcCheckbox中包含一个type为checkbox的input元素, 内部操作的是input，实际渲染的是inner元素。
+```
+
+### Radio & RadioGroup
 
 ### Input
 

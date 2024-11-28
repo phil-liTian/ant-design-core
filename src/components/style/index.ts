@@ -6,6 +6,7 @@ export const resetComponent = (token: AliasToken): CSSObject => ({
   padding: 0,
   // margin: 0,
   fontSize: `${token.fontSize}px`,
+  lineHeight: `${token.lineHeight}`,
   listStyle: 'none',
   color: token.colorText,
 })
