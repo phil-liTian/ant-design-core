@@ -37,6 +37,12 @@ export function ArrayType<T = any>(defaultValue?: T[]) {
   return { type: Array as unknown as PropType<T[]>, default: defaultValue as T[] }
 }
 
+export function EventType<T>() {
+  return { type: [Function, Array] as PropType<T | T[]> }
+}
+
+export type LiteralUnion<T extends string> = T | (string & {})
+
 export const withInstall = <T>(comp: T) => {
   const c = comp as any
   c.install = (app: App) => {

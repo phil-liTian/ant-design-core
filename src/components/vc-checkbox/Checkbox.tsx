@@ -32,7 +32,7 @@ export default defineComponent({
     )
 
     const handleChange = (e: any) => {
-      console.log('handleChange', e)
+      console.log('e', e)
 
       // if (props.checked === undefined) {
       checked.value = e.target.checked
@@ -44,6 +44,9 @@ export default defineComponent({
           checked: e.target.checked,
         },
       }
+
+      inputRef.value!.checked = !!props.checked
+
       emit('change', eventObj)
     }
 

@@ -1,12 +1,19 @@
-import { defineComponent, ref, watch, type ExtractPropTypes } from 'vue'
+import { computed, defineComponent, ref, watch, type ExtractPropTypes } from 'vue'
 import { useProvideRadioGroup } from './context'
-import { ArrayType } from '../_utils/type'
+import { ArrayType, StringType } from '../_utils/type'
 import Radio from '.'
 import PropTypes from '../_utils/vue-types'
+import type { RadioGroupOptionType } from './interface'
+export type RadioGroupChildOption = {
+  label?: string
+  value: string
+  disabled?: boolean
+}
 
 export const radioGroupProps = () => ({
-  options: ArrayType<string | number>(),
+  options: ArrayType<string | number | RadioGroupChildOption>(),
   value: PropTypes.any,
+  optionType: StringType<RadioGroupOptionType>('default'),
 })
 
 export type RadioGroupProps = Partial<ExtractPropTypes<ReturnType<typeof radioGroupProps>>>
@@ -22,6 +29,7 @@ export default defineComponent({
       () => props.value,
       () => {
         stateValue.value = props.value
+        console.log('stateValue', stateValue)
       },
     )
 
@@ -33,12 +41,28 @@ export default defineComponent({
     useProvideRadioGroup({
       value: stateValue,
       onChange: onRadioChange,
+      optionType: computed(() => props.optionType),
     })
 
     return () => {
       let children: any = null
       if (options?.length) {
-        children = options.map((option) => <Radio></Radio>)
+        children = options.map((option) => {
+          if (typeof option === 'string' || typeof option === 'number') {
+            return (
+              <Radio key={option} value={option}>
+                {option}
+              </Radio>
+            )
+          } else {
+            const { value, label, disabled } = option as RadioGroupChildOption
+            return (
+              <Radio key={value} value={value} disabled={disabled}>
+                {label}
+              </Radio>
+            )
+          }
+        })
       } else {
         children = slots.default?.()
       }

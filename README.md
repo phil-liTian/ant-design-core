@@ -86,6 +86,27 @@ slots.label ? slots.label(option) : option.label
 
 ### Radio & RadioGroup
 
+```js
+1. 共用vcCheckbox组件 ltr
+{
+  insetBlockStart: '50%', // top
+  insetInlineStart: '50%', // left
+  borderBlockStart: 0, // border-top
+  borderInlineStart: 0, // border-left
+  marginBlockStart: `${radioSize / -2}px`, // margin-top
+  marginInlineStart: `${radioSize / -2}px`, // margin-left
+}
+
+2. 第二次点击radio change事件没触发？
+  需要修改原生radio的checked属性，才能触发change事件。
+inputRef.value!.checked = !!props.checked
+
+3. 在radioGroup中提供RadioGroupContextKey, 在Radio组件中判断如果有Group则单独处理onChange事件及checked选中状态, 可以传入options, 实现过程同checkboxGroup。
+
+4. 如何实现在radioGroup中radioButton和Radio共存？？
+RadioGroup 通过context给Radio组件传入optionType, 当识别到optionType为button时, 渲染Radio的prefixCls调整为button。同样的使用RadioButton组件时 通过congtextg给Radio组件传入标识radioOptionTypeContext, 有radioOptionTypeContext则标明时RadioButton组件
+```
+
 ### Input
 
 ### Select

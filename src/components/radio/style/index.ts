@@ -9,12 +9,12 @@ interface RadioToken extends FullToken<'Radio'> {
   radioCheckedColor: string
   dotPadding: number
   radioDotSize: number
+  radioButtonPaddingHorizontal: number
 }
 
 const getRadioBasicStyle = (token): CSSObject => {
   const { componentCls, radioSize, radioCheckedColor, colorWhite, colorBorder, radioDotSize } =
     token
-  console.log('componentCls', componentCls)
 
   const radioInnerPrefixCls = `${componentCls}-inner`
 
@@ -35,13 +35,13 @@ const getRadioBasicStyle = (token): CSSObject => {
             backgroundColor: colorWhite,
             transform: 'scale(0)',
             // opacity: 0,
-            // TODO
-            insetBlockStart: '50%',
-            insetInlineStart: '50%',
-            borderBlockStart: 0,
-            borderInlineStart: 0,
-            marginBlockStart: `${radioSize / -2}px`,
-            marginInlineStart: `${radioSize / -2}px`,
+            // ltr
+            insetBlockStart: '50%', // top
+            insetInlineStart: '50%', // left
+            borderBlockStart: 0, // border-top
+            borderInlineStart: 0, // border-left
+            marginBlockStart: `${radioSize / -2}px`, // margin-top
+            marginInlineStart: `${radioSize / -2}px`, // margin-left
             transition: `all ${token.motionDurationSlow}`,
           },
 
@@ -84,17 +84,84 @@ const getRadioBasicStyle = (token): CSSObject => {
   }
 }
 
+const genRadioButtonStyle = (token): CSSObject => {
+  const { componentCls, radioButtonPaddingHorizontal, borderRadius, controlHeight, lineWidth } =
+    token
+  return {
+    [`${componentCls}-button-wrapper`]: {
+      position: 'relative',
+      display: 'inline-block',
+      height: `${controlHeight}px`,
+      lineHeight: `${controlHeight - lineWidth * 2}px`,
+      border: `${token.lineWidth}px ${token.lineType} ${token.colorBorder}`,
+      borderInlineStartWidth: 0,
+      borderInlineEndWidth: `${lineWidth}px`,
+      paddingInline: `${radioButtonPaddingHorizontal}px`,
+
+      [`${componentCls}-button`]: {
+        position: 'absolute',
+        zIndex: -1,
+        width: '100%',
+        height: '100%',
+        [`${componentCls}-inner, input[type='radio']`]: {
+          width: 0,
+          height: 0,
+          opacity: 0,
+        },
+      },
+
+      '&:not(:first-child)': {
+        '&::before': {
+          position: 'absolute',
+          content: '""',
+          width: 0,
+          height: '100%',
+          paddingBlock: `${lineWidth}px`,
+          insetBlockStart: `-${lineWidth}px`,
+          insetInlineStart: `-${lineWidth}px`,
+          backgroundColor: token.colorBorder,
+        },
+      },
+
+      '&:first-child': {
+        borderInlineStartWidth: `${token.lineWidth}px`,
+        borderStartStartRadius: `${borderRadius}px`,
+        borderEndStartRadius: `${borderRadius}px`,
+      },
+
+      '&:last-child': {
+        borderStartEndRadius: `${borderRadius}px`,
+        borderEndEndRadius: `${borderRadius}px`,
+      },
+
+      '&-checked': {
+        borderColor: token.colorPrimary,
+
+        '&::before': {
+          width: '1px !important',
+          backgroundColor: `${token.colorPrimary} !important`,
+        },
+
+        '&:first-child': {
+          borderColor: token.colorPrimary,
+        },
+      },
+    },
+  }
+}
+
 export default genComponentStyleHook('Button', (token) => {
-  const { fontSizeLG, colorPrimary } = token
+  const { fontSizeLG, colorPrimary, padding, lineWidth } = token
   const radioSize = fontSizeLG
   const dotPadding = 4
-  console.log('fontSizeLG', fontSizeLG)
 
   const radioToken = mergeToken<RadioToken>(token, {
     radioSize,
     radioCheckedColor: colorPrimary,
     dotPadding,
     radioDotSize: radioSize - (dotPadding + token.lineWidth) * 2,
+    radioButtonPaddingHorizontal: padding - lineWidth,
   })
-  return [getRadioBasicStyle(radioToken)]
+
+  return [genRadioButtonStyle(radioToken), getRadioBasicStyle(radioToken)]
 })

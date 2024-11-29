@@ -3,6 +3,9 @@ import type { ComponentToken as AlertComponentToken } from '../../alert/style'
 import type { ComponentToken as ModalComponentToken } from '../../modal/style'
 import type { ComponentToken as SwitchComponentToken } from '../../switch/style'
 import type { ComponentToken as SelectComponentToken } from '../../select/style'
+import type { ComponentToken as TagComponentToken } from '../../tag/index'
+import type { ComponentToken as DividerComponentToken } from '../../divider/style'
+import type { ComponentToken as SpinComponentToken } from '../../spin/style'
 import type { ComponentToken as WaveToken } from '../../_utils/wave'
 
 export interface ComponentTokenMap {
@@ -15,4 +18,7 @@ export interface ComponentTokenMap {
   Input?: {}
   Radio?: {}
   Select?: SelectComponentToken
+  Tag?: TagComponentToken
+  Divider?: DividerComponentToken
+  Spin?: SpinComponentToken
 }
