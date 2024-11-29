@@ -84,7 +84,7 @@ setup() {
 slots.label ? slots.label(option) : option.label
 ```
 
-### Radio & RadioGroup
+### Radio & RadioGroup & RadioButton
 
 ```js
 1. 共用vcCheckbox组件 ltr
