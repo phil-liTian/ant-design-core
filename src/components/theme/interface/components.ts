@@ -13,5 +13,6 @@ export interface ComponentTokenMap {
   Modal?: ModalComponentToken
   Wave?: WaveToken
   Input?: {}
+  Radio?: {}
   Select?: SelectComponentToken
 }

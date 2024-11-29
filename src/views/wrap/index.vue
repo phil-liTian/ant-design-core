@@ -3,7 +3,8 @@
     <!-- <AlertView /> -->
     <!-- <ButtonView /> -->
     <!-- <SwitchView /> -->
-    <CheckboxView />
+    <!-- <CheckboxView /> -->
+    <RadioView />
     <!-- <InputView /> -->
     <!-- <ModalView /> -->
   </div>
@@ -14,6 +15,7 @@ import AlertView from '../componentsDemo/AlertView.vue'
 import ButtonView from '../componentsDemo/ButtonView.vue'
 import SwitchView from '../componentsDemo/SwitchView.vue'
 import CheckboxView from '../componentsDemo/CheckboxView.vue'
+import RadioView from '../componentsDemo/RadioView.vue'
 import ModalView from '../componentsDemo/ModalView.vue'
 import InputView from '../componentsDemo/InputView.vue'
 </script>

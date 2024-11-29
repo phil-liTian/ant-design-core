@@ -2,12 +2,14 @@ import { computed, defineComponent, ref, watch } from 'vue'
 import initDefaultProps from '../_utils/props-util'
 import classNames from '../_utils/classNames'
 import { BooleanType } from '../_utils/type'
+import PropTypes from '../_utils/vue-types'
 
 export const checkboxProps = {
   prefixCls: String,
   type: String,
   checked: BooleanType(),
   defaultChecked: BooleanType(),
+  value: PropTypes.any,
 }
 
 export default defineComponent({
@@ -30,12 +32,15 @@ export default defineComponent({
     )
 
     const handleChange = (e: any) => {
+      console.log('handleChange', e)
+
       // if (props.checked === undefined) {
       checked.value = e.target.checked
       // }
 
       const eventObj = {
         target: {
+          ...props,
           checked: e.target.checked,
         },
       }
