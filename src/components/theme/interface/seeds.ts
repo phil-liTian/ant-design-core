@@ -56,4 +56,6 @@ export interface SeedToken {
 
   // 基础高度
   controlHeight: number
+
+  fontFamily: string
 }

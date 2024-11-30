@@ -1,9 +1,9 @@
 import { computed, defineComponent } from 'vue'
-import { dividerProps } from '.'
 import useConfigInject from '../config-provider/hooks/useConfigInject'
 import useStyle from './style'
 import classNames from '../_utils/classNames'
 import { flattenChildren } from '../_utils/props-util'
+import { dividerProps } from './interface'
 
 export default defineComponent({
   name: 'PDivider',
@@ -45,6 +45,8 @@ export default defineComponent({
         [`${prefixClsValue}-${type}`]: true,
         [`${prefixClsValue}-dashed`]: dashed,
         [`${prefixClsValue}-plain`]: plain,
+        [`${prefixCls.value}-no-default-orientation-margin-left`]: orientationMarginLeft.value,
+        [`${prefixCls.value}-no-default-orientation-margin-right`]: orientationMarginRight.value,
       })
 
       return WrapSSR(
@@ -54,7 +56,7 @@ export default defineComponent({
             classStr,
             attrs.class,
             children.length
-              ? `${prefixClsValue}-with-text ${prefixClsValue}-with-text-${orientation}}`
+              ? `${prefixClsValue}-with-text ${prefixClsValue}-with-text-${orientation}`
               : '',
           ]}
         >

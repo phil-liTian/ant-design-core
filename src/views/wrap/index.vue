@@ -4,7 +4,9 @@
     <!-- <ButtonView /> -->
     <!-- <SwitchView /> -->
     <!-- <CheckboxView /> -->
-    <RadioView />
+    <!-- <RadioView /> -->
+    <!-- <DividerView /> -->
+    <TagView />
     <!-- <InputView /> -->
     <!-- <ModalView /> -->
   </div>
@@ -16,6 +18,8 @@ import ButtonView from '../componentsDemo/ButtonView.vue'
 import SwitchView from '../componentsDemo/SwitchView.vue'
 import CheckboxView from '../componentsDemo/CheckboxView.vue'
 import RadioView from '../componentsDemo/RadioView.vue'
+import DividerView from '../componentsDemo/DividerView.vue'
+import TagView from '../componentsDemo/TagView.vue'
 import ModalView from '../componentsDemo/ModalView.vue'
 import InputView from '../componentsDemo/InputView.vue'
 </script>

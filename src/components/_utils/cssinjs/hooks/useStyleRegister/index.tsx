@@ -60,7 +60,7 @@ export const parseStyle = (
       styleStr += originStyle
     } else {
       Object.keys(originStyle).forEach((key) => {
-        const value = originStyle[key]
+        let value: string = originStyle[key]
         if (typeof value === 'object') {
           let mergedKey = key.trim()
 
@@ -70,6 +70,11 @@ export const parseStyle = (
         } else {
           // 允许js使用驼峰处理样式
           const styleName = key.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`)
+
+          // 给数值类型添加‘px’
+          if (typeof value === 'number') {
+            value = `${value}px`
+          }
 
           styleStr += `${styleName}:${value};`
         }

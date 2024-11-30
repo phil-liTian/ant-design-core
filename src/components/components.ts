@@ -39,3 +39,15 @@ export type { CheckboxProps } from './checkbox'
  */
 export { default as Radio, RadioButton, RadioGroup } from './radio'
 export type { RadioProps, RadioGroupProps } from './radio'
+
+/**
+ * divider
+ */
+export { default as Divider } from './divider'
+export type { DividerProps } from './divider'
+
+/**
+ * tag
+ */
+export { default as Tag, CheckboxTag } from './tag'
+export type { TagProps } from './tag'

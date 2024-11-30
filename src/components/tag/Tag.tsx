@@ -1,4 +1,4 @@
-import { computed, defineComponent, shallowRef, type CSSProperties } from 'vue'
+import { computed, defineComponent, shallowRef, watch, type CSSProperties } from 'vue'
 import { tagProps } from './interface'
 import useConfigInject from '../config-provider/hooks/useConfigInject'
 import Wave from '../_utils/wave'
@@ -10,7 +10,7 @@ import { isPresetColor, isPresetStatusColor } from '../_utils/colors'
 export default defineComponent({
   name: 'PTag',
   props: tagProps(),
-  emits: ['close', 'update:value', 'click'],
+  emits: ['close', 'update:visible', 'click'],
   setup(props, { slots, attrs, emit }) {
     const { prefixCls } = useConfigInject('tag', props)
     const [WrapSSR] = useStyle(prefixCls)
@@ -19,13 +19,23 @@ export default defineComponent({
     const visible = shallowRef(true)
     const handleCloseClick = (e) => {
       e.stopPropagation()
-      emit('update:value', false)
+      emit('update:visible', false)
       emit('close', e)
+      if (props.visible === undefined) {
+        visible.value = false
+      }
     }
 
     const isInternalColor = computed(() => {
       return isPresetColor(props.color) || isPresetStatusColor(props.color)
     })
+
+    watch(
+      () => props.visible,
+      () => {
+        visible.value = props.visible
+      },
+    )
 
     return () => {
       const { icon = slots.icon?.(), closable, closeIcon = slots.closeIcon?.(), color } = props
@@ -37,8 +47,8 @@ export default defineComponent({
       }
 
       const tagClassName = classNames(prefixClsValue, {
-        [`${prefixClsValue}-${props.color}}`]: isInternalColor.value,
-        [`${prefixClsValue}-has-color`]: props.color && isInternalColor.value,
+        [`${prefixClsValue}-${props.color}`]: isInternalColor.value,
+        [`${prefixClsValue}-has-color`]: props.color && !isInternalColor.value,
         [`${prefixClsValue}-hidden`]: !visible.value,
         [`${prefixClsValue}-borderless`]: !props.bordered,
       })

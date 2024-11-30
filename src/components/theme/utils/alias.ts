@@ -1,6 +1,7 @@
 import type { OverrideToken } from '../interface'
 import type { AliasToken } from '../interface/alias'
 import type { MapToken } from '../interface/maps'
+import getAlphaColor from './getAlphaColor'
 
 type RawMergedToken = MapToken & OverrideToken
 
@@ -18,6 +19,11 @@ export const formatToken = (token: RawMergedToken) => {
     paddingContentVerticalSM: token.sizeXS,
 
     // Text
+    colorTextPlaceholder: token.colorTextQuaternary,
+    colorTextDisabled: token.colorTextQuaternary,
+    colorTextHeading: token.colorText,
+    colorTextLabel: token.colorTextSecondary,
+    colorTextDescription: token.colorTextTertiary,
     colorTextLightSolid: token.colorWhite,
 
     opacityLoading: 0.65,
@@ -32,6 +38,19 @@ export const formatToken = (token: RawMergedToken) => {
     paddingMD: token.sizeMD,
     paddingLG: token.sizeLG,
     paddingXL: token.sizeXL,
+
+    // margin
+    marginXXS: token.sizeXXS,
+    marginXS: token.sizeXS,
+    marginSM: token.sizeSM,
+    margin: token.size,
+    marginMD: token.sizeMD,
+    marginLG: token.sizeLG,
+    marginXL: token.sizeXL,
+    marginXXL: token.sizeXXL,
+
+    // 分割线的颜色
+    colorSplit: getAlphaColor(token.colorBorderSecondary, token.colorBgContainer),
   }
 
   return aliasToken

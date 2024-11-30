@@ -11,6 +11,11 @@ export interface ColorNeutralMapToken {
   colorBorder: string
 
   /**
+   * 二级边框色
+   */
+  colorBorderSecondary: string
+
+  /**
    * 一级文本颜色
    */
   colorText: string
@@ -26,6 +31,26 @@ export interface ColorNeutralMapToken {
    * 四级文本颜色
    */
   colorTextQuaternary: string
+
+  /**
+   * 填充色
+   */
+  colorFill: string
+
+  /**
+   * 二级填充色
+   */
+  colorFillSecondary: string
+
+  /**
+   * 三级填充色
+   */
+  colorFillTertiary: string
+
+  /**
+   * 四级填充色
+   */
+  colorFillQuaternary: string
 }
 
 interface ColorPrimaryMapToken {

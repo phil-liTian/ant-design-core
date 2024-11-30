@@ -28,8 +28,15 @@ export const generateNeutralColorPalettes = (
     colorTextTertiary: getAlphaColor(colorTextBase, 0.45),
     colorTextQuaternary: getAlphaColor(colorTextBase, 0.25),
 
+    // 填充色
+    colorFill: getAlphaColor(colorTextBase, 0.18),
+    colorFillSecondary: getAlphaColor(colorTextBase, 0.12),
+    colorFillTertiary: getAlphaColor(colorTextBase, 0.08),
+    colorFillQuaternary: getAlphaColor(colorTextBase, 0.04),
+
     colorBgContainer: getSolidColor(colorBgBase, 0),
 
     colorBorder: getSolidColor(colorBgBase, 15),
+    colorBorderSecondary: getSolidColor(colorBgBase, 19),
   }
 }

@@ -3,7 +3,8 @@ import type { ComponentTokenMap } from './components'
 
 export type { ComponentTokenMap } from './components'
 
-export type { PresetColorKey, PresetColorsType, ColorPalettes, PresetColors } from './presetColors'
+export { PresetColors } from './presetColors'
+export type { PresetColorKey, PresetColorsType, ColorPalettes } from './presetColors'
 
 export type { SeedToken } from './seeds'
 

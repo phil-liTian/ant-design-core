@@ -9,4 +9,5 @@ export const resetComponent = (token: AliasToken): CSSObject => ({
   lineHeight: `${token.lineHeight}`,
   listStyle: 'none',
   color: token.colorText,
+  fontFamily: token.fontFamily,
 })

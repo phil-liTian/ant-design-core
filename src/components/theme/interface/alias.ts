@@ -5,6 +5,9 @@ export interface AliasToken extends MapToken {
   closeIcon: string
   closeIconHover: string
 
+  // Background
+  colorFillAlter: string
+
   // font
   fontSizeIcon: string
 
@@ -18,9 +21,6 @@ export interface AliasToken extends MapToken {
 
   // switch & button default outline
   controlTmpOutline: string
-
-  // text
-  colorTextLightSolid: string
 
   //
   colorLink: string
@@ -39,4 +39,25 @@ export interface AliasToken extends MapToken {
   paddingMD: number
   paddingLG: number
   paddingXL: number
+
+  // margin
+  marginXXS: number
+  marginXS: number
+  marginSM: number
+  margin: number
+  marginMD: number
+  marginLG: number
+  marginXL: number
+  marginXXL: number
+
+  // Text
+  colorTextPlaceholder: string
+  colorTextDisabled: string
+  colorTextHeading: string
+  colorTextLabel: string
+  colorTextDescription: string
+  colorTextLightSolid: string
+
+  // 分割线的颜色
+  colorSplit: string
 }

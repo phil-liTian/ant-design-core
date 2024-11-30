@@ -5,9 +5,9 @@ import useConfigInject from '../config-provider/hooks/useConfigInject'
 import useStyle from './style'
 
 export default defineComponent({
-  name: 'PCheckboxTag',
+  name: 'PCheckableTag',
   props: checkboxTagProps(),
-  emits: ['update:checked', 'click'],
+  emits: ['update:checked', 'click', 'change'],
   setup(props, { slots, attrs, emit }) {
     const { prefixCls } = useConfigInject('tag', props)
     const [WarpSSR] = useStyle(prefixCls)
@@ -16,12 +16,14 @@ export default defineComponent({
       const { checked } = props
       emit('update:checked', !checked)
       emit('click', e)
+      emit('change', !checked)
     }
     return () => {
       const cls = classNames(prefixClsVal, {
         [`${prefixClsVal}-checkable`]: true,
         [`${prefixClsVal}-checkable-checked`]: props.checked,
       })
+
       return WarpSSR(
         <span class={[cls, attrs.class]} onClick={handleClick}>
           {slots.default?.()}

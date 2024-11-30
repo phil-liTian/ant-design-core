@@ -1,4 +1,3 @@
-// @ts-ignore
 import { PresetColors } from '../theme/interface'
 import type { PresetColorKey } from '../theme/internal'
 

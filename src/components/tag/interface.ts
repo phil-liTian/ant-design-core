@@ -9,7 +9,7 @@ export const tagProps = () => ({
   color: StringType<LiteralUnion<PresetStatusColorType | PresetColorType>>,
   closable: BooleanType(false),
   closeIcon: PropTypes.any,
-  visible: BooleanType(false),
+  visible: BooleanType(),
   onClose: FunctionType<(e) => void>(),
   bordered: BooleanType(true),
   onClick: EventType<(e) => void>(),
