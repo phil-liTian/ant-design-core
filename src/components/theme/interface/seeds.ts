@@ -58,4 +58,13 @@ export interface SeedToken {
   controlHeight: number
 
   fontFamily: string
+
+  // Font
+  fontWeightStrong: number
+
+  /**
+   * 浮层基础 zIndex
+   * @default 1000
+   */
+  zIndexPopupBase: number
 }

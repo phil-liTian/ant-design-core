@@ -4,6 +4,7 @@ import useStyleRegister, {
   type CSSInterpolation,
 } from '@/components/_utils/cssinjs/hooks/useStyleRegister'
 import { useToken } from '../internal'
+import { useConfigContextInject } from '@/components/config-provider/context'
 
 export type OverrideTokenWithoutDerivative = ComponentTokenMap
 export type OverrideComponent = keyof OverrideTokenWithoutDerivative
@@ -30,6 +31,8 @@ export default function genComponentStyleHook<ComponentName extends OverrideComp
 ) {
   return (_prefixCls?: Ref<string>) => {
     const prefixCls = computed(() => _prefixCls?.value)
+    const { getPrefixCls } = useConfigContextInject()
+    const rootPrefixCls = computed(() => getPrefixCls?.())
     const [theme, token] = useToken()
 
     const componentInfo = computed(() => {})
@@ -38,6 +41,7 @@ export default function genComponentStyleHook<ComponentName extends OverrideComp
     const mergedToken = {
       componentCls,
       ...token.value,
+      antCls: rootPrefixCls.value,
     }
 
     return [

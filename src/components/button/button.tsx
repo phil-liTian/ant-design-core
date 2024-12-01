@@ -19,6 +19,7 @@ function isUnBorderedButtonType(type: ButtonType | undefined) {
 export default defineComponent({
   name: 'PButton',
   props: initDefaultProps(buttonProps(), { type: 'default' }),
+  emits: ['click', 'mousedown'],
   setup(props, { slots, attrs, emit }) {
     const { prefixCls, direction, autoInsertSpaceInButton, size } = useConfigInject('btn', props)
     const [wrapSSR] = useStyle(prefixCls)

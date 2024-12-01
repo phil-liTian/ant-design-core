@@ -6,9 +6,9 @@
     <!-- <CheckboxView /> -->
     <!-- <RadioView /> -->
     <!-- <DividerView /> -->
-    <TagView />
+    <!-- <TagView /> -->
     <!-- <InputView /> -->
-    <!-- <ModalView /> -->
+    <ModalView />
   </div>
 </template>
 

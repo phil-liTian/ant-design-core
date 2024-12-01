@@ -51,6 +51,9 @@ export const formatToken = (token: RawMergedToken) => {
 
     // 分割线的颜色
     colorSplit: getAlphaColor(token.colorBorderSecondary, token.colorBgContainer),
+
+    // font
+    fontWeightStrong: 600,
   }
 
   return aliasToken

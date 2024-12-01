@@ -16,7 +16,7 @@ const genWaveStyle: GenerateStyle<WaveToken> = (token): CSSObject => {
       position: 'absolute',
       background: 'transparent',
       pointerEvents: 'none',
-      opacity: 0.2,
+      opacity: `0.2`,
       boxSizing: 'border-box',
       color: `var(--wave-color, ${colorPrimary})`,
       // color: `${colorPrimary}`,
@@ -31,7 +31,7 @@ const genWaveStyle: GenerateStyle<WaveToken> = (token): CSSObject => {
 
         '&-active': {
           boxShadow: `0 0 0 6px currentcolor`,
-          opacity: 0,
+          opacity: `0`,
         },
       },
     },

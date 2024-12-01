@@ -54,7 +54,7 @@ export default function genColorMapToken(
     colorErrorBorder: errorColors[3],
     colorError: errorColors[6],
 
-    colorBgMask: new TinyColor('#000').lighten(0.45).toRgbString(),
+    colorBgMask: new TinyColor('#000').setAlpha(0.45).toRgbString(),
     colorWhite: '#fff',
   }
 }

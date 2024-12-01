@@ -29,6 +29,14 @@ export const buttonProps = () => ({
   title: String,
 })
 
+export type LegacyButtonType = ButtonType | 'danger'
+export function convertLegacyProps(type: LegacyButtonType) {
+  if (type === 'danger') {
+    return { danger: true }
+  }
+  return { type }
+}
+
 export default buttonProps
 
 export type ButtonProps = Partial<ExtractPropTypes<ReturnType<typeof buttonProps>>>

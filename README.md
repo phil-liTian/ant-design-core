@@ -128,6 +128,13 @@ RadioGroup 通过context给Radio组件传入optionType, 当识别到optionType�
 
 ### Modal
 
-```
+```js
+1. 对footer处理, $slots.footer ? $slots.footer() : footerRender() 实现自定义footer和默认footer
+  对footer button样式处理。可通过okType来自定义okButton的类型, okButtonProps也可覆盖当前属性
 
+2. 如何处理Modal.methods()方法？？
+
+3. Modal.useModal()如何封装处理？？
+
+4. 动态处理modal脱离上下文环境的问题
 ```

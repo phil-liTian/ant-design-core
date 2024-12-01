@@ -51,3 +51,9 @@ export type { DividerProps } from './divider'
  */
 export { default as Tag, CheckboxTag } from './tag'
 export type { TagProps } from './tag'
+
+/**
+ * modal
+ */
+export { default as Modal } from './modal'
+export type { ModalProps } from './modal'

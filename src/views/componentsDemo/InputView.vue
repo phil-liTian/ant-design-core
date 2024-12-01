@@ -1,8 +1,7 @@
 <template>
   <div>
-    <div>base</div>
     <p-input />
-    <hr />
+    <p-divider orientation="left">input</p-divider>
     <a-input />
   </div>
 </template>
