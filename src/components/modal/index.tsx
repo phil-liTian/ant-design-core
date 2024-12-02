@@ -1,6 +1,30 @@
 import type { ExtractPropTypes } from 'vue'
 import { withInstall } from '../_utils/type'
-import Modal, { modalProps } from './Modal'
+import confirm, { withConfirm, withError, withInfo, withSuccess, withWarn } from './confirm'
+import Modal, { modalProps, type ModalFuncProps } from './Modal'
+
+function warnModal(config: ModalFuncProps) {
+  return confirm(withWarn(config))
+}
+
+Modal.success = (config: ModalFuncProps) => {
+  return confirm(withSuccess(config))
+}
+
+Modal.error = (config: ModalFuncProps) => {
+  return confirm(withError(config))
+}
+
+Modal.confirm = (config: ModalFuncProps) => {
+  return confirm(withConfirm(config))
+}
+
+Modal.info = (config: ModalFuncProps) => {
+  return confirm(withInfo(config))
+}
+
+Modal.warn = warnModal
+Modal.warning = warnModal
 
 export default withInstall(Modal)
 

@@ -9,7 +9,6 @@ export type WaveToken = FullToken<'Wave'>
 
 const genWaveStyle: GenerateStyle<WaveToken> = (token): CSSObject => {
   const { componentCls, colorPrimary } = token
-  console.log('colorPrimary', colorPrimary)
 
   return {
     [componentCls]: {

@@ -11,17 +11,23 @@ export default defineComponent({
     prefixCls: 'rc-dialog',
     visible: false,
   }),
-  setup(props, { slots }) {
-    const { prefixCls, visible } = props
-    console.log('visible', visible)
+  setup(props, { slots, attrs }) {
+    const { prefixCls, visible, wrapStyle } = props
 
-    return () => (
-      <div class={[`${prefixCls}-root`]}>
-        <Mask prefixCls={prefixCls} visible={visible} />
-        <div class={`${prefixCls}-wrap`}>
-          <Content {...omit(props, [])} v-slots={slots} />
+    return () => {
+      let dialogProps = {
+        ...props,
+        ...attrs,
+      }
+      const { class: className } = attrs
+      return (
+        <div class={[`${prefixCls}-root`]}>
+          <Mask prefixCls={prefixCls} visible={visible} />
+          <div class={`${prefixCls}-wrap`} style={wrapStyle}>
+            <Content class={className} {...dialogProps} {...omit(props, [])} v-slots={slots} />
+          </div>
         </div>
-      </div>
-    )
+      )
+    }
   },
 })

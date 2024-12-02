@@ -130,11 +130,20 @@ RadioGroup 通过context给Radio组件传入optionType, 当识别到optionType�
 
 ```js
 1. 对footer处理, $slots.footer ? $slots.footer() : footerRender() 实现自定义footer和默认footer
-  对footer button样式处理。可通过okType来自定义okButton的类型, okButtonProps也可覆盖当前属性
+  对footer button样式处理。可通过okType来自定义okButton的类型, okButtonProps也可覆盖当前button属性
 
 2. 如何处理Modal.methods()方法？？
+  定义confirm方法, 使用render函数动态生成Modal组件。性能优化点：使用document.createDocumentFragment()文档片段作为一个临时的容器，方便对节点进行组织和操作。有效地优化 DOM 操作的性能，并且方便对 DOM 节点进行组织、克隆和移动等操作
+  点击可动态生成一个open为true的Modal组件。
+  返回一个update方法, 通过重新执行vue的render方法, 强制组件刷新。同时也返回一个destroy方法, 用于销毁Modal组件。render(null, container).
 
 3. Modal.useModal()如何封装处理？？
 
 4. 动态处理modal脱离上下文环境的问题
+```
+
+### Spin
+
+```js
+使用keyFrames处理动画. parseStyle如何对keyframe进行处理？
 ```

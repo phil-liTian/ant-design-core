@@ -8,7 +8,8 @@
     <!-- <DividerView /> -->
     <!-- <TagView /> -->
     <!-- <InputView /> -->
-    <ModalView />
+    <!-- <ModalView /> -->
+    <SpinView />
   </div>
 </template>
 
@@ -22,6 +23,7 @@ import DividerView from '../componentsDemo/DividerView.vue'
 import TagView from '../componentsDemo/TagView.vue'
 import ModalView from '../componentsDemo/ModalView.vue'
 import InputView from '../componentsDemo/InputView.vue'
+import SpinView from '../componentsDemo/SpinView.vue'
 </script>
 
 <style lang="less" scoped></style>

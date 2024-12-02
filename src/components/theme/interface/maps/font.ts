@@ -26,4 +26,10 @@ export interface FontMapToken {
   fontSizeHeading4: number
   // 16px
   fontSizeHeading5: number
+
+  lineHeightHeading1: number
+  lineHeightHeading2: number
+  lineHeightHeading3: number
+  lineHeightHeading4: number
+  lineHeightHeading5: number
 }

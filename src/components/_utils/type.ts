@@ -33,12 +33,20 @@ export function StringType<T extends string = string>(defaultValue?: T) {
 }
 
 // 定义array类型的props
-export function ArrayType<T = any>(defaultValue?: T[]) {
-  return { type: Array as unknown as PropType<T[]>, default: defaultValue as T[] }
+export function ArrayType<T = any>(defaultValue?: T) {
+  return { type: Array as unknown as PropType<T>, default: defaultValue as T }
+}
+
+export function NumberType<T extends number = number>(defaultValue?: T) {
+  return { type: Number as unknown as PropType<T>, default: defaultValue as T }
 }
 
 export function EventType<T>() {
   return { type: [Function, Array] as PropType<T | T[]> }
+}
+
+export function someType<T>(types?: any[], defaultVal?: T) {
+  return { type: types as PropType<T>, default: defaultVal as T }
 }
 
 export type LiteralUnion<T extends string> = T | (string & {})

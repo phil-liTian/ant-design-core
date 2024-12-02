@@ -1,11 +1,22 @@
-import { defineComponent, Teleport } from 'vue'
+import { defineComponent, onBeforeMount, Teleport } from 'vue'
+import PropTypes from './vue-types'
 
 export default defineComponent({
   name: 'Portal',
+  inheritAttrs: false,
+  props: {
+    getContainer: PropTypes.func.isRequired,
+  },
 
-  setup() {
+  setup(props, { slots }) {
     let container: HTMLElement
 
-    return () => <Teleport to={container}></Teleport>
+    function setContainer() {
+      container = props.getContainer!()
+    }
+
+    onBeforeMount(() => setContainer())
+
+    return () => (container ? <Teleport to={container} v-slots={slots}></Teleport> : null)
   },
 })

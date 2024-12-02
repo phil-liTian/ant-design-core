@@ -4,6 +4,7 @@ import type { AliasToken } from '../theme/interface/alias'
 import { BooleanType, ObjectType } from '../_utils/type'
 
 export type SizeType = 'small' | 'middle' | 'large' | undefined
+export const defaultIconPrefixCls = 'anticon'
 
 export interface ThemeConfig {
   token?: Partial<AliasToken>
@@ -28,6 +29,7 @@ export interface ConfigProviderInnerProps {
   direction?: ComputedRef<'ltr' | 'rtl'>
   autoInsertSpaceInButton?: ComputedRef<boolean>
   getPrefixCls?: (suffixCls?: string, customizePrefixCls?: string) => string
+  iconPrefixCls?: ComputedRef<string>
   wave?: ComputedRef<{ disabled?: boolean }>
 }
 
@@ -39,6 +41,7 @@ export const defaultConfigProvider: ConfigProviderInnerProps = {
     if (customizePrefixCls) return customizePrefixCls
     return suffixCls ? `phil-${suffixCls}` : 'phil'
   },
+  iconPrefixCls: computed(() => defaultIconPrefixCls),
 }
 
 export const useConfigContextProvider = (props: ConfigProviderInnerProps) => {

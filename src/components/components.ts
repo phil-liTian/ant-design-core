@@ -57,3 +57,9 @@ export type { TagProps } from './tag'
  */
 export { default as Modal } from './modal'
 export type { ModalProps } from './modal'
+
+/**
+ * spin
+ */
+export { default as Spin } from './spin'
+export type { SpinProps } from './spin'

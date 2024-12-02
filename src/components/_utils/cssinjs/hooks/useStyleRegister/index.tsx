@@ -38,6 +38,7 @@ export const parseStyle = (
   config = {},
   { root } = { root: true },
 ) => {
+  const { hashId } = config
   let styleStr = ''
   function flattenList(list, fullList = []) {
     list.forEach((item) => {
@@ -55,9 +56,17 @@ export const parseStyle = (
     Array.isArray(interpolation) ? interpolation : [interpolation],
   )
 
+  function parseKeyframes(keyframes: any) {
+    const animationName = keyframes.getName(hashId)
+
+    styleStr += `@keyframes ${animationName} { ${parseStyle(keyframes.style)} }`
+  }
+
   flattenStyleList.forEach((originStyle) => {
     if (typeof originStyle === 'string') {
       styleStr += originStyle
+    } else if ((originStyle as any)._keyframe) {
+      parseKeyframes(originStyle as any)
     } else {
       Object.keys(originStyle).forEach((key) => {
         let value: string = originStyle[key]

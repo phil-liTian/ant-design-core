@@ -31,7 +31,7 @@ export default function genComponentStyleHook<ComponentName extends OverrideComp
 ) {
   return (_prefixCls?: Ref<string>) => {
     const prefixCls = computed(() => _prefixCls?.value)
-    const { getPrefixCls } = useConfigContextInject()
+    const { getPrefixCls, iconPrefixCls } = useConfigContextInject()
     const rootPrefixCls = computed(() => getPrefixCls?.())
     const [theme, token] = useToken()
 
@@ -42,6 +42,7 @@ export default function genComponentStyleHook<ComponentName extends OverrideComp
       componentCls,
       ...token.value,
       antCls: rootPrefixCls.value,
+      iconCls: iconPrefixCls?.value,
     }
 
     return [

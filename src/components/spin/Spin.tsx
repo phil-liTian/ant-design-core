@@ -1,5 +1,5 @@
 import { cloneVNode, defineComponent, isVNode, shallowRef, type VNode } from 'vue'
-import { spinProps } from '.'
+import { spinProps } from './index'
 import useConfigInject from '../config-provider/hooks/useConfigInject'
 import useStyle from './style'
 import { flattenChildren } from '../_utils/props-util'
@@ -32,6 +32,9 @@ export default defineComponent({
 
         return (
           <span class={`${dotClassName} ${dotClassName}-spin`}>
+            <i class={`${dotClassName}-item`}></i>
+            <i class={`${dotClassName}-item`}></i>
+            <i class={`${dotClassName}-item`}></i>
             <i class={`${dotClassName}-item`}></i>
           </span>
         )
