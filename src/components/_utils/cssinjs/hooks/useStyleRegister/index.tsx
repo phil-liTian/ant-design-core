@@ -2,6 +2,7 @@ import type { CSSProperties } from 'vue'
 import { compile, serialize, stringify } from 'stylis'
 import type { VueNode } from '@/components/_utils/type'
 import { updateCss } from '@/components/vc-util/Dom/dynamicCSS'
+import type { Keyframes } from 'ant-design-vue'
 
 type CSSPropertiesWithMultiValues = {
   [K in keyof CSSProperties]: CSSProperties[K]
@@ -26,9 +27,13 @@ export type CSSInterpolation = ArrayCSSInterpolation
 export default function useStyleRegister(info: any, styleFn: () => CSSInterpolation) {
   const styleObj = styleFn()
 
-  const [parsedStyle] = parseStyle(styleObj)
+  const [parsedStyle, effectStyle] = parseStyle(styleObj)
   const styleStr = normalizeStyle(parsedStyle)
   updateCss(styleStr)
+
+  Object.keys(effectStyle).forEach((effectKey) => {
+    updateCss(normalizeStyle(effectStyle[effectKey]))
+  })
 
   return (node: VueNode) => node
 }
@@ -40,6 +45,7 @@ export const parseStyle = (
 ) => {
   const { hashId } = config
   let styleStr = ''
+  let effectStyle: any = {}
   function flattenList(list, fullList = []) {
     list.forEach((item) => {
       if (Array.isArray(item)) {
@@ -59,7 +65,10 @@ export const parseStyle = (
   function parseKeyframes(keyframes: any) {
     const animationName = keyframes.getName(hashId)
 
-    styleStr += `@keyframes ${animationName} { ${parseStyle(keyframes.style)} }`
+    if (!effectStyle[animationName]) {
+      const [parsedStr] = parseStyle(keyframes.style, config)
+      effectStyle[animationName] = `@keyframes ${keyframes.getName(hashId)}{${parsedStr}}`
+    }
   }
 
   flattenStyleList.forEach((originStyle) => {
@@ -69,23 +78,33 @@ export const parseStyle = (
       parseKeyframes(originStyle as any)
     } else {
       Object.keys(originStyle).forEach((key) => {
-        let value: string = originStyle[key]
-        if (typeof value === 'object') {
+        let value = originStyle[key]
+        if (typeof value === 'object' && key !== 'animationName') {
           let mergedKey = key.trim()
 
-          const [parsedStr] = parseStyle(value, {}, { root: false })
+          const [parsedStr, childEffectStyle] = parseStyle(value, {}, { root: false })
+          effectStyle = {
+            ...effectStyle,
+            ...(childEffectStyle || {}),
+          }
 
           styleStr += `${mergedKey}${parsedStr}`
         } else {
           // 允许js使用驼峰处理样式
           const styleName = key.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`)
 
+          let formatValue: any = value
           // 给数值类型添加‘px’
           if (typeof value === 'number') {
-            value = `${value}px`
+            formatValue = `${value}px`
           }
 
-          styleStr += `${styleName}:${value};`
+          if (key === 'animationName') {
+            parseKeyframes(value)
+            formatValue = (value as Keyframes).getName('')
+          }
+
+          styleStr += `${styleName}:${formatValue};`
         }
       })
     }
@@ -95,7 +114,7 @@ export const parseStyle = (
     styleStr = `{${styleStr}}`
   }
 
-  return [styleStr]
+  return [styleStr, effectStyle]
 }
 
 export function normalizeStyle(styleStr: string): string {

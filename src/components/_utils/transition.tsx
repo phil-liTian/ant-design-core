@@ -15,3 +15,19 @@ export const getTransitionProps = (transitionName: string, opt: TransitionProps 
 
   return transitionProps
 }
+
+/**
+ * 可指定TransitionName, 否则transitionName 默认为 前缀 + motionName
+ * @param rootPrefixCls
+ * @param motion
+ * @param transitionName
+ * @returns
+ */
+const getTransitionName = (rootPrefixCls: string, motion?: string, transitionName?: string) => {
+  if (transitionName !== undefined) {
+    return transitionName
+  }
+  return `${rootPrefixCls}-${motion}`
+}
+
+export { getTransitionName }

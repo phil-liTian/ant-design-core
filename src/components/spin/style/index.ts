@@ -1,4 +1,5 @@
 import type { CSSObject } from '@/components/_utils/cssinjs/hooks/useStyleRegister'
+import { resetComponent } from '@/components/style'
 import { mergeToken } from '@/components/theme/internal'
 import genComponentStyleHook, {
   type FullToken,
@@ -25,14 +26,31 @@ const antRotate = new Keyframes('antRotate', {
 })
 
 const genSpinStyle = (token): CSSObject => {
-  const { componentCls, spinDotDefault, spinDotSize, spinDotSizeLG, spinDotSizeSM } = token
+  const { componentCls, spinDotDefault, spinDotSize, spinDotSizeLG, fontSize, spinDotSizeSM } =
+    token
   return {
     [`${componentCls}`]: {
-      // opacity: `0`,
+      ...resetComponent(token),
+      position: 'relative',
+      color: token.colorPrimary,
+      textAlign: 'center',
+      verticalAlign: 'middle',
+      height: '100%',
+      minHeight: '2em',
+      display: 'none',
+      opacity: `0`,
       transition: `transform ${token.motionDurationSlow} ${token.motionEaseInOutCirc}`,
 
+      '&-spinning': {
+        display: 'block',
+        opacity: '1',
+      },
+
       [`${componentCls}-dot`]: {
-        position: 'relative',
+        position: 'absolute',
+        top: `45%`,
+        insetInlineStart: `50%`,
+        margin: -token.spinDotSize / 2,
         display: 'inline-block',
         width: '1em',
         height: '1em',
@@ -84,6 +102,13 @@ const genSpinStyle = (token): CSSObject => {
           animationIterationCount: 'infinite',
           animationTimingFunction: 'linear',
         },
+      },
+
+      [`${componentCls}-text`]: {
+        position: 'absolute',
+        top: '50%',
+        paddingTop: (spinDotSize - fontSize) / 2 + 2,
+        width: '100%',
       },
     },
   }

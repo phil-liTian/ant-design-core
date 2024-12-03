@@ -15,8 +15,8 @@ export default defineComponent({
   name: 'PSpin',
   props: spinProps(),
   setup(props, { slots }) {
-    const { tip, size, spining } = props
-    const { prefixCls } = useConfigInject('spin', props)
+    const { tip, spining } = props
+    const { prefixCls, size } = useConfigInject('spin', props)
     const [wrapSSR] = useStyle(prefixCls)
     const prefixClsValue = prefixCls.value
     const sSpinning = shallowRef(spining)
@@ -43,12 +43,14 @@ export default defineComponent({
       const spinClassName = {
         [prefixClsValue]: true,
         [`${prefixClsValue}-spinning`]: sSpinning.value,
+        [`${prefixCls.value}-sm`]: size.value === 'small',
+        [`${prefixCls.value}-lg`]: size.value === 'large',
       }
 
       const spinElement = (
         <div class={spinClassName}>
           {renderIndicator(prefixClsValue)}
-          {tip ? <div class={`${prefixCls}-text`}>{tip}</div> : null}
+          {tip ? <div class={`${prefixClsValue}-text`}>{tip}</div> : null}
         </div>
       )
 

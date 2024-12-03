@@ -10,6 +10,7 @@ import ActionButton from '../_utils/ActionButton'
 import classNames from '../_utils/classNames'
 interface ConfirmDialogProps extends ModalFuncProps {
   close?: (...args: any[]) => void
+  rootPrefixCls?: string
 }
 
 const renderSomeContent = (content: any) => {
@@ -19,7 +20,7 @@ const renderSomeContent = (content: any) => {
   return content
 }
 
-export default defineComponent<ConfirmDialogProps>({
+export default defineComponent<Partial<ConfirmDialogProps>>({
   name: 'ConfirmDialog',
   inheritAttrs: false,
   props: [
@@ -76,6 +77,8 @@ export default defineComponent<ConfirmDialogProps>({
         okCancel,
         okText = '确认',
         okType = 'primary',
+        onOk,
+        okButtonProps,
       } = props
       let mergedIcon = icon
       // 如果okCancel为true, 或者是confirm类型的modal, 则显示cancel button
@@ -130,7 +133,7 @@ export default defineComponent<ConfirmDialogProps>({
             ) : (
               <div class={`${contentPrefixCls}-btns`}>
                 {cancelButton}
-                <ActionButton close={close} type={okType}>
+                <ActionButton actionFn={onOk} close={close} type={okType} {...okButtonProps}>
                   {renderSomeContent(okText) || okText}
                 </ActionButton>
               </div>

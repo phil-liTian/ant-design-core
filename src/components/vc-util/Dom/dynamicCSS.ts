@@ -1,5 +1,6 @@
 export function updateCss(css: string) {
   injectCss(css)
+  console.log('css', css)
 }
 
 export function injectCss(css: string) {

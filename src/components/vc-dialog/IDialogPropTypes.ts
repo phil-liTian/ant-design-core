@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'vue'
-import { BooleanType, FunctionType, ObjectType } from '../_utils/type'
+import { BooleanType, FunctionType, NumberType, ObjectType } from '../_utils/type'
 import PropTypes from '../_utils/vue-types'
 
 export function dialogPropTypes() {
@@ -15,9 +15,19 @@ export function dialogPropTypes() {
     // wrap样式
     width: [Number, String],
     height: [Number, String],
+    wrapClassName: String,
     wrapStyle: ObjectType<CSSProperties>(undefined),
     maskClosable: BooleanType(false),
     mousePosition: ObjectType<{ x: number; y: number }>(undefined),
+    // 动画相关
+    transitionName: String,
+    maskTransitionName: String,
+    animation: String,
+
+    // mask样式
+    mask: BooleanType(true),
+    maskStyle: ObjectType<CSSProperties>(undefined),
+    zIndex: NumberType(1000),
 
     // body
     bodyStyle: ObjectType<CSSProperties>(undefined),

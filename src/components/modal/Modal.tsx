@@ -9,6 +9,7 @@ import Button, { type ButtonProps } from '../button'
 import useConfigInject from '../config-provider/hooks/useConfigInject'
 import useStyle from './style'
 import { convertLegacyProps, type LegacyButtonType } from '../button/buttonTypes'
+import { getTransitionName } from '../_utils/transition'
 
 type MousePosition = { x: number; y: number } | null
 let mousePosition: MousePosition = null
@@ -17,7 +18,8 @@ const getClickPosition = (e: MouseEvent) => {
   mousePosition = { x: e.pageX, y: e.pageY }
 }
 
-addEventListener(document.documentElement, 'click', getClickPosition)
+// 在捕获阶段触发
+addEventListener(document.documentElement, 'click', getClickPosition, true)
 
 // modal的属性
 export const modalProps = () => ({
@@ -25,6 +27,10 @@ export const modalProps = () => ({
   visible: BooleanType(undefined),
   open: BooleanType(undefined),
   mask: BooleanType(undefined),
+
+  // wrapper
+  transitionName: String,
+  maskTransitionName: String,
 
   // header
   // 可string| VNode | function()
@@ -73,6 +79,7 @@ export interface ModalFuncProps {
   // event
   afterClose?: () => void
   onClose?: (e: any) => void
+  onOk?: (...args: any[]) => any
 }
 
 export default defineComponent({
@@ -80,16 +87,20 @@ export default defineComponent({
   props: initDefaultProps(modalProps(), {
     width: 520,
   }),
-  emits: ['update:open', 'cancel'],
+  emits: ['update:open', 'cancel', 'ok'],
   setup(props, { slots, emit, attrs }) {
     const { okButtonProps } = props
-    const { prefixCls } = useConfigInject('modal', props)
+    const { prefixCls, rootPrefixCls } = useConfigInject('modal', props)
     const [WrapSSR] = useStyle(prefixCls)
     const prefixClsVal = prefixCls.value
 
     const handleCancel = (e) => {
       emit('update:open', false)
       emit('cancel', e)
+    }
+
+    const handleOk = (e) => {
+      emit('ok', e)
     }
 
     const renderFooter = () => {
@@ -106,7 +117,7 @@ export default defineComponent({
           <Button onClick={handleCancel} {...cancelButtonProps}>
             {cancelText || '取消'}
           </Button>
-          <Button {...convertLegacyProps(okType)} {...okButtonProps}>
+          <Button {...convertLegacyProps(okType)} {...okButtonProps} onClick={handleOk}>
             {okText || '确认'}
           </Button>
         </>
@@ -124,6 +135,7 @@ export default defineComponent({
           onClose={handleCancel}
           prefixCls={prefixClsVal}
           mousePosition={mousePosition!}
+          transitionName={getTransitionName(rootPrefixCls.value, 'zoom', props.transitionName)}
           v-slots={{
             ...slots,
             footer: slots.footer || renderFooter,

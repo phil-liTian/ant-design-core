@@ -7,6 +7,7 @@ import type { ComponentToken as TagComponentToken } from '../../tag/index'
 import type { ComponentToken as DividerComponentToken } from '../../divider/style'
 import type { ComponentToken as SpinComponentToken } from '../../spin/style'
 import type { ComponentToken as WaveToken } from '../../_utils/wave'
+import type { ComponentToken as DrawerToken } from '../../drawer/style'
 
 export interface ComponentTokenMap {
   Button?: ButtonComponentToken
@@ -21,4 +22,5 @@ export interface ComponentTokenMap {
   Tag?: TagComponentToken
   Divider?: DividerComponentToken
   Spin?: SpinComponentToken
+  Drawer?: DrawerToken
 }

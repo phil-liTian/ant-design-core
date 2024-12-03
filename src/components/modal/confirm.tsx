@@ -1,9 +1,11 @@
 import { triggerVNodeUpdate } from '../_utils/vnode'
 import ConfirmDialog from './ConfirmDialog'
+import destroyFns from './destroyFns'
 import type { ModalFuncProps } from './Modal'
 import { createVNode, render as vueRender } from 'vue'
 
 type ConfigUpdate = ModalFuncProps | ((prevConfig: ModalFuncProps) => ModalFuncProps)
+export type ModalStaticFunctions<T = ModalFunc> = Record<NonNullable<ModalFuncProps['type']>, T>
 
 export type ModalFunc = (props: ModalFuncProps) => {
   destroy: () => void
@@ -27,6 +29,15 @@ const confirm = (config: ModalFuncProps) => {
     if (confirmDialogInstance) {
       vueRender(null, container as any)
       confirmDialogInstance = null
+    }
+
+    // 关闭后移除当前destroyFn
+    for (let i = 0; i < destroyFns.length; i++) {
+      const fn = destroyFns[i]
+      if (fn === close) {
+        destroyFns.splice(i, 1)
+        break
+      }
     }
   }
 
@@ -73,7 +84,7 @@ const confirm = (config: ModalFuncProps) => {
   }
 
   confirmDialogInstance = render(currentConfig)
-
+  destroyFns.push(close)
   return {
     destroy: close,
     update,

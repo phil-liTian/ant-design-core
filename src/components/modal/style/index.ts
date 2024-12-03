@@ -34,6 +34,10 @@ export const genModalMaskStyle: GenerateStyle<TokenWithCommonCls<AliasToken>> = 
   return [
     {
       [`${componentCls}-root`]: {
+        [`${componentCls}.${token.antCls}-zoom-enter`]: {
+          opacity: '0',
+        },
+
         [`${componentCls}-mask`]: {
           ...box('fixed'),
           zIndex: '1',

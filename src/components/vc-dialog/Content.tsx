@@ -2,11 +2,14 @@ import { computed, defineComponent, nextTick, ref, Transition, type CSSPropertie
 import Button from '../button'
 import { dialogPropTypes } from './IDialogPropTypes'
 import { offset } from './util'
+import { getTransitionProps } from '../_utils/transition'
 
 export default defineComponent({
   name: 'DialogContent',
+  inheritAttrs: false,
   props: {
     ...dialogPropTypes(),
+    motionName: String,
   },
 
   setup(props, { slots, attrs }) {
@@ -47,6 +50,8 @@ export default defineComponent({
         closeIcon = slots.closeIcon?.(),
         closable,
         onClose,
+        visible,
+        motionName,
       } = props
 
       // header
@@ -93,11 +98,30 @@ export default defineComponent({
         </div>
       )
 
+      const onVisibleChanged = (visible: boolean) => {
+        console.log('onVisibleChanged', visible)
+      }
+      const transitionProps = getTransitionProps(motionName!)
+
+      console.log('transitionProps', transitionProps)
+
       return (
-        <Transition onBeforeEnter={onPrepare}>
-          <div ref={dialogRef} class={[prefixCls, attrs.class]} style={contentStyleRef.value}>
-            {content}
-          </div>
+        <Transition
+          {...transitionProps}
+          onBeforeEnter={onPrepare}
+          onAfterEnter={() => onVisibleChanged(true)}
+          onAfterLeave={() => onVisibleChanged(false)}
+        >
+          {visible ? (
+            <div
+              v-show={visible}
+              ref={dialogRef}
+              class={[prefixCls, attrs.class]}
+              style={contentStyleRef.value}
+            >
+              {content}
+            </div>
+          ) : null}
         </Transition>
       )
     }

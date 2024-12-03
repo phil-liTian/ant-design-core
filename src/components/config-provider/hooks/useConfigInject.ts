@@ -4,7 +4,11 @@ import { useConfigContextInject, type SizeType } from '../context'
 export default (name: string, props: Record<any, any>) => {
   const configProvider = useConfigContextInject()
 
+  // 前缀
   const prefixCls = computed(() => configProvider.getPrefixCls!(name, props.prefixCls))
+
+  // 根前缀
+  const rootPrefixCls = computed(() => configProvider.getPrefixCls!())
 
   const direction = computed(() => configProvider.direction?.value)
 
@@ -20,6 +24,7 @@ export default (name: string, props: Record<any, any>) => {
 
   return {
     prefixCls,
+    rootPrefixCls,
     direction,
     autoInsertSpaceInButton,
     size,

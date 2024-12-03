@@ -5,6 +5,7 @@ import { convertLegacyProps, type ButtonProps, type LegacyButtonType } from '../
 const actionButtonProps = () => ({
   type: StringType<LegacyButtonType>('default'),
   close: Function,
+  actionFn: Function,
   buttonProps: ObjectType<ButtonProps>(),
 })
 
@@ -16,8 +17,37 @@ export default defineComponent({
     const onInternalClose = (...args: any[]) => {
       props.close!(...args)
     }
+
+    const handlePromiseOnOk = (returnValueOfOnOk?: PromiseLike<any>) => {
+      if (!returnValueOfOnOk?.then) return
+      returnValueOfOnOk.then(
+        (...args: []) => {
+          onInternalClose(...args)
+        },
+        (e: Error) => {
+          return Promise.reject(e)
+        },
+      )
+    }
+
     const onClick = (e) => {
-      onInternalClose()
+      const { actionFn } = props
+      if (!actionFn) {
+        onInternalClose()
+        return
+      }
+      let returnValueOfOnOk: PromiseLike<any>
+      if (actionFn.length) {
+      } else {
+        returnValueOfOnOk = actionFn()
+        // 什么都没返回 则直接关闭
+        if (!returnValueOfOnOk) {
+          onInternalClose()
+          return
+        }
+        // 里面可能是一个promise
+      }
+      handlePromiseOnOk(returnValueOfOnOk!)
     }
     return () => {
       const {} = props

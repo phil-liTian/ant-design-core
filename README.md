@@ -140,10 +140,28 @@ RadioGroup 通过context给Radio组件传入optionType, 当识别到optionType�
 3. Modal.useModal()如何封装处理？？
 
 4. 动态处理modal脱离上下文环境的问题
+  使用Portal组件, 可动态接收getContainer，指定渲染的容器。（非常重要的一个基础组件）通过getParent处理, getContainer可以是字符串、函数、或者一个HTMLElement元素。
+  在组件卸载时 需要使用removeCurrentContainer方法移除当前container
+
+5. 如何实现destroyAll, 什么业务场景需要用到
+  一般用于使用Modal.methods创建的Modal, 通常用于路由监听当中, 路由改变无法关闭Modal的情况。在使用Confirm创建Modal的时候, 向destroyFns中收集close函数, 调用destroyAll时，将destroyFns中的函数依次执行.
+
+6. 使用transitionOrigin实现从点击处淡入Modal。给document添加click事件。
 ```
+
+### Notification
+
+### Drawer
 
 ### Spin
 
 ```js
 使用keyFrames处理动画. parseStyle如何对keyframe进行处理？
+1. 在parseStyle方法中添加逻辑
+if (key === 'animationName') {
+  parseKeyframes(value) // 处理keyframes
+  formatValue = (value as Keyframes).getName('')
+}
+2. parsetyle方法中添加返回值effectStyle, 在注入css的时候 注入当前keyframes定义的动画
+3. 向外抛出方法setDefaultIndicator, 可全局注册spin的Indicator
 ```
