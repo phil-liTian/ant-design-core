@@ -59,6 +59,12 @@ export { default as Modal } from './modal'
 export type { ModalProps } from './modal'
 
 /**
+ * drawer
+ */
+
+export { default as Drawer } from './drawer'
+export type { DrawerProps } from './drawer'
+/**
  * spin
  */
 export { default as Spin } from './spin'

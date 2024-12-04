@@ -6,6 +6,11 @@ export interface ColorNeutralMapToken {
   colorBgContainer: string
 
   /**
+   * 浮层默认背景图
+   */
+  colorBgElevated: string
+
+  /**
    * borderColor
    */
   colorBorder: string

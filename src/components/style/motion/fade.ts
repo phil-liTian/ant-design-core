@@ -24,7 +24,7 @@ const fadeOut = new Keyframes('antFadeOut', {
 
 export const initFadeMotion = (token: TokenWithCommonCls<AliasToken>): CSSInterpolation => {
   const { antCls } = token
-  const motionCls = `${antCls}-fade`
+  const motionCls = `.${antCls}-fade`
 
   return [initMotion(motionCls, fadeIn, fadeOut, token.motionDurationMid)]
 }

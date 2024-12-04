@@ -5,14 +5,33 @@ import Child from './DrawerChild'
 
 const DrawerWrapper = defineComponent({
   props: drawerProps(),
+  inheritAttrs: false,
   setup(props, { slots }) {
     return () => {
+      const { getContainer, ...otherProps } = props
       let portal
-      if (props.open) {
-        portal = <PortalWrapper v-slots={{ default: () => <Child /> }}></PortalWrapper>
+
+      if (!getContainer) {
+        return <Child v-slots={slots} {...otherProps} />
       }
 
-      return <div>{slots.default?.()}</div>
+      if (props.open) {
+        portal = (
+          <PortalWrapper
+            v-slots={{
+              default: () => (
+                <Child
+                  v-slots={slots}
+                  {...otherProps}
+                  afterVisibleChange={props.afterVisibleChange}
+                />
+              ),
+            }}
+          ></PortalWrapper>
+        )
+      }
+
+      return portal
     }
   },
 })

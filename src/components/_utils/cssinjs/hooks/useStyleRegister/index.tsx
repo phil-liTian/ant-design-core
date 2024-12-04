@@ -29,6 +29,7 @@ export default function useStyleRegister(info: any, styleFn: () => CSSInterpolat
 
   const [parsedStyle, effectStyle] = parseStyle(styleObj)
   const styleStr = normalizeStyle(parsedStyle)
+
   updateCss(styleStr)
 
   Object.keys(effectStyle).forEach((effectKey) => {
@@ -95,7 +96,7 @@ export const parseStyle = (
 
           let formatValue: any = value
           // 给数值类型添加‘px’
-          if (typeof value === 'number') {
+          if (typeof value === 'number' && value !== 0) {
             formatValue = `${value}px`
           }
 

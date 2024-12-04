@@ -149,12 +149,21 @@ RadioGroup 通过context给Radio组件传入optionType, 当识别到optionType�
 
 6. 使用transitionOrigin实现从点击处淡入Modal。给document添加click事件记录transformOrigin的初始值。
   initMotion用于给Transition添加动画, 使用zoom来实现content的缩放动画。使用fade来实现mask的淡入淡出效果。
-
 ```
 
 ### Notification
 
 ### Drawer
+
+```
+1. 设计思路: header 可自定义closeIcon、title、extra; body flex: 1,占据除header、footer以外的剩余空间; footer flex-shrink: 0, 固定footer高度。可通过footer: null 去除footer部分
+2. 实现placement:left、right、top、bottom四个不同方向的抽屉。
+  将wrapper设置成absolute, 根据不同的placement设置不同的top、left、bottom、right的值。panel-motion给body添加动画效果。
+3. inset: '0': 将元素的这四个方向的内边距（或定位偏移量）都设置为 0
+4. 如何实现esc关闭drawer？？
+  指定最外层元素的tabindex为-1, 当用户点击时触发onKeydown事件, 如果是按下esc, 则关闭drawer。
+5. 在Transition的onAfterEnter和onAfterLeave时，抛出事件afterOpenChange, 可收到动画结束后的回调函数。
+```
 
 ### Spin
 

@@ -30,6 +30,9 @@ export const formatToken = (token: RawMergedToken) => {
 
     controlInteractiveSize: token.controlHeight / 2,
 
+    colorIcon: token.colorTextTertiary,
+    colorIconHover: token.colorText,
+
     // padding
     paddingXXS: token.sizeXXS,
     paddingXS: token.sizeXS,
@@ -54,6 +57,28 @@ export const formatToken = (token: RawMergedToken) => {
 
     // font
     fontWeightStrong: 600,
+
+    // @internal
+    boxShadowDrawerRight: `
+      -6px 0 16px 0 rgba(0, 0, 0, 0.08),
+      -3px 0 6px -4px rgba(0, 0, 0, 0.12),
+      -9px 0 28px 8px rgba(0, 0, 0, 0.05)
+    `,
+    boxShadowDrawerLeft: `
+      6px 0 16px 0 rgba(0, 0, 0, 0.08),
+      3px 0 6px -4px rgba(0, 0, 0, 0.12),
+      9px 0 28px 8px rgba(0, 0, 0, 0.05)
+    `,
+    boxShadowDrawerUp: `
+      0 6px 16px 0 rgba(0, 0, 0, 0.08),
+      0 3px 6px -4px rgba(0, 0, 0, 0.12),
+      0 9px 28px 8px rgba(0, 0, 0, 0.05)
+    `,
+    boxShadowDrawerDown: `
+      0 -6px 16px 0 rgba(0, 0, 0, 0.08),
+      0 -3px 6px -4px rgba(0, 0, 0, 0.12),
+      0 -9px 28px 8px rgba(0, 0, 0, 0.05)
+    `,
   }
 
   return aliasToken

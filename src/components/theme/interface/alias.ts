@@ -60,4 +60,13 @@ export interface AliasToken extends MapToken {
 
   // 分割线的颜色
   colorSplit: string
+  // icon hover的颜色
+  colorIconHover: string
+  colorIcon: string
+
+  // @internal
+  boxShadowDrawerLeft: string
+  boxShadowDrawerRight: string
+  boxShadowDrawerDown: string
+  boxShadowDrawerUp: string
 }
