@@ -16,6 +16,8 @@ let mousePosition: MousePosition = null
 
 const getClickPosition = (e: MouseEvent) => {
   mousePosition = { x: e.pageX, y: e.pageY }
+
+  setTimeout(() => (mousePosition = null), 100)
 }
 
 // 在捕获阶段触发

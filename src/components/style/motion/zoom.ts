@@ -68,7 +68,7 @@ export const initZoomMotion = (
   motionName: ZoomMotionTypes,
 ): CSSInterpolation => {
   const { antCls } = token
-  const motionCls = `${antCls}-${motionName}`
+  const motionCls = `.${antCls}-${motionName}`
   const { inKeyframes, outKeyframes } = zoomMotion[motionName]
 
   return [

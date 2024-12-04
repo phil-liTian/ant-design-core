@@ -33,6 +33,7 @@ export const genModalMaskStyle: GenerateStyle<TokenWithCommonCls<AliasToken>> = 
   token,
 ): CSSObject => {
   const { componentCls, colorBgMask } = token
+
   return [
     {
       [`${componentCls}-root`]: {
@@ -51,7 +52,11 @@ export const genModalMaskStyle: GenerateStyle<TokenWithCommonCls<AliasToken>> = 
           overflow: 'auto',
         },
       },
-      [`${componentCls}-root`]: initFadeMotion(token),
+    },
+    {
+      [`${componentCls}-root`]: {
+        ...initFadeMotion(token),
+      },
     },
   ]
 }

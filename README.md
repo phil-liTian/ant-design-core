@@ -147,7 +147,9 @@ RadioGroup 通过context给Radio组件传入optionType, 当识别到optionType�
 5. 如何实现destroyAll, 什么业务场景需要用到
   一般用于使用Modal.methods创建的Modal, 通常用于路由监听当中, 路由改变无法关闭Modal的情况。在使用Confirm创建Modal的时候, 向destroyFns中收集close函数, 调用destroyAll时，将destroyFns中的函数依次执行.
 
-6. 使用transitionOrigin实现从点击处淡入Modal。给document添加click事件。
+6. 使用transitionOrigin实现从点击处淡入Modal。给document添加click事件记录transformOrigin的初始值。
+  initMotion用于给Transition添加动画, 使用zoom来实现content的缩放动画。使用fade来实现mask的淡入淡出效果。
+
 ```
 
 ### Notification

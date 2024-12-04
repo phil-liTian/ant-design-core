@@ -35,6 +35,7 @@ export const generateNeutralColorPalettes = (
     colorFillQuaternary: getAlphaColor(colorTextBase, 0.04),
 
     colorBgContainer: getSolidColor(colorBgBase, 0),
+    colorBgElevated: getSolidColor(colorBgBase, 12),
 
     colorBorder: getSolidColor(colorBgBase, 15),
     colorBorderSecondary: getSolidColor(colorBgBase, 19),

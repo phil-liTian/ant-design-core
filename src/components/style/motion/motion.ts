@@ -23,7 +23,7 @@ export const initMotion = (
   duration: string,
 ) => {
   return {
-    [`${motionCls}-enter, ${motionCls}-appear`]: {
+    [`${motionCls}-enter,${motionCls}-appear`]: {
       animationPlayState: 'paused',
       ...initMotionCommon(duration),
     },
@@ -33,13 +33,12 @@ export const initMotion = (
       ...initMotionCommonLeave(duration),
     },
 
-    [`${motionCls}-enter${motionCls}-enter-active, 
-      ${motionCls}-appear${motionCls}-appear-active`]: {
+    [`${motionCls}-enter${motionCls}-enter-active,${motionCls}-appear${motionCls}-appear-active`]: {
       animationName: inKeyframes,
       animationPlayState: 'running',
     },
 
-    [`${motionCls}-leave${motionCls}-leave-active}`]: {
+    [`${motionCls}-leave${motionCls}-leave-active`]: {
       animationName: outKeyframes,
       animationPlayState: 'running',
     },
