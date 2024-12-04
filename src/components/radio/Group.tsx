@@ -29,7 +29,6 @@ export default defineComponent({
       () => props.value,
       () => {
         stateValue.value = props.value
-        console.log('stateValue', stateValue)
       },
     )
 

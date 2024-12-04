@@ -12,8 +12,6 @@ export default defineComponent({
     watch(
       () => props.value,
       () => {
-        console.log('mergedValue', mergedValue)
-
         mergedValue.value = props.value || []
       },
     )

@@ -16,9 +16,9 @@
 
 9. Divider
 
-10. Portal??
+10. Portal?? 如果teleport到body??
 
-11. modal的动画逻辑？？ 如果teleport到body?? methods()如何实现的？？
+11. modal的动画逻辑？？methods()如何实现的？？
 
 12. watermark
 

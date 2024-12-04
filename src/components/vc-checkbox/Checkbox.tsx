@@ -32,8 +32,6 @@ export default defineComponent({
     )
 
     const handleChange = (e: any) => {
-      console.log('e', e)
-
       // if (props.checked === undefined) {
       checked.value = e.target.checked
       // }

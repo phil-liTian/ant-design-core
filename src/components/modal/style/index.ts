@@ -1,4 +1,6 @@
 import type { CSSObject } from '@/components/_utils/cssinjs/hooks/useStyleRegister'
+import { initFadeMotion } from '@/components/style/motion/fade'
+import { initZoomMotion } from '@/components/style/motion/zoom'
 import type { AliasToken } from '@/components/theme/interface/alias'
 import { mergeToken, type GenerateStyle } from '@/components/theme/internal'
 import genComponentStyleHook, {
@@ -49,6 +51,7 @@ export const genModalMaskStyle: GenerateStyle<TokenWithCommonCls<AliasToken>> = 
           overflow: 'auto',
         },
       },
+      [`${componentCls}-root`]: initFadeMotion(token),
     },
   ]
 }
@@ -113,7 +116,6 @@ export const genModalStyle = (token): CSSObject => {
 const genModalConfirmStyle = (token): CSSObject => {
   const { componentCls } = token
   const confirmComponentCls = `${componentCls}-confirm`
-  console.log('confirmComponentCls', confirmComponentCls)
 
   return {
     [`${confirmComponentCls}`]: {
@@ -168,5 +170,6 @@ export default genComponentStyleHook('Modal', (token) => {
     genModalMaskStyle(modalToken),
     genModalStyle(modalToken),
     genModalConfirmStyle(modalToken),
+    initZoomMotion(modalToken, 'zoom'),
   ]
 })

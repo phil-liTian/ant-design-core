@@ -136,6 +136,11 @@ export default defineComponent({
           prefixCls={prefixClsVal}
           mousePosition={mousePosition!}
           transitionName={getTransitionName(rootPrefixCls.value, 'zoom', props.transitionName)}
+          maskTransitionName={getTransitionName(
+            rootPrefixCls.value,
+            'fade',
+            props.maskTransitionName,
+          )}
           v-slots={{
             ...slots,
             footer: slots.footer || renderFooter,

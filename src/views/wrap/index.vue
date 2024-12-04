@@ -8,8 +8,8 @@
     <!-- <DividerView /> -->
     <!-- <TagView /> -->
     <!-- <InputView /> -->
-    <!-- <ModalView /> -->
-    <SpinView />
+    <ModalView />
+    <!-- <SpinView /> -->
   </div>
 </template>
 

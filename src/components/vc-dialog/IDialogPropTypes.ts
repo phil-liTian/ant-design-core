@@ -17,12 +17,13 @@ export function dialogPropTypes() {
     height: [Number, String],
     wrapClassName: String,
     wrapStyle: ObjectType<CSSProperties>(undefined),
-    maskClosable: BooleanType(false),
+    maskClosable: { type: Boolean, default: undefined },
     mousePosition: ObjectType<{ x: number; y: number }>(undefined),
     // 动画相关
     transitionName: String,
     maskTransitionName: String,
     animation: String,
+    maskAnimation: String,
 
     // mask样式
     mask: BooleanType(true),

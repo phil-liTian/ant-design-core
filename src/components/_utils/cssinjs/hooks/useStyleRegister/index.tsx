@@ -22,7 +22,7 @@ export type InterpolationPrimitive =
 // export interface CSSObject extends CSSPropertiesWithMultiValues {}
 export type CSSObject = any
 
-export type CSSInterpolation = ArrayCSSInterpolation
+export type CSSInterpolation = ArrayCSSInterpolation | any
 
 export default function useStyleRegister(info: any, styleFn: () => CSSInterpolation) {
   const styleObj = styleFn()

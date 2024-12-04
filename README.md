@@ -137,7 +137,8 @@ RadioGroup 通过context给Radio组件传入optionType, 当识别到optionType�
   点击可动态生成一个open为true的Modal组件。
   返回一个update方法, 通过重新执行vue的render方法, 强制组件刷新。同时也返回一个destroy方法, 用于销毁Modal组件。render(null, container).
 
-3. Modal.useModal()如何封装处理？？
+3. Modal.useModal()如何封装处理？？存在的意义是什么？
+  Modal是直接使用render函数渲染的组件, 其context与当前节点所在的context不同，无法获取到当前context的信息。UseModal会返回一个contextHolder元素，将modal渲染到ContextHolder容器中。
 
 4. 动态处理modal脱离上下文环境的问题
   使用Portal组件, 可动态接收getContainer，指定渲染的容器。（非常重要的一个基础组件）通过getParent处理, getContainer可以是字符串、函数、或者一个HTMLElement元素。
@@ -163,5 +164,5 @@ if (key === 'animationName') {
   formatValue = (value as Keyframes).getName('')
 }
 2. parsetyle方法中添加返回值effectStyle, 在注入css的时候 注入当前keyframes定义的动画
-3. 向外抛出方法setDefaultIndicator, 可全局注册spin的Indicator
+3. 向外抛出方法setDefaultIndicator, 可全局注册spin的Indicator元素
 ```

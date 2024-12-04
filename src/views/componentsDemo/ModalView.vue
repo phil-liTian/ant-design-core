@@ -12,6 +12,8 @@
     <a-button class="mx-10px" @click="handleShowConfirm">confirm</a-button>
     <a-button class="mx-10px" @click="handleShowWarn">warn</a-button>
     <a-button class="mx-10px" @click="handleShowInfo">info</a-button>
+    <contextHolder />
+    <a-button @click="handleShowUseModal">useModal</a-button>
   </div>
 </template>
 
@@ -50,6 +52,13 @@ const handleShowPhilConfirm = () => {
 const handleShowPhilInfo = () => {
   PModal.info({
     title: 'info',
+  })
+}
+
+const [antModal, contextHolder] = Modal.useModal()
+const handleShowUseModal = () => {
+  antModal.info({
+    title: 'confirm',
   })
 }
 </script>

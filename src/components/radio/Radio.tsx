@@ -37,8 +37,6 @@ export default defineComponent({
     const prefixClsValue = prefixCls.value
 
     const handleChange = (e) => {
-      console.log('handleChange')
-
       const targetChecked = e.target.checked
       emit('update:checked', targetChecked)
       emit('update:value', targetChecked)
@@ -53,8 +51,6 @@ export default defineComponent({
         prefixCls: prefixCls.value,
         checked: props.checked,
       }
-
-      console.log('rProps', rProps)
 
       if (radioGroup) {
         // 在radioGroup中

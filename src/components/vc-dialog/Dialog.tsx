@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { defineComponent, shallowRef } from 'vue'
 import initDefaultProps from '../_utils/props-util'
 import { dialogPropTypes } from './IDialogPropTypes'
 import Mask from './Mask'
@@ -13,19 +13,36 @@ export default defineComponent({
   props: initDefaultProps(dialogPropTypes(), {
     prefixCls: 'rc-dialog',
     visible: false,
+    maskClosable: true,
   }),
   setup(props, { slots, attrs }) {
+    const wrapperRef = shallowRef()
     const {
       prefixCls,
       visible,
       wrapStyle,
       transitionName,
+      maskTransitionName,
       animation,
+      maskAnimation,
       mask,
       maskStyle,
       zIndex,
       wrapClassName,
+      maskClosable,
     } = props
+
+    const onInternalClose = (e) => {
+      props.onClose?.(e)
+    }
+
+    const onWrapperClick = (e) => {
+      if (!maskClosable) return
+
+      if (wrapperRef.value === e.target) {
+        onInternalClose(e)
+      }
+    }
 
     return () => {
       let dialogProps = {
@@ -35,8 +52,18 @@ export default defineComponent({
       const { class: className } = attrs
       return (
         <div class={[`${prefixCls}-root`]}>
-          <Mask prefixCls={prefixCls} visible={mask && visible} style={{ ...maskStyle, zIndex }} />
-          <div class={classNames(`${prefixCls}-wrap`, wrapClassName)} style={wrapStyle}>
+          <Mask
+            motionName={getMotionName(prefixCls!, maskTransitionName, maskAnimation)}
+            prefixCls={prefixCls}
+            visible={mask && visible}
+            style={{ ...maskStyle, zIndex }}
+          />
+          <div
+            ref={wrapperRef}
+            onClick={onWrapperClick}
+            class={classNames(`${prefixCls}-wrap`, wrapClassName)}
+            style={wrapStyle}
+          >
             <Content
               {...omit(props, [])}
               motionName={getMotionName(prefixCls!, transitionName, animation)}

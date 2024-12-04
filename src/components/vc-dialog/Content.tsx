@@ -103,8 +103,6 @@ export default defineComponent({
       }
       const transitionProps = getTransitionProps(motionName!)
 
-      console.log('transitionProps', transitionProps)
-
       return (
         <Transition
           {...transitionProps}
