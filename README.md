@@ -177,3 +177,12 @@ if (key === 'animationName') {
 2. parsetyle方法中添加返回值effectStyle, 在注入css的时候 注入当前keyframes定义的动画
 3. 向外抛出方法setDefaultIndicator, 可全局注册spin的Indicator元素
 ```
+
+### Watermark
+
+设计思路: 创建watermarkRef, 将水印绘制到canvas中, 给watermarkRef设置style BackgroundImage: url(watermarkRef.current.toDataURL()), 将watermarkRef添加到containerRef中。
+
+1. 使用ctx.drawImage处理image, image需要配置 img.crossOrigin = 'anonymous'
+2. 使用ctx.fillText处理文字内容
+
+### Segmented

@@ -44,7 +44,7 @@ const options = ref([
 ])
 
 const showAntDrawer = ref(false)
-const showPhilDrawer = ref(true)
+const showPhilDrawer = ref(false)
 </script>
 
 <style lang="less" scoped></style>

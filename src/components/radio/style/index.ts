@@ -76,7 +76,7 @@ const getRadioBasicStyle = (token): CSSObject => {
 
           '&:after': {
             transform: `scale(${radioDotSize / radioSize}) !important`,
-            opacity: 1,
+            opacity: '1',
           },
         },
       },

@@ -26,7 +26,7 @@ const genStyle = (token: CheckboxToken): CSSObject => {
       [`${componentCls}-input`]: {
         position: 'absolute',
         opacity: 0,
-        zIndex: 1,
+        zIndex: `1px`,
       },
 
       [`${componentCls}-inner`]: {
@@ -68,7 +68,7 @@ const genStyle = (token: CheckboxToken): CSSObject => {
         backgroundColor: token.colorPrimary,
         borderColor: token.colorPrimary,
         '&:after': {
-          opacity: 1,
+          opacity: '1',
           borderColor: token.colorTextLightSolid,
           transform: 'rotate(45deg) scale(1) translate(-50%,-50%)',
         },

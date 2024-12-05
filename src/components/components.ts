@@ -69,3 +69,15 @@ export type { DrawerProps } from './drawer'
  */
 export { default as Spin } from './spin'
 export type { SpinProps } from './spin'
+
+/**
+ * watermark
+ */
+export { default as Watermark } from './watermark'
+export type { WatermarkProps } from './watermark'
+
+/**
+ * Segmented
+ */
+export { default as Segmented } from './segmented'
+export type { SegmentedProps } from './segmented'

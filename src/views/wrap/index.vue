@@ -10,7 +10,9 @@
     <!-- <InputView /> -->
     <!-- <ModalView /> -->
     <!-- <SpinView /> -->
-    <DrawerView />
+    <!-- <DrawerView /> -->
+    <!-- <WatermarkView /> -->
+    <SegmentedView />
   </div>
 </template>
 
@@ -26,6 +28,8 @@ import ModalView from '../componentsDemo/ModalView.vue'
 import InputView from '../componentsDemo/InputView.vue'
 import SpinView from '../componentsDemo/SpinView.vue'
 import DrawerView from '../componentsDemo/DrawerView.vue'
+import WatermarkView from '../componentsDemo/WatermarkView.vue'
+import SegmentedView from '../componentsDemo/SegmentedView.vue'
 </script>
 
 <style lang="less" scoped></style>
