@@ -2,6 +2,7 @@ import { defineComponent, shallowRef } from 'vue'
 import BaseInput from './BaseInput'
 import BaseInputCore from '../_utils/BaseInput'
 import { inputProps } from './inputProps'
+import classNames from '../_utils/classNames'
 
 export default defineComponent({
   name: 'VCInput',
@@ -29,9 +30,11 @@ export default defineComponent({
     }
 
     const getInputElement = () => {
+      const { prefixCls } = props
       const inputProps = {
         onChange: handleChange,
         onInput: handleChange,
+        class: classNames(prefixCls, {}),
       }
 
       const inputNode = <BaseInputCore {...inputProps} />

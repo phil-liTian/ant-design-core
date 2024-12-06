@@ -23,6 +23,8 @@ export function segmentedProps() {
     disabled: BooleanType(),
     block: BooleanType(),
     options: ArrayType<(string | number | SegmentedOption)[]>(),
+    value: [String, Number],
+    motionName: StringType('thumb-motion'),
   }
 }
 

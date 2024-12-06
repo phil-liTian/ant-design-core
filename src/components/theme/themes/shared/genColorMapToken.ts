@@ -33,6 +33,12 @@ export default function genColorMapToken(
 
   return {
     ...neutralColors,
+    // primary
+    colorPrimaryBg: primaryColors[1],
+    colorPrimaryHover: primaryColors[5],
+    colorPrimary: primaryColors[6],
+    colorPrimaryActive: primaryColors[7],
+
     // success
     colorSuccessBg: successColors[1],
     colorSuccessBorder: successColors[3],

@@ -109,7 +109,17 @@ RadioGroup 通过context给Radio组件传入optionType, 当识别到optionType�
 
 ### Input
 
+```js
+
+```
+
+如何整合textarea和Input成一个组件？？
+如何动态计算input的高度？？
+如何灵活定义各种插槽？
+
 ### Select
+
+如何实现Select的下拉选择效果？？
 
 ### Divider
 
@@ -186,3 +196,33 @@ if (key === 'animationName') {
 2. 使用ctx.fillText处理文字内容
 
 ### Segmented
+
+实现思路: 遍历options生成每一项, 与option同级的MotionThumb作为滑块, 需要注意的是, 实现的功能类似radio, 所以这里创建了一个type为radio,opacity为0的input.如何处理滑块的的滑动效果和宽度呢？通过value找到对应option的clientWidth来实现动态处理width; 同样的方法还能找到对应option的offsetLeft, 实现动态处理translateX。真正移动的是MotionThumb, 动画结束后移除当前dom。
+
+SegmentedOption使用函数组件实现。
+如何实现支持自定义label？？函数组件处理具名插槽
+
+```js
+const SegmentedOption: FunctionalComponent<
+  SegmentedOption & {
+    prefixCls: string
+    checked: boolean
+    onChange: (_event, val: SegmentedValue) => void
+  }
+> = (props, { slots, emit }) => {
+  return (
+    <label class={classNames(className, {})}>
+      <input
+        checked={checked}
+        class={`${prefixCls}-item-input`}
+        type="radio"
+        onChange={handleChange}
+      />
+      <div class={`${prefixCls}-item-label`}>
+        {/* 函数组件处理插槽 */}
+        {typeof label === 'function' ? label({ payload, value, title }) : value}
+      </div>
+    </label>
+  )
+}
+```

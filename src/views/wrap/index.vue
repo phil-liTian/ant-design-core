@@ -7,12 +7,12 @@
     <!-- <RadioView /> -->
     <!-- <DividerView /> -->
     <!-- <TagView /> -->
-    <!-- <InputView /> -->
+    <InputView />
     <!-- <ModalView /> -->
     <!-- <SpinView /> -->
     <!-- <DrawerView /> -->
     <!-- <WatermarkView /> -->
-    <SegmentedView />
+    <!-- <SegmentedView /> -->
   </div>
 </template>
 

@@ -39,6 +39,8 @@ export interface AliasToken extends MapToken {
   paddingMD: number
   paddingLG: number
   paddingXL: number
+  controlPaddingHorizontal: number
+  controlPaddingHorizontalSM: number
 
   // margin
   marginXXS: number
@@ -69,4 +71,7 @@ export interface AliasToken extends MapToken {
   boxShadowDrawerRight: string
   boxShadowDrawerDown: string
   boxShadowDrawerUp: string
+
+  //
+  boxShadow: string
 }

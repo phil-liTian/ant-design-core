@@ -25,4 +25,5 @@ export interface ComponentTokenMap {
   Spin?: SpinComponentToken
   Drawer?: DrawerToken
   Segmented?: SegmentedToken
+  Grid?: {}
 }

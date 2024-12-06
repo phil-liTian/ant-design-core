@@ -56,6 +56,11 @@ export interface ColorNeutralMapToken {
    * 四级填充色
    */
   colorFillQuaternary: string
+
+  /**
+   * 布局背景色
+   */
+  colorBgLayout: string
 }
 
 interface ColorPrimaryMapToken {
@@ -65,6 +70,8 @@ interface ColorPrimaryMapToken {
   colorPrimary: string
   colorPrimaryBg: string
   colorPrimaryBorder: string
+  colorPrimaryHover: string
+  colorPrimaryActive: string
 }
 
 interface ColorSuccessMapToken {

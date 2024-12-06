@@ -6,9 +6,9 @@ export default function genCommonMapToken(seed: SeedToken): CommonMapToken {
   const { motionBase, motionUnit, lineWidth, borderRadius } = seed
 
   return {
-    motionDurationFast: `${motionBase + motionUnit * 3}s`,
+    motionDurationFast: `${motionBase + motionUnit}s`,
     motionDurationMid: `${motionBase + motionUnit * 2}s`,
-    motionDurationSlow: `${motionBase + motionUnit}s`,
+    motionDurationSlow: `${motionBase + motionUnit * 3}s`,
 
     lineWidthBold: lineWidth + 1,
 

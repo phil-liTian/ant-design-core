@@ -49,6 +49,13 @@ export function someType<T>(types?: any[], defaultVal?: T) {
   return { type: types as PropType<T>, default: defaultVal as T }
 }
 
+export function anyType<T = any>(defaultVal?: T, required?: boolean) {
+  const type = { validator: () => true, default: defaultVal as T } as unknown
+  return required
+    ? (type as { type: PropType<T>; default: T; required: true })
+    : (type as { type: PropType<T>; default: T })
+}
+
 export type LiteralUnion<T extends string> = T | (string & {})
 
 export const withInstall = <T>(comp: T) => {

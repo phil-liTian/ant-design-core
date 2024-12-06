@@ -39,5 +39,7 @@ export const generateNeutralColorPalettes = (
 
     colorBorder: getSolidColor(colorBgBase, 15),
     colorBorderSecondary: getSolidColor(colorBgBase, 19),
+
+    colorBgLayout: getSolidColor(colorBgBase, 4),
   }
 }
