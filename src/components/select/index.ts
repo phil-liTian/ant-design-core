@@ -1,5 +1,5 @@
-import type { App } from 'vue'
-import Select from './Select'
+import type { App, ExtractPropTypes } from 'vue'
+import Select, { type selectProps } from './Select'
 import type { ComponentToken } from './style/index'
 
 Select.install = (app: App) => {
@@ -7,6 +7,8 @@ Select.install = (app: App) => {
 
   return app
 }
+
+export type SelectProps = Partial<ExtractPropTypes<ReturnType<typeof selectProps>>>
 
 export default Select
 

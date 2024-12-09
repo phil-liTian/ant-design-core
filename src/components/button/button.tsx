@@ -86,9 +86,11 @@ export default defineComponent({
 
     return () => {
       const children = flattenChildren(slots.default?.() as any)
+
       const { icon = slots.icon?.(), htmlType, type } = props
       isNeedInserted = children.length === 1 && !icon && !isUnBorderedButtonType(props.type)
       const { href, target } = props
+
       const kids = children.map((child) =>
         insertSpace(child, isNeedInserted && autoInsertSpaceInButton.value!),
       )

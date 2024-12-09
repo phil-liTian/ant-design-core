@@ -72,6 +72,8 @@ interface ColorPrimaryMapToken {
   colorPrimaryBorder: string
   colorPrimaryHover: string
   colorPrimaryActive: string
+
+  colorPrimaryBgHover: string // 2
 }
 
 interface ColorSuccessMapToken {

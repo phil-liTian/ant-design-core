@@ -9,7 +9,7 @@ export interface AliasToken extends MapToken {
   colorFillAlter: string
 
   // font
-  fontSizeIcon: string
+  fontSizeIcon: number
 
   // padding content
   paddingContentVertical: number
@@ -27,9 +27,6 @@ export interface AliasToken extends MapToken {
 
   // opacity
   opacityLoading: number
-
-  // Control
-  controlInteractiveSize: number
 
   // padding
   paddingXXS: number
@@ -74,4 +71,12 @@ export interface AliasToken extends MapToken {
 
   //
   boxShadow: string
+
+  // Control
+  controlOutlineWidth: number
+  controlItemBgHover: string // Note. It also is a color
+  controlItemBgActive: string // Note. It also is a color
+  controlItemBgActiveHover: string // Note. It also is a color
+  controlInteractiveSize: number
+  controlItemBgActiveDisabled: string // Note. It also is a color
 }

@@ -110,16 +110,31 @@ RadioGroup 通过context给Radio组件传入optionType, 当识别到optionType�
 ### Input
 
 ```js
+1. 结构: VcInput负责渲染逻辑, getInputElement会返回原生input和textarea的元素(通过tag传递元素类型)。BaseInput处理input的原生事件等相关内容。
+2. 通过设置outline: 'none' 来移除原生输入框的轮廓效果。
+3. show-clear, show-count 利用suffix slot实现; inputSearch、inputPassword利用addonAfter slot实现。
+4. BaseInputInner 渲染的元素可以由传进来的tag决定。
+5. 使用resize-observer-polyfill监听textarea的宽、高变化。
+  监听Dom resize事件
+import ResizeObserver from 'resize-observer-polyfill'
 
+const registerObserver = () => {
+  const element = fineDOMNode(instance)
+  if (!resizeObserver && element) {
+    resizeObserver = new ResizeObserver(onResize)
+    resizeObserver.observe(element)
+  }
+}
+6. 如何动态计算textarea的高度？？ autosize如何实现？
 ```
-
-如何整合textarea和Input成一个组件？？
-如何动态计算input的高度？？
-如何灵活定义各种插槽？
 
 ### Select
 
 如何实现Select的下拉选择效果？？
+如何实现dropdownRender 对下拉菜单进行自由扩展？？
+如何实现tagRender 自定义tag内容？？
+如何实现搜索和远程数据结合？？
+如何实现placement??
 
 ### Divider
 
@@ -226,3 +241,13 @@ const SegmentedOption: FunctionalComponent<
   )
 }
 ```
+
+### Space
+
+```js
+如何实现控制各组件间的间距的？
+```
+
+### Grid
+
+实现思路

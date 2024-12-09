@@ -7,10 +7,15 @@ import classNames from '../_utils/classNames'
 export default defineComponent({
   name: 'VCInput',
   props: inputProps(),
-  setup(props, { slots }) {
+  emits: ['change'],
+  setup(props, { slots, emit }) {
     const { prefix, suffix, prefixCls } = props
 
     const stateValue = shallowRef(props.value ?? props.defaultValue)
+
+    const triggerChange = (e: any) => {
+      emit('change', e)
+    }
 
     const setValue = (value: any) => {
       stateValue.value = value
@@ -21,6 +26,7 @@ export default defineComponent({
       const { value } = e.target
       if (value === stateValue.value) return
       const newValue = e.target.value
+      triggerChange(e)
       setValue(newValue)
     }
 
@@ -30,11 +36,15 @@ export default defineComponent({
     }
 
     const getInputElement = () => {
-      const { prefixCls } = props
+      const { prefixCls, placeholder, allowClear, type } = props
       const inputProps = {
+        value: stateValue.value,
         onChange: handleChange,
         onInput: handleChange,
         class: classNames(prefixCls, {}),
+        placeholder,
+        allowClear,
+        type,
       }
 
       const inputNode = <BaseInputCore {...inputProps} />
@@ -42,24 +52,29 @@ export default defineComponent({
       return inputNode
     }
 
-    const getSuffix = () => {
-      const { suffix = slots.suffix?.() } = props
+    return () => {
+      const { prefixCls, ...rest } = props
 
-      if (suffix) {
-        return suffix
+      const getSuffix = () => {
+        const { suffix = slots.suffix?.() } = props
+
+        if (suffix) {
+          return suffix
+        }
+
+        return null
       }
 
-      return null
-    }
-
-    return () => {
       return (
         <BaseInput
+          {...rest}
           prefixCls={prefixCls}
           prefix={prefix}
           suffix={getSuffix()}
           handleReset={handleReset}
+          value={stateValue.value}
           inputElement={getInputElement()}
+          v-slots={slots}
         />
       )
     }

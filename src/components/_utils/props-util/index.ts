@@ -1,4 +1,4 @@
-import { isVNode, type ComponentPublicInstance, type PropType } from 'vue'
+import { Fragment, isVNode, Text, type ComponentPublicInstance, type PropType } from 'vue'
 import { type VueTypeDef, type VueTypeValidableDef } from 'vue-types'
 import isValid from '../isValid'
 
@@ -48,7 +48,7 @@ export const flattenChildren = (children = [], filterEmpty = true) => {
 }
 
 export function isEmptyElement(c: any) {
-  return c && c.children.length === 0
+  return c && c.type === Fragment && c.children.length === 0
 }
 
 function getPropsSlot(slots: any, props: any, prop = 'default') {
@@ -61,6 +61,13 @@ const fineDOMNode = (instance: any) => {
     node = node.nextSibling
   }
   return node
+}
+
+export function isValidElement(element: any) {
+  if (Array.isArray(element) && element.length === 1) {
+    element = element[0]
+  }
+  return element && element.__v_isVNode
 }
 
 export default initDefaultProps

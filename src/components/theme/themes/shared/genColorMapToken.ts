@@ -35,6 +35,7 @@ export default function genColorMapToken(
     ...neutralColors,
     // primary
     colorPrimaryBg: primaryColors[1],
+    colorPrimaryBgHover: primaryColors[2],
     colorPrimaryHover: primaryColors[5],
     colorPrimary: primaryColors[6],
     colorPrimaryActive: primaryColors[7],

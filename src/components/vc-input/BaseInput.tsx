@@ -9,22 +9,40 @@ export default defineComponent({
   name: 'BaseInput',
   props: baseInputProps(),
   setup(props, { slots }) {
-    const {
-      prefixCls,
-      allowClear,
-      prefix = slots.prefix?.(),
-      suffix = slots.suffix?.(),
-      addonAfter = slots.addonAfter?.(),
-      addonBefore = slots.addonBefore?.(),
-    } = props
     return () => {
+      const {
+        prefixCls,
+        allowClear,
+        prefix = slots.prefix?.(),
+        suffix = slots.suffix?.(),
+        addonAfter = slots.addonAfter?.(),
+        addonBefore = slots.addonBefore?.(),
+      } = props
+
       const { inputElement } = props
 
       const getClearIcon = () => {
-        const { allowClear, handleReset } = props
+        const { allowClear, handleReset, value, disabled, prefixCls, suffix = slots.suffix } = props
+        const className = `${prefixCls}-clear-icon`
+
+        const needClear = value && !disabled
         if (!allowClear) return null
         const iconNode = slots.clearIcon?.() || '*'
-        return <span onClick={handleReset}>{iconNode}</span>
+
+        return (
+          <span
+            class={classNames(className, {
+              [`${className}-hidden`]: !needClear,
+              [`${className}-has-suffix`]: !!suffix,
+            })}
+            onClick={handleReset}
+            // 不触发blur事件
+            onMousedown={(e) => e.preventDefault()}
+            role="button"
+          >
+            {iconNode}
+          </span>
+        )
       }
 
       let element = cloneElement(inputElement)
@@ -43,7 +61,7 @@ export default defineComponent({
 
         element = (
           <span class={affixWrapperCls}>
-            {prefix && <span class={`${prefixCls}-prefix`}></span>}
+            {prefix && <span class={`${prefixCls}-prefix`}>{prefix}</span>}
             {cloneElement(inputElement)}
             {suffixNode}
           </span>
@@ -52,10 +70,10 @@ export default defineComponent({
 
       // 处理addonBefore和addonAfter
       if (hasAddon({ addonAfter, addonBefore })) {
-        const addonCls = `${prefixCls}-addon`
         const wrapperCls = `${prefixCls}-group`
+        const addonCls = `${wrapperCls}-addon`
 
-        const mergedWrapperClassName = classNames(`${prefixCls}-wrapper`)
+        const mergedWrapperClassName = classNames(`${prefixCls}-wrapper`, wrapperCls)
         const mergedGroupClassName = classNames(`${prefixCls}-group-wrapper`)
 
         return (

@@ -87,6 +87,18 @@ export const formatToken = (token: RawMergedToken) => {
       0 1px 6px -1px rgba(0, 0, 0, 0.02),
       0 2px 4px 0 rgba(0, 0, 0, 0.02)
     `,
+
+    controlOutlineWidth: token.lineWidth * 2,
+    // Checkbox size and expand icon size
+    controlItemBgHover: token.colorFillTertiary,
+    controlItemBgActive: token.colorPrimaryBg,
+    controlItemBgActiveHover: token.colorPrimaryBgHover,
+    controlItemBgActiveDisabled: token.colorFill,
+    controlTmpOutline: token.colorFillQuaternary,
+
+    colorFillAlter: token.colorFillQuaternary,
+
+    fontSizeIcon: token.fontSizeSM,
   }
 
   return aliasToken

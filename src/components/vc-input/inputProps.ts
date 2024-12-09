@@ -1,6 +1,11 @@
-import { BooleanType, FunctionType, StringType, tuple } from '../_utils/type'
+import { BooleanType, FunctionType, StringType, tuple, type VueNode } from '../_utils/type'
 import PropTypes from '../_utils/vue-types'
 import type { InputStatus } from '../_utils/statusUtils'
+import type { PropType } from 'vue'
+
+interface ShowCountProps {
+  formatter: (args: { count: number; maxLength?: number; value?: string }) => VueNode
+}
 
 export const commonInputProps = () => {
   return {
@@ -27,7 +32,11 @@ export const baseInputProps = () => {
 
 export const inputProps = () => ({
   ...baseInputProps(),
-  placeholder: PropTypes.oneOfType([String, Object]),
+  placeholder: PropTypes.string,
   type: StringType<'text' | 'week' | 'tel' | 'password'>('text'),
   status: StringType<InputStatus>(),
+  maxlength: Number,
+  showCount: {
+    type: [Boolean, Object],
+  },
 })

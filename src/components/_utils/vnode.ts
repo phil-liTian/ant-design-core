@@ -1,11 +1,14 @@
 import { cloneVNode, type VNode, render as VueRender } from 'vue'
 
-export function cloneElement(vnode: VNode) {
+export function cloneElement(vnode: VNode, nodeProps = {}) {
   let ele = vnode
+  if (Array.isArray(vnode)) {
+    ele = vnode[0]
+  }
 
   if (!ele) return null
 
-  const node = cloneVNode(ele)
+  const node = cloneVNode(ele, nodeProps)
 
   return node
 }

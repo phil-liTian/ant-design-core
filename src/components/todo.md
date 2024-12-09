@@ -27,5 +27,10 @@
 14. watermark
 
 15. Input、Select
+    allowClear
+    showCount
+    textArea
 
-16. notification
+16. space、grid
+
+17. notification

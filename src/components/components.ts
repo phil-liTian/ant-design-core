@@ -29,6 +29,12 @@ export { default as Input } from './input'
 export type { InputProps } from './input'
 
 /**
+ * select
+ */
+export { default as Select } from './select'
+export type { SelectProps } from './select'
+
+/**
  * checkBox
  */
 export { default as Checkbox, CheckboxGroup } from './checkbox'
