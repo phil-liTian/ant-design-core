@@ -1,27 +1,65 @@
-import { computed, defineComponent, shallowRef } from 'vue'
+import { computed, defineComponent, getCurrentInstance, shallowRef, watch, watchEffect } from 'vue'
 import ResizableTextarea from './ResizableTextArea'
 import ClearableLabeledInput from './ClearableLabeledInput'
 import useConfigInject from '../config-provider/hooks/useConfigInject'
 import { textareaProps } from './inputProps'
 import classNames from '../_utils/classNames'
+import omit from '../_utils/omit'
+import { emit } from 'process'
+import { fixControlledValue } from '../vc-input/utils/commonUtil'
 
 export default defineComponent({
   name: 'PTextarea',
   props: textareaProps(),
-  setup(props, { attrs }) {
+  setup(props, { attrs, emit }) {
     const { prefixCls } = useConfigInject('input', props)
-    const mergedValue = shallowRef('')
+    const mergedValue = shallowRef<string>('')
+    const stateValue = shallowRef(props.value ?? props.defaultValue)
 
     const showCount = computed(() => props.showCount || false)
     const hasMaxLength = computed(() => Number(props.maxlength) > 0)
 
+    const triggerChange = (e) => {
+      emit('update:value', e.target.value)
+    }
+    const setValue = (value) => {
+      stateValue.value = value
+    }
+
+    const handleChange = (e) => {
+      let triggerValue = e.target.value
+      console.log('triggerValue', triggerValue)
+
+      triggerChange(e)
+      setValue(triggerValue)
+    }
+
     const renderTextArea = () => {
       const resizeProps = {
-        prefixCls: prefixCls.value,
+        ...omit(props, ['allowClear']),
         ...attrs,
+        prefixCls: prefixCls.value,
+        onChange: handleChange,
+        onInput: handleChange,
       }
+
       return <ResizableTextarea {...resizeProps} />
     }
+    const instance = getCurrentInstance()
+
+    watch(
+      () => props.value,
+      (val) => {
+        if ('value' in (instance?.vnode.props || {})) {
+          stateValue.value = val
+        }
+      },
+    )
+
+    watchEffect(() => {
+      let val = fixControlledValue(stateValue.value!)
+      mergedValue.value = val
+    })
 
     return () => {
       const { maxlength } = props
@@ -29,6 +67,8 @@ export default defineComponent({
         prefixCls: prefixCls.value,
         inputType: 'text',
       }
+      console.log('mergedValue.value', mergedValue.value)
+
       let textareaNode = (
         // @ts-ignore
         <ClearableLabeledInput

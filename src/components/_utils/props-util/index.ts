@@ -47,10 +47,6 @@ export const flattenChildren = (children = [], filterEmpty = true) => {
   return res
 }
 
-export function isEmptyElement(c: any) {
-  return c && c.type === Fragment && c.children.length === 0
-}
-
 function getPropsSlot(slots: any, props: any, prop = 'default') {
   return props[prop] ?? slots[prop]?.()
 }
@@ -68,6 +64,45 @@ export function isValidElement(element: any) {
     element = element[0]
   }
   return element && element.__v_isVNode
+}
+
+function isEmptyElement(c: any) {
+  return (
+    c &&
+    (c.type === Comment ||
+      (c.type === Fragment && c.children.length === 0) ||
+      (c.type === Text && c.children.trim() === ''))
+  )
+}
+
+// 筛选掉空结点
+export function filterEmpty(children: []) {
+  const res: any = []
+  children.map((child) => {
+    if (Array.isArray(child)) {
+      res.push(...((child || []) as Array<any>))
+    } else {
+      res.push(child)
+    }
+  })
+
+  return res.filter((c) => !filterEmpty(c))
+}
+
+// 获取插槽
+export const getSlot = (self: any, name = 'default', options = {}): any => {
+  if (isVNode(self)) {
+    if (self.type === Fragment) {
+      return name === 'default' ? flattenChildren(self.children as any) : []
+    } else if (self.children && self.children[name]) {
+      return flattenChildren(self.children[name](options))
+    } else {
+      return []
+    }
+  } else {
+    const res = self?.$slots?.[name]?.(options)
+    return flattenChildren(res)
+  }
 }
 
 export default initDefaultProps

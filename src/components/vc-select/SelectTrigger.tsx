@@ -6,9 +6,9 @@ export default defineComponent({
   props: {
     prefixCls: String,
   },
-  setup(props) {
+  setup(props, { slots }) {
     const { prefixCls } = props
     const dropdownPrefixCls = `${prefixCls}-dropdown`
-    return () => <Trigger></Trigger>
+    return () => <Trigger v-slots={{ default: slots.default }}></Trigger>
   },
 })

@@ -1,13 +1,34 @@
 import { defineComponent } from 'vue'
 import Portal from '../_utils/PortalWrapper'
 import Popup from './Popup'
+import { cloneElement } from '../_utils/vnode'
+import { filterEmpty, getSlot } from '../_utils/props-util'
 
 export default defineComponent({
   name: 'Trigger',
-  setup() {
+  setup(props, { slots }) {
     const getComponent = () => {
-      return <Popup></Popup>
+      return '123'
     }
-    return () => <Portal v-slots={{ default: getComponent }}></Portal>
+    return {
+      getComponent,
+    }
+  },
+
+  render() {
+    const { $attrs } = this
+    const children = filterEmpty(getSlot(this))
+    const child = children[0]
+    const trigger = cloneElement(child, { ref: 'triggerRef' })
+    console.log('children', children)
+
+    const portal = <Portal v-slots={{ default: this.getComponent }}></Portal>
+
+    return (
+      <>
+        {trigger}
+        {portal}
+      </>
+    )
   },
 })

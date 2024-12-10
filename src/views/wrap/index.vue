@@ -5,7 +5,7 @@
     <!-- <SwitchView /> -->
     <!-- <CheckboxView /> -->
     <!-- <RadioView /> -->
-    <InputView />
+    <!-- <InputView /> -->
     <!-- <SelectView /> -->
     <!-- <DividerView /> -->
     <!-- <TagView /> -->
@@ -14,6 +14,7 @@
     <!-- <DrawerView /> -->
     <!-- <WatermarkView /> -->
     <!-- <SegmentedView /> -->
+    <ResultView />
   </div>
 </template>
 
@@ -32,6 +33,7 @@ import SpinView from '../componentsDemo/SpinView.vue'
 import DrawerView from '../componentsDemo/DrawerView.vue'
 import WatermarkView from '../componentsDemo/WatermarkView.vue'
 import SegmentedView from '../componentsDemo/SegmentedView.vue'
+import ResultView from '../componentsDemo/ResultView.vue'
 </script>
 
 <style lang="less" scoped></style>

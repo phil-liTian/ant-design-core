@@ -1,6 +1,6 @@
 import { defineComponent, type ExtractPropTypes } from 'vue'
 import BaseSelect from './BaseSelect'
-import { ObjectType } from '../_utils/type'
+import { ArrayType, ObjectType } from '../_utils/type'
 import initDefaultProps from '../_utils/props-util'
 
 export interface FieldNames {
@@ -9,12 +9,31 @@ export interface FieldNames {
   options?: String
 }
 
-export const selectProps = () => ({
-  prefixCls: String,
+export interface BaseOptionType {
+  disabled?: boolean
+  [name: string]: any
+}
 
-  // fieldNames
-  fieldNames: ObjectType<FieldNames>(),
-})
+export interface DefaultOptionType extends BaseOptionType {
+  label?: any
+  value?: string | number | null
+  children?: Omit<DefaultOptionType, 'children'>[]
+}
+
+export function selectProps<
+  ValueType = any,
+  OptionType extends BaseOptionType = DefaultOptionType,
+>() {
+  return {
+    prefixCls: String,
+
+    // fieldNames
+    fieldNames: ObjectType<FieldNames>(),
+
+    // options
+    options: ArrayType<OptionType[]>(),
+  }
+}
 
 export type SelectProps = Partial<ExtractPropTypes<ReturnType<typeof selectProps>>>
 

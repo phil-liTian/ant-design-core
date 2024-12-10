@@ -13,3 +13,10 @@ export function hasPrefixSuffix(propsAndSlots: any) {
 export function hasAddon(propsAndSlots: any) {
   return isValid(propsAndSlots.addonBefore) || isValid(propsAndSlots.addonAfter)
 }
+
+export function fixControlledValue(value: string | number) {
+  if (typeof value === 'undefined' || value === null) {
+    return ''
+  }
+  return String(value)
+}

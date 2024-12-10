@@ -9,6 +9,7 @@ import type { ComponentToken as SpinComponentToken } from '../../spin/style'
 import type { ComponentToken as WaveToken } from '../../_utils/wave'
 import type { ComponentToken as DrawerToken } from '../../drawer/style'
 import type { ComponentToken as SegmentedToken } from '../../segmented/style'
+import type { ComponentToken as ResultToken } from '../../result/style'
 
 export interface ComponentTokenMap {
   Button?: ButtonComponentToken
@@ -26,4 +27,5 @@ export interface ComponentTokenMap {
   Drawer?: DrawerToken
   Segmented?: SegmentedToken
   Grid?: {}
+  Result?: ResultToken
 }

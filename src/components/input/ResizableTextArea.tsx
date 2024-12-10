@@ -1,4 +1,4 @@
-import { computed, defineComponent, ref, watch } from 'vue'
+import { computed, defineComponent, ref, watch, watchEffect } from 'vue'
 import BaseInput from '../_utils/BaseInput'
 import { textareaProps } from './inputProps'
 import ResizeObserver from '../vc-resize-observer'
@@ -13,12 +13,24 @@ const ResizableTextarea = defineComponent({
   inheritAttrs: false,
   props: textareaProps(),
   setup(props, { attrs }) {
+    const stateValue = ref(props.value)
     const textAreaRef = ref()
     const textareaStyles = ref({})
     const minRows = ref<number>()
     const maxRows = ref<number>()
     const needAutoSize = computed(() => !!props.autoSize)
     const resizeStatus = ref(RESIZE_STABLE)
+
+    watchEffect(() => {
+      const autoSize = props.autoSize
+      if (autoSize && typeof autoSize === 'object') {
+        maxRows.value = autoSize.maxRows
+        minRows.value = autoSize.minRows
+      } else {
+        maxRows.value = undefined
+        minRows.value = undefined
+      }
+    })
 
     const onInternalResize = (size: { width: number; height: number }) => {
       if (resizeStatus.value === RESIZE_STABLE) {
@@ -34,6 +46,7 @@ const ResizableTextarea = defineComponent({
       [resizeStatus, textAreaRef],
       () => {
         if (!textAreaRef.value) return
+
         if (resizeStatus.value === RESIZE_START) {
           resizeStatus.value = RESIZE_MEASURING
         } else if (resizeStatus.value === RESIZE_MEASURING) {
@@ -58,10 +71,12 @@ const ResizableTextarea = defineComponent({
       { immediate: true },
     )
     const renderTextarea = () => {
-      const { prefixCls } = props
+      const { prefixCls, ...otherProps } = props
       const cls = classNames(prefixCls, attrs.class)
       const style = [attrs.style, textareaStyles.value]
       const textareaProps = {
+        ...otherProps,
+        ...attrs,
         class: cls,
         style,
       }

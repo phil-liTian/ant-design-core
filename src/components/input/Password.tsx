@@ -29,8 +29,6 @@ export default defineComponent({
     const { visibilityToggle, prefixCls } = props
     const visible = ref(false)
     const onVisibleChange = () => {
-      console.log('onVisibleChange')
-
       visible.value = !visible.value
       emit('update:visible', visible.value)
     }

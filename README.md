@@ -125,7 +125,9 @@ const registerObserver = () => {
     resizeObserver.observe(element)
   }
 }
-6. 如何动态计算textarea的高度？？ autosize如何实现？
+6. 如何动态计算textarea的高度？？ autosize如何实现？ 为何需要在body最外层增加一个overflow:hidden的textarea？？
+  将textarea元素的属性设置得与显示的dom元素相同, 通过动态计算hidden的textarea的offsetHeight,来实现textarea的高度由内容自动撑开.即autoSize的效果。这里涉及到一个简单状态机的处理: 当状态是 RESIZE_MEASURING 时, textarea样式重新计算, 当value、maxRow、minRow发生变化时, 状态机会自动切换为RESIZE_START, 监听到状态变化时, 状态机会自动切换为RESIZE_MEASURING，即重新绘制textarea的高度。
+
 ```
 
 ### Select
@@ -240,6 +242,12 @@ const SegmentedOption: FunctionalComponent<
     </label>
   )
 }
+```
+
+### Result
+
+```js
+使用ExceptionMap、IconMap来实现映射，通过Status来获取对应的组件或者Icon。
 ```
 
 ### Space

@@ -16,6 +16,11 @@
     <p-input status="error" placeholder="TODO error" />
 
     <p-textarea auto-size placeholder="auto size" :style="{ width: '200px' }" />
+    <p-textarea
+      placeholder="设置了minRows和maxRows的textarea"
+      :auto-size="{ minRows: 2, maxRows: 5 }"
+      @pressEnter="handleEnter"
+    />
 
     <p-input-search placeholder="search" />
 
@@ -43,7 +48,12 @@
     <a-input-search class="my-2" />
     <a-input-search class="my-2" enter-button loading @search="handleSearch" />
     <a-textarea auto-size placeholder="auto size" :style="{ width: '200px' }" />
-    <a-textarea :auto-size="{ minRows: 2, maxRows: 5 }" @pressEnter="handleEnter" />
+    <a-textarea
+      :auto-size="{ minRows: 2, maxRows: 5 }"
+      @pressEnter="handleEnter"
+      show-count
+      max-length="100"
+    />
 
     <a-input-group class="my-2">
       <a-input :style="{ width: '200px' }" />
