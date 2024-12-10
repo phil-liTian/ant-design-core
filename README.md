@@ -248,6 +248,18 @@ const SegmentedOption: FunctionalComponent<
 
 ```js
 使用ExceptionMap、IconMap来实现映射，通过Status来获取对应的组件或者Icon。
+export const IconMap = {
+  success: CheckCircleFilled,
+  error: CloseCircleFilled,
+  info: ExclamationCircleFilled,
+  warning: WarningFilled,
+}
+
+export const ExceptionMap = {
+  '404': NoFound,
+  '500': ServerError,
+  '403': Unauthorized,
+}
 ```
 
 ### Space
