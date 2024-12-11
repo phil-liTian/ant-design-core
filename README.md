@@ -270,4 +270,23 @@ export const ExceptionMap = {
 
 ### Grid
 
-实现思路
+实现思路: 利用flex布局, Row是一个设置了display: flex的盒子, Col的span利用flex: 0 0 baiseWidth来实现宽度分配.使用flex的order属性来实现排序。push、pull使用insetInline实现; offset使用marginInlineStart实现。
+
+```js
+1. genLoopGridColumnsStyle方法实现Col的宽度分配核心逻辑
+2. gutter是采用动态处理style的padding值实现(Row、Col)
+3. 实现响应式: 通过监听页面的宽度，动态计算出当前屏幕的尺寸，然后根据尺寸进行不同的样式设置
+[`@media (min-width: ${screenSize}px)`]: {
+  ...genGridStyle(token, sizeCls),
+},
+4. 使用window.matchMedia(matchMediaQuery)来实现监听页面尺寸变化
+const listener = ({ matches }: MediaQueryListEvent) => {
+  this.dispatch({
+    ...screens,
+    [screen]: matches,
+  })
+}
+
+const mql = window.matchMedia(matchMediaQuery)
+mql.addListener(listener)
+```

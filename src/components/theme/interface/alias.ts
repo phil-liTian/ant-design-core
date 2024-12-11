@@ -79,4 +79,26 @@ export interface AliasToken extends MapToken {
   controlItemBgActiveHover: string // Note. It also is a color
   controlInteractiveSize: number
   controlItemBgActiveDisabled: string // Note. It also is a color
+
+  // breakpoint
+  screenXS: number
+  screenXSMin: number
+  screenXSMax: number
+  screenSM: number
+  screenSMMin: number
+  screenSMMax: number
+  screenMD: number
+  screenMDMin: number
+  screenMDMax: number
+  screenLG: number
+  screenLGMin: number
+  screenLGMax: number
+  screenXL: number
+  screenXLMin: number
+  screenXLMax: number
+  screenXXL: number
+  screenXXLMin: number
+  screenXXLMax: number
+  screenXXXL: number
+  screenXXXLMin: number
 }

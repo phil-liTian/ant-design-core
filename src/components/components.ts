@@ -93,3 +93,9 @@ export type { SegmentedProps } from './segmented'
  */
 export { default as Result } from './result'
 export type { ResultProps } from './result'
+
+/**
+ * Grid
+ */
+export { Row, Col, default as useBreakPoint } from './grid'
+export type { RowProps } from './grid'

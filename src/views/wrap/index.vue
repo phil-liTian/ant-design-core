@@ -6,7 +6,7 @@
     <!-- <CheckboxView /> -->
     <!-- <RadioView /> -->
     <!-- <InputView /> -->
-    <SelectView />
+    <!-- <SelectView /> -->
     <!-- <DividerView /> -->
     <!-- <TagView /> -->
     <!-- <ModalView /> -->
@@ -15,6 +15,7 @@
     <!-- <WatermarkView /> -->
     <!-- <SegmentedView /> -->
     <!-- <ResultView /> -->
+    <GridView />
   </div>
 </template>
 
@@ -34,6 +35,7 @@ import DrawerView from '../componentsDemo/DrawerView.vue'
 import WatermarkView from '../componentsDemo/WatermarkView.vue'
 import SegmentedView from '../componentsDemo/SegmentedView.vue'
 import ResultView from '../componentsDemo/ResultView.vue'
+import GridView from '../componentsDemo/GridView.vue'
 </script>
 
 <style lang="less" scoped></style>

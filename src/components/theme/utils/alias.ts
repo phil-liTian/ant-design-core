@@ -6,6 +6,14 @@ import getAlphaColor from './getAlphaColor'
 type RawMergedToken = MapToken & OverrideToken
 
 export const formatToken = (token: RawMergedToken) => {
+  const screenXS = 480
+  const screenSM = 576
+  const screenMD = 768
+  const screenLG = 992
+  const screenXL = 1200
+  const screenXXL = 1600
+  const screenXXXL = 2000
+
   const aliasToken: AliasToken = {
     ...token,
 
@@ -99,6 +107,27 @@ export const formatToken = (token: RawMergedToken) => {
     colorFillAlter: token.colorFillQuaternary,
 
     fontSizeIcon: token.fontSizeSM,
+
+    screenXS,
+    screenXSMin: screenXS,
+    screenXSMax: screenSM - 1,
+    screenSM,
+    screenSMMin: screenSM,
+    screenSMMax: screenMD - 1,
+    screenMD,
+    screenMDMin: screenMD,
+    screenMDMax: screenLG - 1,
+    screenLG,
+    screenLGMin: screenLG,
+    screenLGMax: screenXL - 1,
+    screenXL,
+    screenXLMin: screenXL,
+    screenXLMax: screenXXL - 1,
+    screenXXL,
+    screenXXLMin: screenXXL,
+    screenXXLMax: screenXXXL - 1,
+    screenXXXL,
+    screenXXXLMin: screenXXXL,
   }
 
   return aliasToken
