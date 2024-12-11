@@ -6,7 +6,7 @@
     <!-- <CheckboxView /> -->
     <!-- <RadioView /> -->
     <!-- <InputView /> -->
-    <!-- <SelectView /> -->
+    <SelectView />
     <!-- <DividerView /> -->
     <!-- <TagView /> -->
     <!-- <ModalView /> -->
@@ -14,7 +14,7 @@
     <!-- <DrawerView /> -->
     <!-- <WatermarkView /> -->
     <!-- <SegmentedView /> -->
-    <ResultView />
+    <!-- <ResultView /> -->
   </div>
 </template>
 

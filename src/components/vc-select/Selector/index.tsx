@@ -8,12 +8,13 @@ const Selector = defineComponent({
   props: {
     mode: StringType<'single' | 'multiple'>('single'),
     prefixCls: String,
+    values: [],
   },
   setup(props) {
     return () => {
       const { mode } = props
 
-      const selectNode = mode === 'single' ? <SingleSelector /> : <MultipleSelector />
+      const selectNode = mode === 'single' ? <SingleSelector {...props} /> : <MultipleSelector />
 
       return <div>{selectNode}</div>
     }

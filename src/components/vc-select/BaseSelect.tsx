@@ -6,6 +6,7 @@ import initDefaultProps from '../_utils/props-util'
 
 const baseSelectPrivateProps = () => ({
   prefixCls: String,
+  displayValues: Array,
 })
 
 const baseSelectProps = () => ({
@@ -16,13 +17,14 @@ export default defineComponent({
   name: 'BaseSelect',
   props: initDefaultProps(baseSelectProps(), {}),
   setup(props) {
+    const { displayValues } = props
     return () => {
       const { prefixCls } = props
       // >>> selector
       const SelectorNode = (
         <SelectTrigger
           prefixCls={prefixCls}
-          v-slots={{ default: () => <Selector prefixCls={prefixCls} /> }}
+          v-slots={{ default: () => <Selector values={displayValues} prefixCls={prefixCls} /> }}
         />
       )
 

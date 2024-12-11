@@ -18,7 +18,12 @@ const SingleSelector = defineComponent({
 
     return () => {
       const { prefixCls } = props
-      return <div class={`${prefixCls}-selection-search`}>1231</div>
+      return (
+        <div class={`${prefixCls}-selection-search`}>
+          {/* placeholder */}
+          {renderPlaceholder()}
+        </div>
+      )
     }
   },
 })

@@ -20,7 +20,6 @@ export default defineComponent({
     const children = filterEmpty(getSlot(this))
     const child = children[0]
     const trigger = cloneElement(child, { ref: 'triggerRef' })
-    console.log('children', children)
 
     const portal = <Portal v-slots={{ default: this.getComponent }}></Portal>
 

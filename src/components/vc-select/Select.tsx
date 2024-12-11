@@ -1,4 +1,4 @@
-import { defineComponent, type ExtractPropTypes } from 'vue'
+import { computed, defineComponent, type ExtractPropTypes } from 'vue'
 import BaseSelect from './BaseSelect'
 import { ArrayType, ObjectType } from '../_utils/type'
 import initDefaultProps from '../_utils/props-util'
@@ -43,6 +43,12 @@ export default defineComponent({
     prefixCls: 'vc-select',
   }),
   setup(props) {
-    return () => <BaseSelect />
+    const displayValues = computed(() => [])
+    return () => (
+      <BaseSelect
+        // >>> value
+        displayValues={displayValues.value}
+      />
+    )
   },
 })

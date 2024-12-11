@@ -3,12 +3,7 @@
     <p-select />
     <p-divider>select</p-divider>
     <div :style="{ width: '800px' }">
-      <a-select
-        :style="{ width: '100%' }"
-        :open="true"
-        :options="options1"
-        v-model:value="value1"
-      />
+      <a-select :style="{ width: '100%' }" :options="options1" v-model:value="value1" />
 
       <a-select
         :style="{ width: '100%' }"

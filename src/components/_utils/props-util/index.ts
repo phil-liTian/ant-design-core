@@ -76,8 +76,9 @@ function isEmptyElement(c: any) {
 }
 
 // 筛选掉空结点
-export function filterEmpty(children: []) {
+export function filterEmpty(children = []) {
   const res: any = []
+
   children.map((child) => {
     if (Array.isArray(child)) {
       res.push(...((child || []) as Array<any>))
@@ -86,7 +87,7 @@ export function filterEmpty(children: []) {
     }
   })
 
-  return res.filter((c) => !filterEmpty(c))
+  return res.filter((c) => !isEmptyElement(c))
 }
 
 // 获取插槽
