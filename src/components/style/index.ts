@@ -1,6 +1,12 @@
 import type { CSSObject } from '../_utils/cssinjs/hooks/useStyleRegister'
 import type { AliasToken } from '../theme/interface/alias'
 
+export const textEllipsis: CSSObject = {
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+}
+
 export const resetComponent = (token: AliasToken): CSSObject => ({
   boxSizing: 'border-box',
   padding: 0,

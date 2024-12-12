@@ -1,6 +1,7 @@
 import { computed, defineComponent, onBeforeUnmount, shallowRef, type VNode } from 'vue'
 import Portal from './Portal'
 import PropTypes from './vue-types'
+import { BooleanType } from './type'
 
 // container
 const getParent = (getContainer) => {
@@ -24,6 +25,7 @@ export default defineComponent({
   name: 'PortalWrapper',
   props: {
     getContainer: PropTypes.any,
+    visible: BooleanType(undefined),
   },
   setup(props, { slots }) {
     const container = shallowRef()
@@ -60,10 +62,13 @@ export default defineComponent({
     })
     return () => {
       let portal: VNode | null = null
+      const { visible } = props
 
-      portal = (
-        <Portal getContainer={getContainer} v-slots={{ default: () => slots.default?.() }}></Portal>
-      )
+      if (visible) {
+        portal = (
+          <Portal getContainer={getContainer} v-slots={{ default: () => slots.default?.() }} />
+        )
+      }
 
       return portal
     }

@@ -1,12 +1,19 @@
 <template>
   <div>
-    <p-select />
+    <p-select :options="options1" />
     <p-divider>select</p-divider>
     <div :style="{ width: '800px' }">
-      <a-select :style="{ width: '100%' }" :options="options1" v-model:value="value1" />
+      <a-select
+        :open="true"
+        placeholder="ant select"
+        :style="{ width: '100%' }"
+        :options="options1"
+        v-model:value="value"
+      />
 
       <a-select
         :style="{ width: '100%' }"
+        class="my-2"
         mode="combobox"
         :options="options1"
         v-model:value="value1"
@@ -41,6 +48,7 @@
 import type { SelectProps } from 'ant-design-vue'
 import { computed, defineComponent, ref } from 'vue'
 
+const value = ref(undefined)
 const value1 = ref('lucy')
 const value2 = ref(['a1', 'b2'])
 const options1 = ref<SelectProps['options']>([

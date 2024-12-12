@@ -28,4 +28,5 @@ export interface ComponentTokenMap {
   Segmented?: SegmentedToken
   Grid?: {}
   Result?: ResultToken
+  Tree?: {}
 }

@@ -8,6 +8,7 @@ const props = {
 
 const SingleSelector = defineComponent({
   name: 'SingleSelector',
+  inheritAttrs: false,
   props,
   setup(props) {
     const renderPlaceholder = () => {
@@ -19,10 +20,11 @@ const SingleSelector = defineComponent({
     return () => {
       const { prefixCls } = props
       return (
-        <div class={`${prefixCls}-selection-search`}>
+        <>
+          <div class={`${prefixCls}-selection-search`}></div>
           {/* placeholder */}
           {renderPlaceholder()}
-        </div>
+        </>
       )
     }
   },

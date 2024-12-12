@@ -2,6 +2,7 @@ import { computed, defineComponent, type ExtractPropTypes } from 'vue'
 import BaseSelect from './BaseSelect'
 import { ArrayType, ObjectType } from '../_utils/type'
 import initDefaultProps from '../_utils/props-util'
+import omit from '../_utils/omit'
 
 export interface FieldNames {
   value?: String
@@ -44,8 +45,10 @@ export default defineComponent({
   }),
   setup(props) {
     const displayValues = computed(() => [])
+    const pickProps = omit(props, [])
     return () => (
       <BaseSelect
+        {...pickProps}
         // >>> value
         displayValues={displayValues.value}
       />

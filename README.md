@@ -132,6 +132,28 @@ const registerObserver = () => {
 
 ### Select
 
+整体思路: Select是组件入口, 具体实现逻辑在VcSelect中. BaseSelect中的SelectTrigger的默认插槽实现Selector默认展示(包括组件单选、多选、tag、搜索等)逻辑; 另外一个插槽--popup,实现弹出选择框的逻辑。popup中接收一个默认插槽，默认插槽中的内容是BaseSelect传进来的OptionList. OptionList中使用virtualList实现虚拟列表。可满足渲染100000个items的场景。
+
+```html 基础结构
+<div class="phil-select">
+  <div class="phil-select-selector">
+    <div class="phil-select-selection-search">
+      <!-- TODO:  -->
+    </div>
+    <div class="phil-select-selection-placeholder"></div>
+  </div>
+</div>
+
+<!-- 弹出框 -->
+使用Portal组件包裹, 通过getContainer可指定渲染的父容器, 默认是document.body!
+<div class="phil-select-dropdown">
+  <div>
+    <!-- TODO rc_select_0_list 原因？？ -->
+    <div class="rc-virtual-list"></div>
+  </div>
+</div>
+```
+
 如何实现Select的下拉选择效果？？
 如何实现dropdownRender 对下拉菜单进行自由扩展？？
 如何实现tagRender 自定义tag内容？？
@@ -289,4 +311,12 @@ const listener = ({ matches }: MediaQueryListEvent) => {
 
 const mql = window.matchMedia(matchMediaQuery)
 mql.addListener(listener)
+```
+
+### Tree
+
+```js
+1. 如何实现缩进结构？？
+2. 中间竖线如何实现？？
+3. 如何实现虚拟列表？？
 ```

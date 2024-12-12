@@ -26,7 +26,7 @@ const DialogWrap = defineComponent({
 
       if (!animatedVisible.value) return null
       return (
-        <Portal>
+        <Portal visible={true}>
           <Dialog {...dialogProps} v-slots={slots} />
         </Portal>
       )
