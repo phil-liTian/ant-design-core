@@ -39,6 +39,6 @@
 
 18. notification
 
-19. vcVirtualList 补全select的所有props
+19. 补全select的所有props
 
-20. form
+20. form的props定义
