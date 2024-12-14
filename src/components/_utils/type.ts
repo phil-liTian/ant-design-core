@@ -8,6 +8,8 @@ export type VNodeChildAtom = VNode | string | null
 
 export type VueNode = VNodeChildAtom | VNodeChildAtom[] | VNode
 
+export type Key = string | number
+
 export function tuple<T extends string>(...args: T[]): T[] {
   return args
 }

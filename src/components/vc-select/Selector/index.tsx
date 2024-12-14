@@ -12,6 +12,9 @@ const Selector = defineComponent({
 
     // open
     onToggleOpen: FunctionType<(open?: boolean) => void>(),
+
+    // ref
+    domRef: Function,
   },
   setup(props) {
     const handleClick = () => {
@@ -19,12 +22,12 @@ const Selector = defineComponent({
     }
 
     return () => {
-      const { mode, prefixCls } = props
+      const { mode, prefixCls, domRef } = props
 
       const selectNode = mode === 'single' ? <SingleSelector {...props} /> : <MultipleSelector />
 
       return (
-        <div onClick={handleClick} class={`${prefixCls}-selector`}>
+        <div ref={domRef} onClick={handleClick} class={`${prefixCls}-selector`}>
           {selectNode}
         </div>
       )

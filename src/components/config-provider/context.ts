@@ -3,7 +3,7 @@ import { computed, provide, inject } from 'vue'
 import type { AliasToken } from '../theme/interface/alias'
 import { BooleanType, ObjectType } from '../_utils/type'
 
-export type SizeType = 'small' | 'middle' | 'large' | undefined
+export type SizeType = 'small' | 'middle' | 'large'
 export const defaultIconPrefixCls = 'anticon'
 
 export interface ThemeConfig {

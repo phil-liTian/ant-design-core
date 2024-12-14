@@ -69,8 +69,10 @@ export interface AliasToken extends MapToken {
   boxShadowDrawerDown: string
   boxShadowDrawerUp: string
 
-  //
+  // boxShadow
   boxShadow: string
+  boxShadowSecondary: string
+  boxShadowTertiary: string
 
   // Control
   controlOutlineWidth: number

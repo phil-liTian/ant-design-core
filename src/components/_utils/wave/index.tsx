@@ -1,5 +1,5 @@
 import { computed, defineComponent, getCurrentInstance, nextTick, onMounted, watch } from 'vue'
-import { fineDOMNode } from '../props-util'
+import { findDOMNode } from '../props-util'
 import useConfigInject from '@/components/config-provider/hooks/useConfigInject'
 import useWave from './useWave'
 import classNames from '../classNames'
@@ -25,7 +25,7 @@ export default defineComponent({
         () => props.disabled,
         () => {
           nextTick(() => {
-            const node: HTMLElement = fineDOMNode(instance)
+            const node: HTMLElement = findDOMNode(instance)
 
             onClick = (e: MouseEvent) => {
               showWave()

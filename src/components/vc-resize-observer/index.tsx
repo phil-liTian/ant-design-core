@@ -1,6 +1,6 @@
 import { defineComponent, getCurrentInstance, onMounted, reactive, type PropType } from 'vue'
 import ResizeObserver from 'resize-observer-polyfill'
-import { fineDOMNode } from '../_utils/props-util'
+import { findDOMNode } from '../_utils/props-util'
 
 interface ResizeObserverState {
   height: number
@@ -45,7 +45,7 @@ export default defineComponent({
 
     const instance = getCurrentInstance()
     const registerObserver = () => {
-      const element = fineDOMNode(instance)
+      const element = findDOMNode(instance)
       if (!resizeObserver && element) {
         resizeObserver = new ResizeObserver(onResize)
         resizeObserver.observe(element)

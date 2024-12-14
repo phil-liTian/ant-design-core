@@ -1,15 +1,52 @@
-import { computed, defineComponent, shallowRef } from 'vue'
+import { computed, defineComponent, ref, shallowRef, watch, type PropType } from 'vue'
 import SelectTrigger from './SelectTrigger'
-import { StringType, type VueNode } from '../_utils/type'
+import { BooleanType, FunctionType, StringType, type VueNode } from '../_utils/type'
 import Selector from './Selector'
 import initDefaultProps from '../_utils/props-util'
 import classNames from '../_utils/classNames'
-import Optionlist from './Optionlist'
+import Optionlist from './OptionList'
+import PropTypes from '../_utils/vue-types'
+import createRef from '../_utils/createRef'
 
 type Mode = 'multiple' | 'tags' | 'combobox'
-const baseSelectPrivateProps = () => ({
+export type Placement = 'bottomLeft' | 'bottomRight' | 'topLeft' | 'topRight'
+
+export type RawValueType = string | number
+
+export interface DropdownObject {
+  menuNode?: VueNode
+  props?: Record<string, any>
+}
+
+export type RenderDOMFunc = (props?: any) => HTMLElement
+
+export type DropdownRender = (opt?: DropdownObject) => VueNode
+export const baseSelectPrivateProps = () => ({
   prefixCls: String,
   displayValues: Array,
+
+  // search
+  autofocus: BooleanType(false),
+  // >>> status
+  disabled: BooleanType(undefined),
+
+  // >> icon
+  allowClear: BooleanType(false),
+  clearIcon: PropTypes.any,
+
+  // value
+
+  // dropdown
+  placement: StringType<Placement>('bottomLeft'),
+  // 下拉框是否与选择器同宽
+  dropdownMatchSelectWidth: {
+    type: [Boolean, Number] as PropType<boolean | number>,
+  },
+  // 自定义下拉框内容
+  dropdownRender: FunctionType<DropdownRender>(),
+  dropdownStyle: PropTypes.object,
+  // 下拉框渲染的位置
+  getPopupContainer: FunctionType<RenderDOMFunc>(),
 })
 
 const baseSelectPropsWithoutPrivate = () => ({
@@ -33,16 +70,26 @@ export default defineComponent({
     const multiple = computed(() => isMultiple(mode))
     const mergedOpen = shallowRef(false)
     const triggerOpen = computed(() => mergedOpen.value)
+    const containerWidth = shallowRef<number>()
+    const selectorDomRef = createRef()
+    const containerRef = ref<HTMLDivElement>()
     const onToggleOpen = () => {
       mergedOpen.value = !triggerOpen.value
-
-      console.log('mergedOpen', mergedOpen.value)
     }
 
-    return () => {
-      const { prefixCls } = props
+    watch(
+      () => triggerOpen.value,
+      (val) => {
+        if (triggerOpen.value) {
+          const newWidth = containerRef.value?.offsetWidth
+          containerWidth.value = newWidth
+        }
+      },
+      { immediate: true, flush: 'post' },
+    )
 
-      console.log('triggerOpen', triggerOpen.value)
+    return () => {
+      const { prefixCls, placement } = props
 
       const optionList = <Optionlist />
 
@@ -51,10 +98,18 @@ export default defineComponent({
         <SelectTrigger
           visible={triggerOpen.value}
           prefixCls={prefixCls}
+          containerWidth={containerWidth.value}
           popupElement={optionList}
+          placement={placement}
+          getTriggerDOMNode={() => selectorDomRef.current}
           v-slots={{
             default: () => (
-              <Selector onToggleOpen={onToggleOpen} values={displayValues} prefixCls={prefixCls} />
+              <Selector
+                domRef={selectorDomRef}
+                onToggleOpen={onToggleOpen}
+                values={displayValues}
+                prefixCls={prefixCls}
+              />
             ),
           }}
         />
@@ -68,7 +123,11 @@ export default defineComponent({
 
       let renderNode: VueNode
 
-      renderNode = <div class={mergedClassName}>{SelectorNode}</div>
+      renderNode = (
+        <div ref={containerRef} class={mergedClassName}>
+          {SelectorNode}
+        </div>
+      )
       return renderNode
     }
   },

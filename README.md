@@ -119,7 +119,7 @@ RadioGroup 通过context给Radio组件传入optionType, 当识别到optionType�
 import ResizeObserver from 'resize-observer-polyfill'
 
 const registerObserver = () => {
-  const element = fineDOMNode(instance)
+  const element = findDOMNode(instance)
   if (!resizeObserver && element) {
     resizeObserver = new ResizeObserver(onResize)
     resizeObserver.observe(element)
@@ -138,7 +138,7 @@ const registerObserver = () => {
 <div class="phil-select">
   <div class="phil-select-selector">
     <div class="phil-select-selection-search">
-      <!-- TODO:  -->
+      <!-- TODO: single和multiple的样式 -->
     </div>
     <div class="phil-select-selection-placeholder"></div>
   </div>
@@ -154,11 +154,16 @@ const registerObserver = () => {
 </div>
 ```
 
-如何实现Select的下拉选择效果？？
+```js
+1. 如何实现Select的下拉选择效果？？
+  popup(dropdown)的样式width通过在BaseSelect中计算containerRef的offsetWidth来获取到。通过dom-align库动态获取dropdown盒子top和left的值。(在Align组件中实现) getContainer默认返回值是body, 此时定位的位置并不会随页面滚动而改变, 如果想要下拉弹层渲染节点固定在触发器的父元素中，需使用getPopupContainer={triggerNode => triggerNode.parentNode}。
+2. 如何实现placement？
+  还是利用dom-align库实现。通过getBuiltInPlacements方法定义不同placement的偏移量(top和left的值)。
+```
+
 如何实现dropdownRender 对下拉菜单进行自由扩展？？
 如何实现tagRender 自定义tag内容？？
 如何实现搜索和远程数据结合？？
-如何实现placement??
 
 ### Divider
 
@@ -289,6 +294,10 @@ export const ExceptionMap = {
 ```js
 如何实现控制各组件间的间距的？
 ```
+
+### Empty
+
+属性均支持props & slot
 
 ### Grid
 

@@ -1,4 +1,8 @@
 import type { TransitionProps } from 'vue'
+import { tuple } from './type'
+
+const SelectPlacements = tuple('bottomLeft', 'bottomRight', 'topLeft', 'topRight')
+export type SelectCommonPlacement = (typeof SelectPlacements)[number]
 
 export const getTransitionProps = (transitionName: string, opt: TransitionProps = {}) => {
   const transitionProps: TransitionProps = {

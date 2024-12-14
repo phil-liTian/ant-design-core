@@ -51,8 +51,9 @@ function getPropsSlot(slots: any, props: any, prop = 'default') {
   return props[prop] ?? slots[prop]?.()
 }
 
-const fineDOMNode = (instance: any) => {
+const findDOMNode = (instance: any) => {
   let node = instance?.vnode?.el || (instance && (instance.$el || instance))
+
   while (node && !node.tagName) {
     node = node.nextSibling
   }
@@ -108,4 +109,4 @@ export const getSlot = (self: any, name = 'default', options = {}): any => {
 
 export default initDefaultProps
 
-export { getPropsSlot, fineDOMNode }
+export { getPropsSlot, findDOMNode }

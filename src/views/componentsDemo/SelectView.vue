@@ -1,10 +1,11 @@
 <template>
   <div>
     <p-select :options="options1" />
+    <br />
+    <p-select :options="options1" placement="topLeft" />
     <p-divider>select</p-divider>
     <div :style="{ width: '800px' }">
       <a-select
-        :open="true"
         placeholder="ant select"
         :style="{ width: '100%' }"
         :options="options1"
