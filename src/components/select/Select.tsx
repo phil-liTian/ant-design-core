@@ -9,6 +9,7 @@ import type { SelectCommonPlacement } from '../_utils/transition'
 import type { InputStatus } from '../_utils/statusUtils'
 import type { SizeType } from '../config-provider'
 import omit from '../_utils/omit'
+import getIcons from './utils/iconUtil'
 
 type RawValue = string | number
 export interface LabeledValue {
@@ -42,11 +43,13 @@ export const selectProps = () => ({
 export default defineComponent({
   name: 'PSelect',
   props: initDefaultProps(selectProps(), {}),
-  setup(props) {
+  setup(props, { slots }) {
     const { prefixCls } = useConfigInject('select', props)
     const selectProps = omit(props, [])
     const [WrapSSR] = useStyle(prefixCls)
+    const { suffixIcon } = getIcons(props, slots)
 
-    return () => WrapSSR(<VcSelect {...selectProps} prefixCls={prefixCls.value} />)
+    return () =>
+      WrapSSR(<VcSelect {...selectProps} inputIcon={suffixIcon} prefixCls={prefixCls.value} />)
   },
 })

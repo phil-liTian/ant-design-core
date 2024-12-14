@@ -1,9 +1,10 @@
 import { flattenChildren } from '@/components/_utils/props-util'
-import { defineComponent, toRef, Transition, type CSSProperties } from 'vue'
+import { defineComponent, shallowRef, toRef, Transition, watch, type CSSProperties } from 'vue'
 import { innerProps } from './interface'
 import classNames from '@/components/_utils/classNames'
 import { useStretchStyle } from './useStretchStyle'
 import Align from '@/components/vc-align'
+import { getTransitionProps } from '@/components/_utils/transition'
 
 export default defineComponent({
   name: 'PopupInner',
@@ -20,27 +21,51 @@ export default defineComponent({
 
     doMeasure()
     const getAlignTarget = () => props.getRootDomNode
+    const visible = shallowRef(false)
+
+    let timeoutId: any
+    watch(
+      () => props.visible,
+      (val) => {
+        visible.value = val
+
+        // clearTimeout(timeoutId)
+        // if (val) {
+        //   timeoutId = setTimeout(() => {})
+        // } else {
+        //   visible.value = false
+        // }
+      },
+      { immediate: true },
+    )
 
     return () => {
       const { prefixCls, align } = props
 
       let childNode: any = flattenChildren(slots.default?.())
-      const mergedClassName = classNames(prefixCls)
+      const mergedClassName = classNames(prefixCls, attrs.class)
       const mergedStyle: CSSProperties[] = [
         {
           ...stretchStyle.value,
         },
+
         attrs.style as CSSProperties,
       ]
 
+      const transitionProps = getTransitionProps('phil-slide-up')
+      console.log('visible--->', visible)
+
       return (
         <Transition
+          {...transitionProps}
           v-slots={{
             default: () => {
-              return (
+              return props.visible ? (
                 <Align
+                  v-show={visible.value}
                   target={getAlignTarget()}
                   align={align}
+                  key="popup"
                   v-slots={{
                     default: () => {
                       // dropdown的元素
@@ -52,7 +77,7 @@ export default defineComponent({
                     },
                   }}
                 ></Align>
-              )
+              ) : null
             },
           }}
         ></Transition>

@@ -17,6 +17,10 @@ export default function genSingleStyle(token): CSSInterpolation {
             bottom: 0,
           },
 
+          [`${componentCls}-selection-item`]: {
+            lineHeight: selectHeightWithoutBorder,
+          },
+
           [`${componentCls}-selection-placeholder`]: {
             lineHeight: selectHeightWithoutBorder,
           },

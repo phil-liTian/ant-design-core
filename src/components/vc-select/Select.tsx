@@ -1,5 +1,10 @@
 import { computed, defineComponent, type ExtractPropTypes, type PropType } from 'vue'
-import BaseSelect, { baseSelectPrivateProps, type Placement } from './BaseSelect'
+import BaseSelect, {
+  baseSelectPrivateProps,
+  baseSelectPropsWithoutPrivate,
+  type Placement,
+  type RawValueType,
+} from './BaseSelect'
 import {
   ArrayType,
   BooleanType,
@@ -13,13 +18,17 @@ import omit from '../_utils/omit'
 import PropTypes from '../_utils/vue-types'
 import { useProvideSelectProps } from './SelectContext'
 import { flattenOptions } from './utils/valueUtil'
+import useMergedState from '../_utils/hooks/useMergedState'
+import useCache from './hooks/useCache'
 
 export type FilterFunc<OptionType> = (inputValue: string, option: OptionType) => boolean
 
+export type OnInternalSelect = (value: RawValueType) => void
+
 export interface FieldNames {
-  value?: String
-  label?: String
-  options?: String
+  value?: string
+  label?: string
+  options?: string
 }
 
 export interface BaseOptionType {
@@ -38,8 +47,11 @@ export function selectProps<
   OptionType extends BaseOptionType = DefaultOptionType,
 >() {
   return {
-    ...baseSelectPrivateProps(),
+    ...baseSelectPropsWithoutPrivate(),
     prefixCls: String,
+
+    // value
+    defaultValue: PropTypes.any,
 
     // search
     mode: StringType<'multiple' | 'tags' | 'combobox'>(),
@@ -88,12 +100,54 @@ export default defineComponent({
     prefixCls: 'vc-select',
   }),
   setup(props) {
-    const displayValues = computed(() => [])
+    const { fieldNames, options } = props
     const pickProps = omit(props, [])
 
+    const displayOptions = computed(() =>
+      flattenOptions(props.options, {
+        fieldNames,
+      }),
+    )
+
+    const [internalValue, setInternalValue] = useMergedState(props.defaultValue)
+    const rawLabeledValues = computed(() => {
+      const values = internalValue.value
+
+      return values
+    })
+
+    const [mergedValues] = useCache(rawLabeledValues)
+
+    const displayValues = computed(() => {
+      return mergedValues.value
+    })
+
+    const convert2LabelValues = (draftValues) => {
+      return draftValues.map((val) => {
+        const option = options.find((v) => v.value === val) || {}
+
+        return {
+          label: option.label,
+          value: option.value,
+        }
+      })
+    }
+
+    const triggerChange = (values) => {
+      // 选中的values转化成对象数组
+      const labeledValues = convert2LabelValues(values)
+
+      setInternalValue(labeledValues)
+    }
+
+    const onInternalSelect = (value: RawValueType) => {
+      triggerChange([value])
+    }
+
     useProvideSelectProps({
-      flattenOptions: flattenOptions(props.options),
+      flattenOptions: displayOptions,
       options: props.options,
+      onSelect: onInternalSelect,
     })
     return () => (
       <BaseSelect

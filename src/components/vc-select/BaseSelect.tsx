@@ -1,12 +1,21 @@
-import { computed, defineComponent, ref, shallowRef, watch, type PropType } from 'vue'
+import {
+  computed,
+  defineComponent,
+  ref,
+  shallowRef,
+  watch,
+  type ExtractPropTypes,
+  type PropType,
+} from 'vue'
 import SelectTrigger from './SelectTrigger'
-import { BooleanType, FunctionType, StringType, type VueNode } from '../_utils/type'
+import { BooleanType, FunctionType, StringType, type Key, type VueNode } from '../_utils/type'
 import Selector from './Selector'
 import initDefaultProps from '../_utils/props-util'
 import classNames from '../_utils/classNames'
 import Optionlist from './OptionList'
 import PropTypes from '../_utils/vue-types'
 import createRef from '../_utils/createRef'
+import { useProvideBaseSelectProps } from './hooks/useBaseProps'
 
 type Mode = 'multiple' | 'tags' | 'combobox'
 export type Placement = 'bottomLeft' | 'bottomRight' | 'topLeft' | 'topRight'
@@ -21,9 +30,16 @@ export interface DropdownObject {
 export type RenderDOMFunc = (props?: any) => HTMLElement
 
 export type DropdownRender = (opt?: DropdownObject) => VueNode
+
+export interface DisplayValueType {
+  key?: Key
+  value?: RawValueType
+  label?: any
+  disabled?: boolean
+}
 export const baseSelectPrivateProps = () => ({
   prefixCls: String,
-  displayValues: Array,
+  displayValues: Array as PropType<DisplayValueType[]>,
 
   // search
   autofocus: BooleanType(false),
@@ -49,14 +65,18 @@ export const baseSelectPrivateProps = () => ({
   getPopupContainer: FunctionType<RenderDOMFunc>(),
 })
 
-const baseSelectPropsWithoutPrivate = () => ({
+export const baseSelectPropsWithoutPrivate = () => ({
   mode: StringType<Mode>('combobox'),
+  showArrow: BooleanType(true),
+  inputIcon: PropTypes.any,
 })
 
 const baseSelectProps = () => ({
   ...baseSelectPrivateProps(),
   ...baseSelectPropsWithoutPrivate(),
 })
+
+export type BaseSelectProps = Partial<ExtractPropTypes<ReturnType<typeof baseSelectProps>>>
 
 export function isMultiple(mode: Mode) {
   return mode === 'multiple' || mode === 'tags'
@@ -77,6 +97,10 @@ export default defineComponent({
       mergedOpen.value = !triggerOpen.value
     }
 
+    useProvideBaseSelectProps({
+      ...props,
+    })
+
     watch(
       () => triggerOpen.value,
       (val) => {
@@ -89,7 +113,12 @@ export default defineComponent({
     )
 
     return () => {
-      const { prefixCls, placement } = props
+      const { prefixCls, placement, displayValues, showArrow, inputIcon } = props
+      const mergedShowArrow = showArrow
+      let arrowNode: VueNode = null
+      if (mergedShowArrow) {
+        arrowNode = <span class={`${prefixCls}-arrow`}>{inputIcon()}</span>
+      }
 
       const optionList = <Optionlist />
 
@@ -126,6 +155,7 @@ export default defineComponent({
       renderNode = (
         <div ref={containerRef} class={mergedClassName}>
           {SelectorNode}
+          {arrowNode}
         </div>
       )
       return renderNode

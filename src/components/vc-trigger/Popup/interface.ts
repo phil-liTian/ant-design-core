@@ -11,3 +11,7 @@ export const innerProps = {
   align: ObjectType<AlignType>(),
   getRootDomNode: FunctionType<() => HTMLElement>(),
 }
+
+export const popupProps = {
+  ...innerProps,
+}

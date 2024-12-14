@@ -1,5 +1,5 @@
 import PropTypes from '@/components/_utils/vue-types'
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 
 const props = {
   prefixCls: String,
@@ -17,11 +17,20 @@ const SingleSelector = defineComponent({
       return <div class={`${prefixCls}-selection-placeholder`}>renderPlaceholder</div>
     }
 
+    const title = computed(() => {
+      const { values } = props
+      const item = values[0] || {}
+
+      return item.label
+    })
+
     return () => {
-      const { prefixCls } = props
+      const { prefixCls, values } = props
+
       return (
         <>
           <div class={`${prefixCls}-selection-search`}></div>
+          {title.value && <span class={`${prefixCls}-selection-item`}>{title.value}</span>}
           {/* placeholder */}
           {renderPlaceholder()}
         </>

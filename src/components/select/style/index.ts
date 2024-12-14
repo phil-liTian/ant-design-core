@@ -23,7 +23,7 @@ function genSelectorStyle(token) {
 }
 
 const genBaseStyle = (token) => {
-  const { componentCls } = token
+  const { componentCls, inputPaddingHorizontalBase } = token
   return {
     [componentCls]: {
       ...resetComponent(token),
@@ -38,9 +38,24 @@ const genBaseStyle = (token) => {
         },
       },
 
+      // placeholder
       [`${componentCls}-selection-placeholder`]: {
         ...textEllipsis,
         color: token.colorTextPlaceholder,
+      },
+
+      [`${componentCls}-arrow`]: {
+        position: 'absolute',
+        top: '50%',
+        insetInlineEnd: inputPaddingHorizontalBase,
+        marginTop: -(token.fontSize / 2),
+        lineHeight: '1',
+        fontSize: token.fontSizeIcon,
+        color: token.colorTextQuaternary,
+
+        [`${componentCls}-suffix`]: {
+          pointerEvents: 'auto',
+        },
       },
     },
   }
@@ -67,7 +82,6 @@ export default genComponentStyleHook('Select', (token) => {
   const selectToken = mergeToken<SelectToken>(token, {
     inputPaddingHorizontalBase: token.paddingSM - 1,
   })
-  console.log('a', genSelectStyle(selectToken))
 
   return [genSelectStyle(selectToken)]
 })

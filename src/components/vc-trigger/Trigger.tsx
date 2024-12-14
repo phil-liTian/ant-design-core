@@ -39,9 +39,8 @@ export default defineComponent({
         style: popupStyle,
         getRootDomNode,
         align: align.value,
+        visible: sPopupVisible.value,
       }
-
-      console.log('align', align.value)
 
       return <Popup {...popupProps} v-slots={{ default: slots.popup }}></Popup>
     }
@@ -65,9 +64,8 @@ export default defineComponent({
     const child = children[0]
     const trigger = cloneElement(child, { ref: 'triggerRef' })
 
-    const portal = (
-      <Portal visible={sPopupVisible} v-slots={{ default: this.getComponent }}></Portal>
-    )
+    // TODO
+    const portal = <Portal visible={true} v-slots={{ default: this.getComponent }}></Portal>
 
     return (
       <>

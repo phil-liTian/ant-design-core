@@ -1,8 +1,37 @@
 import type { FlattenOptionData } from '../interface'
-import type { BaseOptionType } from '../Select'
+import type { BaseOptionType, DefaultOptionType, FieldNames } from '../Select'
 
-export function flattenOptions<OptionType>(options: OptionType) {
-  const flattenOptions: FlattenOptionData<BaseOptionType>[] = []
+export function fillFieldNames(fieldNames: FieldNames | undefined) {
+  const { value, label, options } = fieldNames || {}
+  return {
+    label: label || 'label',
+    value: value || 'value',
+    options: options || 'children',
+  }
+}
+
+export function flattenOptions<OptionType extends BaseOptionType = DefaultOptionType>(
+  options: OptionType[],
+  { fieldNames }: { fieldNames?: FieldNames },
+): FlattenOptionData<OptionType>[] {
+  const flattenOptions: FlattenOptionData<OptionType>[] = []
+  const { label: fieldLabel, value: fieldValue, options: fieldOptions } = fillFieldNames(fieldNames)
+
+  function dig(list: OptionType[], isGroupOption: boolean) {
+    list.map((data) => {
+      const value = data[fieldValue]
+      const label = data[fieldLabel]
+
+      flattenOptions.push({
+        value,
+        label,
+        data,
+        key: '1',
+      })
+    })
+  }
+
+  dig(options, false)
 
   return flattenOptions
 }

@@ -28,7 +28,9 @@
         style="width: 200px"
         @popupScroll="handleScroll"
         class="my-2"
-      />
+      >
+        <template #tagRender="{ value, label }"> {{ value }}===> phil </template>
+      </a-select>
       <br />
 
       <a-select placement="topLeft" :options="options1" :style="{ width: '200px' }">
@@ -89,6 +91,8 @@ const VNodes = defineComponent({
     },
   },
   render() {
+    console.log('this.vnodes', this.vnodes)
+
     return this.vnodes
   },
 })
