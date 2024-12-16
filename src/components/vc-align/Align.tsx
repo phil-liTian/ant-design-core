@@ -14,7 +14,7 @@ export default defineComponent({
   name: 'Align',
   props: {
     target: [Object, Function] as PropType<TargetType>,
-    align: ObjectType<AlignType>({}),
+    align: ObjectType<AlignType>(),
   },
 
   setup(props, { slots }) {
@@ -32,6 +32,7 @@ export default defineComponent({
       // target是当前选择的selector
       // document.querySelector('.phil-select-selector')
       // console.log('target', source, { offset: [0, 4], points: ['tl', 'bl'] })
+      console.log('latestAlign', source, target, latestAlign)
 
       alignElement(source, target, latestAlign)
     }
@@ -41,6 +42,7 @@ export default defineComponent({
       if (child) {
         return cloneElement(child[0], { ref: nodeRef })
       }
+      // return null
     }
   },
 })

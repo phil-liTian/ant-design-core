@@ -6,7 +6,7 @@ import type { PresetStatusColorType, PresetColorType } from '../_utils/colors'
 export const tagProps = () => ({
   prefixCls: String,
   icon: PropTypes.any,
-  color: StringType<LiteralUnion<PresetStatusColorType | PresetColorType>>,
+  color: StringType<LiteralUnion<PresetStatusColorType | PresetColorType>>(),
   closable: BooleanType(false),
   closeIcon: PropTypes.any,
   visible: BooleanType(),

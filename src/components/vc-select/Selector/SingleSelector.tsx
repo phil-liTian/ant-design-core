@@ -4,6 +4,7 @@ import { computed, defineComponent } from 'vue'
 const props = {
   prefixCls: String,
   values: PropTypes.array,
+  placeholder: PropTypes.any,
 }
 
 const SingleSelector = defineComponent({
@@ -14,7 +15,7 @@ const SingleSelector = defineComponent({
     const renderPlaceholder = () => {
       const { prefixCls, values } = props
       if (values[0]) return null
-      return <div class={`${prefixCls}-selection-placeholder`}>renderPlaceholder</div>
+      return <div class={`${prefixCls}-selection-placeholder`}>{props.placeholder}</div>
     }
 
     const title = computed(() => {

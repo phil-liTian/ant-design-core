@@ -3,6 +3,7 @@ import Trigger from '../vc-trigger'
 import { BooleanType, StringType } from '../_utils/type'
 import PropTypes from '../_utils/vue-types'
 import type { Placement } from './BaseSelect'
+import classNames from '../_utils/classNames'
 const getBuiltInPlacements = () => {
   const adjustX = 0
   return {
@@ -50,6 +51,7 @@ export default defineComponent({
     containerWidth: Number,
     getTriggerDOMNode: Function,
     placement: StringType<Placement>('bottomLeft'),
+    dropdownClassName: String,
   },
   setup(props, { slots }) {
     const { prefixCls } = props
@@ -58,7 +60,14 @@ export default defineComponent({
       return getBuiltInPlacements()
     })
     return () => {
-      const { visible, popupElement, containerWidth, getTriggerDOMNode, placement } = props
+      const {
+        visible,
+        popupElement,
+        containerWidth,
+        getTriggerDOMNode,
+        placement,
+        dropdownClassName,
+      } = props
 
       let popupNode = popupElement
       let popupStyle = { minWidth: `${containerWidth}px`, width: `${containerWidth}px` }
@@ -70,6 +79,7 @@ export default defineComponent({
           popupStyle={popupStyle}
           popupPlacement={placement}
           builtinPlacements={builtInPlacements.value}
+          popupClassName={classNames(dropdownClassName)}
           getTriggerDOMNode={getTriggerDOMNode}
           v-slots={{
             default: slots.default,

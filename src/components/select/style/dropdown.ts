@@ -32,6 +32,10 @@ function genDrowdownStyle(token) {
           },
         },
       },
+
+      [`${selectItemCls}-empty`]: {
+        ...genItemStyle(token),
+      },
     },
 
     ...initSlideMotion(token, 'slide-up'),

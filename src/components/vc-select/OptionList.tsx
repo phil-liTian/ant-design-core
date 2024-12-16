@@ -11,6 +11,7 @@ export default defineComponent({
   setup() {
     const props = useSelectProps()
     const baseProps = useBaseProps()
+
     const itemPrefixCls = computed(() => `${baseProps.prefixCls}-item`)
     const state = reactive({ activeIndex: 0 })
     // 悬浮选中样式
@@ -26,35 +27,47 @@ export default defineComponent({
 
     const memoFlattenOptions = useMemo(() => props.flattenOptions, [() => props.flattenOptions])
 
-    return () => (
-      <List
-        data={memoFlattenOptions.value}
-        v-slots={{
-          default: (item, itemIndex) => {
-            const { data, value } = item
-            const { activeIndex } = state
-            const optionPrefixCls = `${itemPrefixCls.value}-option`
-            const optionClassName = classNames(itemPrefixCls.value, optionPrefixCls, {
-              [`${optionPrefixCls}-active`]: itemIndex === activeIndex,
-            })
-            const content = item.label
+    return () => {
+      const { notFoundContent } = baseProps
 
-            return (
-              <div
-                class={optionClassName}
-                onMousemove={(e) => {
-                  setActive(itemIndex)
-                }}
-                onClick={(e) => {
-                  onSelectValue(value)
-                }}
-              >
-                {content}
-              </div>
-            )
-          },
-        }}
-      ></List>
-    )
+      if (!memoFlattenOptions.value.length) {
+        return (
+          <div role="listbox" class={`${itemPrefixCls.value}-empty`}>
+            {notFoundContent}
+          </div>
+        )
+      }
+
+      return (
+        <List
+          data={memoFlattenOptions.value}
+          v-slots={{
+            default: (item, itemIndex) => {
+              const { data, value } = item
+              const { activeIndex } = state
+              const optionPrefixCls = `${itemPrefixCls.value}-option`
+              const optionClassName = classNames(itemPrefixCls.value, optionPrefixCls, {
+                [`${optionPrefixCls}-active`]: itemIndex === activeIndex,
+              })
+              const content = item.label
+
+              return (
+                <div
+                  class={optionClassName}
+                  onMousemove={(e) => {
+                    setActive(itemIndex)
+                  }}
+                  onClick={(e) => {
+                    onSelectValue(value)
+                  }}
+                >
+                  {content}
+                </div>
+              )
+            },
+          }}
+        ></List>
+      )
+    }
   },
 })

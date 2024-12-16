@@ -1,5 +1,5 @@
 import { computed } from 'vue'
-import { useConfigContextInject, type SizeType } from '../context'
+import { useConfigContextInject, configProviderKey, type SizeType } from '../context'
 
 export default (name: string, props: Record<any, any>) => {
   const configProvider = useConfigContextInject()

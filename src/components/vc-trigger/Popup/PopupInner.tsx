@@ -28,7 +28,6 @@ export default defineComponent({
       () => props.visible,
       (val) => {
         visible.value = val
-
         // clearTimeout(timeoutId)
         // if (val) {
         //   timeoutId = setTimeout(() => {})
@@ -40,10 +39,11 @@ export default defineComponent({
     )
 
     return () => {
-      const { prefixCls, align } = props
+      const { prefixCls, align, destroyPopupOnHide } = props
 
       let childNode: any = flattenChildren(slots.default?.())
-      const mergedClassName = classNames(prefixCls, attrs.class)
+
+      const mergedClassName = classNames(prefixCls, attrs.class, {})
       const mergedStyle: CSSProperties[] = [
         {
           ...stretchStyle.value,
@@ -53,7 +53,6 @@ export default defineComponent({
       ]
 
       const transitionProps = getTransitionProps('phil-slide-up')
-      console.log('visible--->', visible)
 
       return (
         <Transition

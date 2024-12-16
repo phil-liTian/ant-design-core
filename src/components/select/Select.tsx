@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue'
-import VcSelect, { selectProps as VcSelectProps } from '../vc-select'
+import VcSelect, { selectProps as VcSelectProps, Option, OptGroup } from '../vc-select'
 import useConfigInject from '../config-provider/hooks/useConfigInject'
 import initDefaultProps from '../_utils/props-util'
 import useStyle from './style'
@@ -10,6 +10,8 @@ import type { InputStatus } from '../_utils/statusUtils'
 import type { SizeType } from '../config-provider'
 import omit from '../_utils/omit'
 import getIcons from './utils/iconUtil'
+import classNames from '../_utils/classNames'
+import DefaultRenderEmpty from '../config-provider/renderEmpty'
 
 type RawValue = string | number
 export interface LabeledValue {
@@ -42,14 +44,37 @@ export const selectProps = () => ({
 
 export default defineComponent({
   name: 'PSelect',
+  Option,
+  OptGroup,
   props: initDefaultProps(selectProps(), {}),
   setup(props, { slots }) {
     const { prefixCls } = useConfigInject('select', props)
-    const selectProps = omit(props, [])
-    const [WrapSSR] = useStyle(prefixCls)
+    const [WrapSSR, hashId] = useStyle(prefixCls)
     const { suffixIcon } = getIcons(props, slots)
+    console.log('hashId', hashId)
 
-    return () =>
-      WrapSSR(<VcSelect {...selectProps} inputIcon={suffixIcon} prefixCls={prefixCls.value} />)
+    return () => {
+      const { dropdownClassName, notFoundContent } = props
+      const selectProps = omit(props, ['dropdownClassName'])
+      let mergedNotFound: any
+      if (notFoundContent !== undefined) {
+        mergedNotFound = notFoundContent
+      } else if (slots.notFoundContent) {
+        mergedNotFound = slots.notFoundContent()
+      } else {
+        mergedNotFound = <DefaultRenderEmpty componentName="Select" />
+      }
+
+      const rcSelectDropdownClassName = classNames(dropdownClassName)
+      return WrapSSR(
+        <VcSelect
+          {...selectProps}
+          dropdownClassName={rcSelectDropdownClassName}
+          inputIcon={suffixIcon}
+          prefixCls={prefixCls.value}
+          notFoundContent={mergedNotFound}
+        />,
+      )
+    }
   },
 })

@@ -159,12 +159,18 @@ const registerObserver = () => {
   popup(dropdown)的样式width通过在BaseSelect中计算containerRef的offsetWidth来获取到。通过dom-align库动态获取dropdown盒子top和left的值。(在Align组件中实现) getContainer默认返回值是body, 此时定位的位置并不会随页面滚动而改变, 如果想要下拉弹层渲染节点固定在触发器的父元素中，需使用getPopupContainer={triggerNode => triggerNode.parentNode}。
 2. 如何实现placement？
   还是利用dom-align库实现。通过getBuiltInPlacements方法定义不同placement的偏移量(top和left的值)。
-3. 如何实现options,虚拟列表, dropdown动画、dropdownRender
+3. 如何实现options, 虚拟列表, dropdown动画、dropdownRender
   3.1 创建一个SelectContext上下文对象, 在OptionList中共享Select中的props, BaseSelectContext共享vcSelect中的props数据。
-  3.2 dropdown的动画跟hashId有关？？
+  3.2 VcVirtualList
 4. mode: single 和 multiple 的实现逻辑？？ 如何实现tagRender 自定义tag内容？？
 
 5. 如何实现搜索和远程数据结合？？
+
+6. 如何实现自动分词
+
+7. 如何实现select-option的value与select绑定的value一致？？
+
+9. labelInValue如何实现绑定的value是一个对象的？？
 ```
 
 ### Divider

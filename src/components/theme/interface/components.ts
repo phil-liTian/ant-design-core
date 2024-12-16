@@ -10,6 +10,7 @@ import type { ComponentToken as WaveToken } from '../../_utils/wave'
 import type { ComponentToken as DrawerToken } from '../../drawer/style'
 import type { ComponentToken as SegmentedToken } from '../../segmented/style'
 import type { ComponentToken as ResultToken } from '../../result/style'
+import type { ComponentToken as EmptyToken } from '../../empty/style'
 
 export interface ComponentTokenMap {
   Button?: ButtonComponentToken
@@ -29,4 +30,6 @@ export interface ComponentTokenMap {
   Grid?: {}
   Result?: ResultToken
   Tree?: {}
+  Empty?: EmptyToken
+  // TODO: add more components token here
 }

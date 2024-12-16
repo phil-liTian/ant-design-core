@@ -3,6 +3,8 @@ import {
   defineComponent,
   ref,
   shallowRef,
+  toRefs,
+  reactive,
   watch,
   type ExtractPropTypes,
   type PropType,
@@ -16,6 +18,8 @@ import Optionlist from './OptionList'
 import PropTypes from '../_utils/vue-types'
 import createRef from '../_utils/createRef'
 import { useProvideBaseSelectProps } from './hooks/useBaseProps'
+import { toReactive } from '../_utils/toReactive'
+import type { BaseSelectContextProps } from 'ant-design-vue/es/vc-select/hooks/useBaseProps'
 
 type Mode = 'multiple' | 'tags' | 'combobox'
 export type Placement = 'bottomLeft' | 'bottomRight' | 'topLeft' | 'topRight'
@@ -69,6 +73,11 @@ export const baseSelectPropsWithoutPrivate = () => ({
   mode: StringType<Mode>('combobox'),
   showArrow: BooleanType(true),
   inputIcon: PropTypes.any,
+  placeholder: PropTypes.any,
+
+  // dropdown
+  dropdownClassName: String,
+  notFoundContent: PropTypes.any,
 })
 
 const baseSelectProps = () => ({
@@ -84,8 +93,12 @@ export function isMultiple(mode: Mode) {
 
 export default defineComponent({
   name: 'BaseSelect',
-  props: initDefaultProps(baseSelectProps(), {}),
+  props: initDefaultProps(baseSelectProps(), {
+    // notFoundContent: 'Not Found',
+  }),
   setup(props, { attrs }) {
+    console.log('props---->', props)
+
     const { displayValues, mode } = props
     const multiple = computed(() => isMultiple(mode))
     const mergedOpen = shallowRef(false)
@@ -96,10 +109,6 @@ export default defineComponent({
     const onToggleOpen = () => {
       mergedOpen.value = !triggerOpen.value
     }
-
-    useProvideBaseSelectProps({
-      ...props,
-    })
 
     watch(
       () => triggerOpen.value,
@@ -112,8 +121,19 @@ export default defineComponent({
       { immediate: true, flush: 'post' },
     )
 
+    useProvideBaseSelectProps(toReactive({ ...toRefs(props) } as any))
+
     return () => {
-      const { prefixCls, placement, displayValues, showArrow, inputIcon } = props
+      const {
+        prefixCls,
+        placement,
+        placeholder,
+        displayValues,
+        showArrow,
+        inputIcon,
+        dropdownClassName,
+      } = props
+
       const mergedShowArrow = showArrow
       let arrowNode: VueNode = null
       if (mergedShowArrow) {
@@ -130,10 +150,12 @@ export default defineComponent({
           containerWidth={containerWidth.value}
           popupElement={optionList}
           placement={placement}
+          dropdownClassName={dropdownClassName}
           getTriggerDOMNode={() => selectorDomRef.current}
           v-slots={{
             default: () => (
               <Selector
+                placeholder={placeholder}
                 domRef={selectorDomRef}
                 onToggleOpen={onToggleOpen}
                 values={displayValues}

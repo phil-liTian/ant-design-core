@@ -15,6 +15,8 @@ export function flattenOptions<OptionType extends BaseOptionType = DefaultOption
   { fieldNames }: { fieldNames?: FieldNames },
 ): FlattenOptionData<OptionType>[] {
   const flattenOptions: FlattenOptionData<OptionType>[] = []
+
+  if (!options) return []
   const { label: fieldLabel, value: fieldValue, options: fieldOptions } = fillFieldNames(fieldNames)
 
   function dig(list: OptionType[], isGroupOption: boolean) {

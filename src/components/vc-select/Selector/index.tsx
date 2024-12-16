@@ -16,6 +16,7 @@ const Selector = defineComponent({
 
     // ref
     domRef: Function,
+    placeholder: PropTypes.any,
   },
   setup(props) {
     const handleClick = () => {

@@ -33,13 +33,15 @@ export default defineComponent({
       return findDOMNode(instance)
     }
     const getComponent = () => {
-      const { prefixCls, popupStyle } = props
+      const { prefixCls, popupStyle, popupClassName } = props
+
       const popupProps = {
         prefixCls,
         style: popupStyle,
         getRootDomNode,
         align: align.value,
         visible: sPopupVisible.value,
+        class: popupClassName,
       }
 
       return <Popup {...popupProps} v-slots={{ default: slots.popup }}></Popup>

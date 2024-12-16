@@ -101,7 +101,6 @@ export default defineComponent({
   }),
   setup(props) {
     const { fieldNames, options } = props
-    const pickProps = omit(props, [])
 
     const displayOptions = computed(() =>
       flattenOptions(props.options, {
@@ -149,12 +148,16 @@ export default defineComponent({
       options: props.options,
       onSelect: onInternalSelect,
     })
-    return () => (
-      <BaseSelect
-        {...pickProps}
-        // >>> value
-        displayValues={displayValues.value}
-      />
-    )
+    return () => {
+      const pickProps = omit(props, [])
+
+      return (
+        <BaseSelect
+          {...pickProps}
+          // >>> value
+          displayValues={displayValues.value}
+        />
+      )
+    }
   },
 })

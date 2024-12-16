@@ -15,6 +15,7 @@ export const triggerProps = () => ({
   builtinPlacements: PropTypes.object,
   popupPlacement: String,
   popupAlign: ObjectType({}),
+  popupClassName: String,
 })
 
 export type BuiltinPlacements = Record<string, AlignType>
