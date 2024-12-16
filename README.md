@@ -1,3 +1,5 @@
+## 目前实现进度 16/69
+
 ### 样式处理流程
 
 ```
@@ -131,6 +133,8 @@ const registerObserver = () => {
 ```
 
 ### Select
+
+#### 涉及组件vcAlign(实现dom定位), vcTrigger(实现点击处理popup)、vcVirtualList(虚拟列表)
 
 整体思路: Select是组件入口, 具体实现逻辑在VcSelect中. BaseSelect中的SelectTrigger的默认插槽实现Selector默认展示(包括组件单选、多选、tag、搜索等)逻辑; 另外一个插槽--popup,实现弹出选择框的逻辑。popup中接收一个默认插槽，默认插槽中的内容是BaseSelect传进来的OptionList. OptionList中使用virtualList实现虚拟列表。可满足渲染100000个items的场景。
 
@@ -305,7 +309,11 @@ export const ExceptionMap = {
 
 ### Empty
 
-属性均支持props & slot
+```js
+内置两个默认的empty img
+Empty.PRESENTED_IMAGE_DEFAULT = () => h(DefaultEmptyImg)
+Empty.PRESENTED_IMAGE_SIMPLE = () => h(SimpleEmptyImg)
+```
 
 ### Grid
 

@@ -17,6 +17,8 @@
       <template #notFoundContent>12312</template>
     </p-select>
 
+    <p-select :options="options" />
+
     <p-divider>select</p-divider>
     <div :style="{ width: '800px' }">
       <!-- :options="options1" -->

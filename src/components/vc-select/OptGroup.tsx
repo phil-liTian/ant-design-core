@@ -10,4 +10,4 @@ export interface OptionGroupFC extends FunctionalComponent<OptionProps> {
 const OptGroup: OptionGroupFC = () => null
 OptGroup.displayName = 'PSelectOption'
 OptGroup.isSelectOptGroup = true
-export default Option
+export default OptGroup

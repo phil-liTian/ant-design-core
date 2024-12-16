@@ -18,6 +18,7 @@ const DrawerWrapper = defineComponent({
       if (props.open) {
         portal = (
           <PortalWrapper
+            visible={true}
             v-slots={{
               default: () => (
                 <Child

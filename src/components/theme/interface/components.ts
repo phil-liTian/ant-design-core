@@ -31,5 +31,6 @@ export interface ComponentTokenMap {
   Result?: ResultToken
   Tree?: {}
   Empty?: EmptyToken
+  Form?: {}
   // TODO: add more components token here
 }

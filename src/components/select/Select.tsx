@@ -51,7 +51,6 @@ export default defineComponent({
     const { prefixCls } = useConfigInject('select', props)
     const [WrapSSR, hashId] = useStyle(prefixCls)
     const { suffixIcon } = getIcons(props, slots)
-    console.log('hashId', hashId)
 
     return () => {
       const { dropdownClassName, notFoundContent } = props

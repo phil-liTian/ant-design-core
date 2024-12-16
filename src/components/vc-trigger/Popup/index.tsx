@@ -21,6 +21,7 @@ export default defineComponent({
       const cloneProps = { ...props, ...attrs, visible: innerVisible.value }
 
       let popupNode = <PopupInner {...cloneProps} v-slots={{ default: slots.default }} />
+
       return <div>{popupNode}</div>
     }
   },

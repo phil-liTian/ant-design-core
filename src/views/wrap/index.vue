@@ -15,8 +15,8 @@
     <!-- <SegmentedView /> -->
     <!-- <ResultView /> -->
     <!-- <GridView /> -->
-    <!-- <SelectView /> -->
-    <EmptyView />
+    <!-- <EmptyView /> -->
+    <SelectView />
   </div>
 </template>
 
@@ -37,7 +37,7 @@ import WatermarkView from '../componentsDemo/WatermarkView.vue'
 import SegmentedView from '../componentsDemo/SegmentedView.vue'
 import ResultView from '../componentsDemo/ResultView.vue'
 import GridView from '../componentsDemo/GridView.vue'
-import EmptyView from '@/components/empty/Empty'
+import EmptyView from '../componentsDemo/EmptyView.vue'
 </script>
 
 <style lang="less" scoped></style>

@@ -27,13 +27,13 @@ export const Empty = defineComponent({
       const pre = prefixCls.value
       const {
         image: mergedImage = slots.image?.() || h(DefaultEmptyImg),
-        description = slots.descriptoin?.(),
+        description = slots.description?.() || undefined,
         imageStyle,
         class: className = '',
         ...restProps
       } = { ...props, ...attrs }
       // des
-      const des = typeof description === 'string' ? description : '暂无内容'
+      const des = typeof description !== 'undefined' ? description : 'No Data'
 
       // alt
       const alt = typeof des === 'string' ? des : 'empty'
@@ -56,7 +56,7 @@ export const Empty = defineComponent({
                 <div class={`${pre}-image`} style={imageStyle}>
                   {imageNode}
                 </div>
-                {des && <p class={`${pre}-description`}>{des}</p>}
+                {des && <div class={`${pre}-description`}>{des}</div>}
                 {slots.default && <div class={`${pre}-footer`}>{slots.default()}</div>}
               </div>
             )

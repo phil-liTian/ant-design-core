@@ -8,7 +8,7 @@ export default defineComponent({
   },
   setup(props, { slots }) {
     return () => {
-      const children = slots.children || slots.default
+      const children = props.children || slots.default
 
       return children?.()
     }

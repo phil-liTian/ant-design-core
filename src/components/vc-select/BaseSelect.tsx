@@ -97,8 +97,6 @@ export default defineComponent({
     // notFoundContent: 'Not Found',
   }),
   setup(props, { attrs }) {
-    console.log('props---->', props)
-
     const { displayValues, mode } = props
     const multiple = computed(() => isMultiple(mode))
     const mergedOpen = shallowRef(false)
