@@ -88,6 +88,7 @@ export function selectProps<
     defaultOpen: BooleanType(false),
     // 弹窗滚动高度
     listHeight: NumberType(256),
+    itemHeight: NumberType(32),
     placement: StringType<Placement>('bottomLeft'),
   }
 }
@@ -100,7 +101,7 @@ export default defineComponent({
     prefixCls: 'vc-select',
   }),
   setup(props) {
-    const { fieldNames, options } = props
+    const { fieldNames, options, listHeight, itemHeight } = props
 
     const displayOptions = computed(() =>
       flattenOptions(props.options, {
@@ -147,6 +148,8 @@ export default defineComponent({
       flattenOptions: displayOptions,
       options: props.options,
       onSelect: onInternalSelect,
+      listHeight,
+      listItemHeight: itemHeight,
     })
     return () => {
       const pickProps = omit(props, [])

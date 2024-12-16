@@ -41,11 +41,6 @@ export const initSlideMotion = (token, motionName: SlideMotionTypes) => {
   const { antCls } = token
   const motionCls = `.${antCls}-${motionName}`
   const { inKeyframes, outKeyframes } = slideMotion[motionName]
-  console.log(
-    'inKeyframes',
-    motionCls,
-    initMotion(motionCls, inKeyframes, outKeyframes, token.motionDurationMid),
-  )
 
   return [
     initMotion(motionCls, inKeyframes, outKeyframes, token.motionDurationMid),

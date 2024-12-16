@@ -27,8 +27,13 @@ export default defineComponent({
 
     const memoFlattenOptions = useMemo(() => props.flattenOptions, [() => props.flattenOptions])
 
+    const getLabel = (item: Record<string, any>) => {
+      return typeof item.label === 'function' ? item.label() : item.label
+    }
+
     return () => {
       const { notFoundContent } = baseProps
+      const { listHeight, listItemHeight } = props
 
       if (!memoFlattenOptions.value.length) {
         return (
@@ -41,6 +46,8 @@ export default defineComponent({
       return (
         <List
           data={memoFlattenOptions.value}
+          height={listHeight}
+          itemHeight={listItemHeight}
           v-slots={{
             default: (item, itemIndex) => {
               const { data, value } = item
@@ -49,7 +56,9 @@ export default defineComponent({
               const optionClassName = classNames(itemPrefixCls.value, optionPrefixCls, {
                 [`${optionPrefixCls}-active`]: itemIndex === activeIndex,
               })
-              const content = item.label
+              const mergedLabel = getLabel(item)
+              // content的内容 优先取label(label可以是函数或者是string), 其次取value的值
+              const content = mergedLabel || value
 
               return (
                 <div
@@ -61,7 +70,7 @@ export default defineComponent({
                     onSelectValue(value)
                   }}
                 >
-                  {content}
+                  <div class={`${optionPrefixCls}-content`}>{content}</div>
                 </div>
               )
             },

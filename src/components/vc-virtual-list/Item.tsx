@@ -5,7 +5,6 @@ export interface ItemProps {}
 
 const Item: FunctionalComponent<ItemProps> = (props, { slots }) => {
   const children = flattenChildren(slots.default?.() as any)
-  console.log('children', children)
 
   return children?.length ? cloneVNode(children[0]) : children
 }

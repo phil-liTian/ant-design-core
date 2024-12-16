@@ -4,6 +4,8 @@ import type { FlattenOptionData } from './interface'
 import type { OnInternalSelect } from './Select'
 
 export interface SelectContextProps {
+  listHeight?: number
+  listItemHeight?: number
   options: BaseOptionType[]
   flattenOptions: FlattenOptionData<BaseOptionType>[]
   onSelect: OnInternalSelect

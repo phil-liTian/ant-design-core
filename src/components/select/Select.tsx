@@ -3,7 +3,7 @@ import VcSelect, { selectProps as VcSelectProps, Option, OptGroup } from '../vc-
 import useConfigInject from '../config-provider/hooks/useConfigInject'
 import initDefaultProps from '../_utils/props-util'
 import useStyle from './style'
-import { FunctionType, someType, StringType } from '../_utils/type'
+import { BooleanType, FunctionType, someType, StringType } from '../_utils/type'
 import PropTypes from '../_utils/vue-types'
 import type { SelectCommonPlacement } from '../_utils/transition'
 import type { InputStatus } from '../_utils/statusUtils'
@@ -40,6 +40,8 @@ export const selectProps = () => ({
   notFoundContent: PropTypes.any,
   popupClassName: String,
   placement: StringType<SelectCommonPlacement>('bottomLeft'),
+
+  virtual: BooleanType(true),
 })
 
 export default defineComponent({

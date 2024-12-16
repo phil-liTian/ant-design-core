@@ -1,4 +1,4 @@
-## 目前实现进度 16/69
+## 目前组件实现进度 16/69
 
 ### 样式处理流程
 
@@ -36,6 +36,7 @@ const styleName = key.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`)
 
 ```js
 1. 接收参数, 比如weve、disabled、direction、PrefixCls、token等等，注入到全局的context中, 可供整个系统中的组件共用。
+2. renderEmpty 全局定义组件缺省状态
 ```
 
 ### Alert
@@ -165,10 +166,11 @@ const registerObserver = () => {
   还是利用dom-align库实现。通过getBuiltInPlacements方法定义不同placement的偏移量(top和left的值)。
 3. 如何实现options, 虚拟列表, dropdown动画、dropdownRender
   3.1 创建一个SelectContext上下文对象, 在OptionList中共享Select中的props, BaseSelectContext共享vcSelect中的props数据。
-  3.2 VcVirtualList
+  3.2 vcVirtualList
+
 4. mode: single 和 multiple 的实现逻辑？？ 如何实现tagRender 自定义tag内容？？
 
-5. 如何实现搜索和远程数据结合？？
+5. 如何实现搜索和远程数据结合, 筛选filter-option实现过程？？
 
 6. 如何实现自动分词
 

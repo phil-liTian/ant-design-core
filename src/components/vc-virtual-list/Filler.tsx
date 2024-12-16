@@ -6,12 +6,16 @@ interface FillerProps {
   height?: number
 }
 
-const Filler: FunctionalComponent<FillerProps> = (props, { slots }) => {
-  let outerStyle = {}
+const Filler: FunctionalComponent<FillerProps> = ({ height }, { slots }) => {
+  let outerStyle = {
+    height: `${height}px`,
+    overflow: 'hidden',
+  }
   let innerStyle: CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
   }
+
   return (
     <div style={outerStyle}>
       <ResizeObserver>
