@@ -1,7 +1,12 @@
 <template>
   <div>
     <p-tag color="#0a0">simple placement single</p-tag>
-    <p-select :options="options1" placeholder="测试placeholder" />
+    <p-select :options="options1" placeholder="测试placeholder">
+      <template #dropdownRender="{ menuNode: menu }">
+        <v-nodes :vnodes="menu" />
+        自定义dropdown
+      </template>
+    </p-select>
     <br />
     <p-select
       class="my-2"
@@ -22,7 +27,8 @@
       <template #notFoundContent>12312</template>
     </p-select>
 
-    <p-select :options="options" />
+    <p-tag color="#0a0">大数据渲染</p-tag>
+    <p-select placeholder="大数据" :options="options" />
 
     <p-divider>select</p-divider>
     <div :style="{ width: '800px' }" class="my-2">
@@ -36,8 +42,8 @@
         v-model:value="value1"
       />
 
+      <!-- labelInValue -->
       <a-select
-        labelInValue
         v-model:value="value2"
         :options="options2"
         :maxTagCount="2"

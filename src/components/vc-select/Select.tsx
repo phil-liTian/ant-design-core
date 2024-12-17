@@ -2,6 +2,7 @@ import { computed, defineComponent, type ExtractPropTypes, type PropType } from 
 import BaseSelect, {
   baseSelectPrivateProps,
   baseSelectPropsWithoutPrivate,
+  isMultiple,
   type Placement,
   type RawValueType,
 } from './BaseSelect'
@@ -16,7 +17,7 @@ import {
 import initDefaultProps from '../_utils/props-util'
 import omit from '../_utils/omit'
 import PropTypes from '../_utils/vue-types'
-import { useProvideSelectProps } from './SelectContext'
+import { useProvideSelectProps, type SelectContextProps } from './SelectContext'
 import { flattenOptions } from './utils/valueUtil'
 import useMergedState from '../_utils/hooks/useMergedState'
 import useCache from './hooks/useCache'
@@ -86,6 +87,7 @@ export function selectProps<
     // >>> open
     open: BooleanType(false),
     defaultOpen: BooleanType(false),
+
     // 弹窗滚动高度
     listHeight: NumberType(256),
     itemHeight: NumberType(32),
@@ -102,6 +104,15 @@ export default defineComponent({
   }),
   setup(props) {
     const { fieldNames, options, listHeight, itemHeight } = props
+    const multiple = computed(() => isMultiple(props.mode))
+
+    // ========================== Options ==========================
+    const mergedFilterOptions = computed(() => {
+      if (props.filterOption === undefined) {
+        return false
+      }
+      return props.filterOption
+    })
 
     const displayOptions = computed(() =>
       flattenOptions(props.options, {
@@ -141,16 +152,23 @@ export default defineComponent({
     }
 
     const onInternalSelect = (value: RawValueType) => {
+      // TODO
+      let cloneValues = []
       triggerChange([value])
     }
+
+    const rawValues = computed(() => new Set(mergedValues.value.map((v) => v.value)))
 
     useProvideSelectProps({
       flattenOptions: displayOptions,
       options: props.options,
       onSelect: onInternalSelect,
       listHeight,
+      rawValues,
       listItemHeight: itemHeight,
-    })
+      menuItemSelectedIcon: props.menuItemSelectedIcon,
+    } as unknown as SelectContextProps)
+
     return () => {
       const pickProps = omit(props, [])
 

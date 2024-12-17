@@ -48,12 +48,10 @@ export default defineComponent({
         {
           ...stretchStyle.value,
         },
-
         attrs.style as CSSProperties,
       ]
 
-      const transitionProps = getTransitionProps('phil-slide-up')
-
+      const transitionProps = getTransitionProps('phil-slide-down')
       return (
         <Transition
           {...transitionProps}

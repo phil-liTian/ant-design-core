@@ -10,11 +10,27 @@ export function fillFieldNames(fieldNames: FieldNames | undefined) {
   }
 }
 
+function getKey(data: BaseOptionType, index: number) {
+  const { key } = data
+  let value
+  if ('value' in data) {
+    ;({ value } = data)
+  }
+  if (key !== undefined && key !== null) {
+    return key
+  }
+  if (value !== undefined) {
+    return value
+  }
+
+  return `rc-index-key-${index}`
+}
+
 export function flattenOptions<OptionType extends BaseOptionType = DefaultOptionType>(
   options: OptionType[],
   { fieldNames }: { fieldNames?: FieldNames },
 ): FlattenOptionData<OptionType>[] {
-  const flattenOptions: FlattenOptionData<OptionType>[] = []
+  const flattenList: FlattenOptionData<OptionType>[] = []
 
   if (!options) return []
   const { label: fieldLabel, value: fieldValue, options: fieldOptions } = fillFieldNames(fieldNames)
@@ -24,16 +40,16 @@ export function flattenOptions<OptionType extends BaseOptionType = DefaultOption
       const value = data[fieldValue]
       const label = data[fieldLabel]
 
-      flattenOptions.push({
+      flattenList.push({
         value,
         label,
         data,
-        key: '1',
+        key: getKey(data, flattenList.length),
       })
     })
   }
 
   dig(options, false)
 
-  return flattenOptions
+  return flattenList
 }

@@ -57,6 +57,7 @@ export default defineComponent({
     return () => {
       const { dropdownClassName, notFoundContent } = props
       const selectProps = omit(props, ['dropdownClassName'])
+
       let mergedNotFound: any
       if (notFoundContent !== undefined) {
         mergedNotFound = notFoundContent
@@ -73,6 +74,7 @@ export default defineComponent({
           dropdownClassName={rcSelectDropdownClassName}
           inputIcon={suffixIcon}
           prefixCls={prefixCls.value}
+          dropdownRender={selectProps.dropdownRender || slots.dropdownRender}
           notFoundContent={mergedNotFound}
         />,
       )

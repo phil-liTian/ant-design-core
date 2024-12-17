@@ -5,6 +5,7 @@ import List from '../vc-virtual-list'
 import { useBaseProps } from './hooks/useBaseProps'
 import classNames from '../_utils/classNames'
 import type { RawValueType } from './BaseSelect'
+import TransBtn from './TransBtn'
 
 export default defineComponent({
   name: 'OptionList',
@@ -31,9 +32,14 @@ export default defineComponent({
       return typeof item.label === 'function' ? item.label() : item.label
     }
 
+    const isSelected = (value) => {
+      // return props.rawValues?.has(value)
+      return false
+    }
+
     return () => {
       const { notFoundContent } = baseProps
-      const { listHeight, listItemHeight } = props
+      const { listHeight, listItemHeight, menuItemSelectedIcon } = props
 
       if (!memoFlattenOptions.value.length) {
         return (
@@ -53,6 +59,9 @@ export default defineComponent({
               const { data, value } = item
               const { activeIndex } = state
               const optionPrefixCls = `${itemPrefixCls.value}-option`
+              const selected = isSelected(value)
+              const iconVisible =
+                selected || !menuItemSelectedIcon || typeof menuItemSelectedIcon === 'function'
               const optionClassName = classNames(itemPrefixCls.value, optionPrefixCls, {
                 [`${optionPrefixCls}-active`]: itemIndex === activeIndex,
               })
@@ -71,6 +80,11 @@ export default defineComponent({
                   }}
                 >
                   <div class={`${optionPrefixCls}-content`}>{content}</div>
+                  {iconVisible && (
+                    <TransBtn class={`${itemPrefixCls.value}-option-state`}>
+                      {selected ? '✓' : null}
+                    </TransBtn>
+                  )}
                 </div>
               )
             },

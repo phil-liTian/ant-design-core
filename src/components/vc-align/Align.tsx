@@ -32,7 +32,6 @@ export default defineComponent({
       // target是当前选择的selector
       // document.querySelector('.phil-select-selector')
       // console.log('target', source, { offset: [0, 4], points: ['tl', 'bl'] })
-      console.log('latestAlign', source, target, latestAlign)
 
       alignElement(source, target, latestAlign)
     }

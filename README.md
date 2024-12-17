@@ -166,7 +166,10 @@ const registerObserver = () => {
   还是利用dom-align库实现。通过getBuiltInPlacements方法定义不同placement的偏移量(top和left的值)。
 3. 如何实现options, 虚拟列表, dropdown动画、dropdownRender
   3.1 创建一个SelectContext上下文对象, 在OptionList中共享Select中的props, BaseSelectContext共享vcSelect中的props数据。
-  3.2 vcVirtualList
+  3.2 vcVirtualList(大数据渲染)
+    1. 结构设计: 父容器固定高度, 子容器高度由itemHeight * dataLen计算得到, 溢出隐藏。自定义一个scrollBar组件, 高度由scrollHeight 和 height计算得到。距离顶部位置动态计算得到。
+    2. 给父容器添加wheel事件，监听滚动事件, 动态计算偏移量。子容器添加transform: translateY(offset)实现虚拟列表效果。
+  3.3 在渲染popupElement之前, 判断如果有dropdownRender则执行dropdownRender({ menuNode, props })，返回自定义的dropdown。
 
 4. mode: single 和 multiple 的实现逻辑？？ 如何实现tagRender 自定义tag内容？？
 

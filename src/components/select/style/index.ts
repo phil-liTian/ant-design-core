@@ -5,6 +5,7 @@ import genComponentStyleHook, {
 } from '@/components/theme/utils/genComponentStyleHook'
 import genSingleStyle from './single'
 import genDrowdownStyle from './dropdown'
+import { genMultipleStyle } from './multiple'
 
 export interface ComponentToken {}
 
@@ -72,6 +73,7 @@ function genSelectStyle(token) {
     genSingleStyle(token),
 
     // Multiple
+    genMultipleStyle(token),
 
     // dropdown
     genDrowdownStyle(token),

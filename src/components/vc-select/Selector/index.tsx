@@ -3,11 +3,12 @@ import { defineComponent } from 'vue'
 import SingleSelector from './SingleSelector'
 import MultipleSelector from './MultipleSelector'
 import PropTypes from '@/components/_utils/vue-types'
+import type { Mode } from '../BaseSelect'
 
 const Selector = defineComponent({
   name: 'Selector',
   props: {
-    mode: StringType<'single' | 'multiple'>('single'),
+    mode: StringType<Mode>('combobox'),
     prefixCls: String,
     values: PropTypes.array,
 
@@ -25,8 +26,14 @@ const Selector = defineComponent({
 
     return () => {
       const { mode, prefixCls, domRef } = props
+      console.log('mode', mode)
 
-      const selectNode = mode === 'single' ? <SingleSelector {...props} /> : <MultipleSelector />
+      const selectNode =
+        mode === 'multiple' || mode === 'tags' ? (
+          <MultipleSelector {...props} />
+        ) : (
+          <SingleSelector {...props} />
+        )
 
       return (
         <div ref={domRef} onClick={handleClick} class={`${prefixCls}-selector`}>

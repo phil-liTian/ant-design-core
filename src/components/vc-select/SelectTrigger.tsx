@@ -52,6 +52,7 @@ export default defineComponent({
     getTriggerDOMNode: Function,
     placement: StringType<Placement>('bottomLeft'),
     dropdownClassName: String,
+    dropdownRender: Function,
   },
   setup(props, { slots }) {
     const { prefixCls } = props
@@ -67,9 +68,15 @@ export default defineComponent({
         getTriggerDOMNode,
         placement,
         dropdownClassName,
+        dropdownRender,
       } = props
 
       let popupNode = popupElement
+
+      if (dropdownRender) {
+        // dropdownRender 第一个参数是optionList, 第二个参数是所有的props
+        popupNode = dropdownRender({ menuNode: popupElement, props })
+      }
       let popupStyle = { minWidth: `${containerWidth}px`, width: `${containerWidth}px` }
 
       return (

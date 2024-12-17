@@ -19,9 +19,9 @@ import PropTypes from '../_utils/vue-types'
 import createRef from '../_utils/createRef'
 import { useProvideBaseSelectProps } from './hooks/useBaseProps'
 import { toReactive } from '../_utils/toReactive'
-import type { BaseSelectContextProps } from 'ant-design-vue/es/vc-select/hooks/useBaseProps'
+import type { BaseOptionType } from './Select'
 
-type Mode = 'multiple' | 'tags' | 'combobox'
+export type Mode = 'multiple' | 'tags' | 'combobox'
 export type Placement = 'bottomLeft' | 'bottomRight' | 'topLeft' | 'topRight'
 
 export type RawValueType = string | number
@@ -40,6 +40,7 @@ export interface DisplayValueType {
   value?: RawValueType
   label?: any
   disabled?: boolean
+  option?: BaseOptionType
 }
 export const baseSelectPrivateProps = () => ({
   prefixCls: String,
@@ -62,8 +63,7 @@ export const baseSelectPrivateProps = () => ({
   dropdownMatchSelectWidth: {
     type: [Boolean, Number] as PropType<boolean | number>,
   },
-  // 自定义下拉框内容
-  dropdownRender: FunctionType<DropdownRender>(),
+
   dropdownStyle: PropTypes.object,
   // 下拉框渲染的位置
   getPopupContainer: FunctionType<RenderDOMFunc>(),
@@ -78,6 +78,8 @@ export const baseSelectPropsWithoutPrivate = () => ({
   // dropdown
   dropdownClassName: String,
   notFoundContent: PropTypes.any,
+  // 自定义下拉框内容
+  dropdownRender: FunctionType<DropdownRender>(),
 })
 
 const baseSelectProps = () => ({
@@ -130,6 +132,7 @@ export default defineComponent({
         showArrow,
         inputIcon,
         dropdownClassName,
+        dropdownRender,
       } = props
 
       const mergedShowArrow = showArrow
@@ -149,10 +152,12 @@ export default defineComponent({
           popupElement={optionList}
           placement={placement}
           dropdownClassName={dropdownClassName}
+          dropdownRender={dropdownRender}
           getTriggerDOMNode={() => selectorDomRef.current}
           v-slots={{
             default: () => (
               <Selector
+                mode={mode!}
                 placeholder={placeholder}
                 domRef={selectorDomRef}
                 onToggleOpen={onToggleOpen}
