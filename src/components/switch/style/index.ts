@@ -158,6 +158,7 @@ const genSwitchLoadingStyle = (token: SwitchToken): CSSObject => {
           position: 'relative',
           top: `${(token.switchPinSize - token.fontSize) / 2}px`,
           color: token.switchLoadingIconColor,
+          verticalAlign: 'top',
         },
       },
     },

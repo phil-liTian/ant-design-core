@@ -49,11 +49,16 @@ export default defineComponent({
   Option,
   OptGroup,
   props: initDefaultProps(selectProps(), {}),
-  setup(props, { slots }) {
+  emits: ['update:value', 'change'],
+  setup(props, { slots, emit }) {
     const { prefixCls } = useConfigInject('select', props)
     const [WrapSSR, hashId] = useStyle(prefixCls)
     const { suffixIcon } = getIcons(props, slots)
 
+    const triggerChange = (...args) => {
+      emit('change', ...args)
+      emit('update:value', args[0])
+    }
     return () => {
       const { dropdownClassName, notFoundContent } = props
       const selectProps = omit(props, ['dropdownClassName'])
@@ -74,6 +79,7 @@ export default defineComponent({
           dropdownClassName={rcSelectDropdownClassName}
           inputIcon={suffixIcon}
           prefixCls={prefixCls.value}
+          onChange={triggerChange}
           dropdownRender={selectProps.dropdownRender || slots.dropdownRender}
           notFoundContent={mergedNotFound}
         />,

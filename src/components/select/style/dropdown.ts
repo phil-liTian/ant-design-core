@@ -13,33 +13,38 @@ function genDrowdownStyle(token) {
   const { componentCls } = token
   const selectItemCls = `${componentCls}-item`
 
-  return {
-    [`${componentCls}-dropdown`]: {
-      padding: token.paddingXXS,
-      backgroundColor: token.colorBgElevated,
-      boxShadow: token.boxShadowSecondary,
-      borderRadius: token.borderRadiusLG,
+  return [
+    {
+      [`${componentCls}-dropdown`]: {
+        padding: token.paddingXXS,
+        backgroundColor: token.colorBgElevated,
+        boxShadow: token.boxShadowSecondary,
+        borderRadius: token.borderRadiusLG,
 
-      [`${selectItemCls}`]: {
-        ...genItemStyle(token),
-        cursor: 'pointer',
-        borderRadius: token.borderRadiusSM,
+        [`${selectItemCls}`]: {
+          ...genItemStyle(token),
+          cursor: 'pointer',
+          borderRadius: token.borderRadiusSM,
 
-        // option
-        [`&-option`]: {
-          [`&-active`]: {
-            backgroundColor: token.controlItemBgHover,
+          // option
+          [`&-option`]: {
+            [`&-active`]: {
+              backgroundColor: token.controlItemBgHover,
+            },
           },
         },
-      },
 
-      [`${selectItemCls}-empty`]: {
-        ...genItemStyle(token),
+        [`${selectItemCls}-empty`]: {
+          ...genItemStyle(token),
+        },
       },
     },
 
-    ...initSlideMotion(token, 'slide-up'),
-  }
+    initSlideMotion(token, 'slide-up'),
+    initSlideMotion(token, 'slide-down'),
+    initSlideMotion(token, 'slide-left'),
+    initSlideMotion(token, 'slide-right'),
+  ]
 }
 
 export default genDrowdownStyle

@@ -4,8 +4,8 @@ import type { ComponentToken } from './style/index'
 
 Select.install = (app: App) => {
   app.component(Select.name!, Select)
-  app.component(Select.Option.name!, Select.Option)
-  app.component(Select.OptGroup.name!, Select.OptGroup)
+  app.component(Select.Option.displayName!, Select.Option)
+  app.component(Select.OptGroup.displayName!, Select.OptGroup)
 
   return app
 }

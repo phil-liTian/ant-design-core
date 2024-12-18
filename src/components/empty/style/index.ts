@@ -40,6 +40,9 @@ const genSharedEmptyStyle = (token) => {
 
       '&-small': {
         color: token.colorTextDisabled,
+        [`${componentCls}-image`]: {
+          height: token.emptyImgHeightSM,
+        },
       },
     },
   }

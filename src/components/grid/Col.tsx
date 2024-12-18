@@ -1,8 +1,15 @@
-import { computed, defineComponent, type CSSProperties, type PropType } from 'vue'
+import {
+  computed,
+  defineComponent,
+  type CSSProperties,
+  type ExtractPropTypes,
+  type PropType,
+} from 'vue'
 import useConfigInject from '../config-provider/hooks/useConfigInject'
 import { useColStyle } from './style'
 import classNames from '../_utils/classNames'
 import { useInjectRow } from './context'
+import { exitCode } from 'process'
 
 type ColSpanType = number | string
 export interface ColSize {
@@ -46,6 +53,8 @@ export const colProps = () => ({
     default: undefined,
   },
 })
+
+export type ColProps = Partial<ExtractPropTypes<ReturnType<typeof colProps>>>
 
 const sizes = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'] as const
 const Col = defineComponent({

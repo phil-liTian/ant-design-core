@@ -221,7 +221,7 @@ const List = defineComponent({
       nextTick(() => {
         if (componentRef.value) {
           removeEventListener()
-          componentRef.value.addEventListener('wheel', onRawWheel)
+          componentRef.value.addEventListener('wheel', onRawWheel, { passive: false })
         }
       })
     })

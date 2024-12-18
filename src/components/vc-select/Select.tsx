@@ -24,7 +24,7 @@ import useCache from './hooks/useCache'
 
 export type FilterFunc<OptionType> = (inputValue: string, option: OptionType) => boolean
 
-export type OnInternalSelect = (value: RawValueType) => void
+export type OnInternalSelect = (value: RawValueType, info: { selected: boolean }) => void
 
 export interface FieldNames {
   value?: string
@@ -53,6 +53,8 @@ export function selectProps<
 
     // value
     defaultValue: PropTypes.any,
+    onChange: FunctionType<(value: ValueType, option: OptionType) => void>(),
+    labelInValue: PropTypes.bool,
 
     // search
     mode: StringType<'multiple' | 'tags' | 'combobox'>(),
@@ -123,14 +125,19 @@ export default defineComponent({
     const [internalValue, setInternalValue] = useMergedState(props.defaultValue)
     const rawLabeledValues = computed(() => {
       const values = internalValue.value
-
       return values
     })
 
     const [mergedValues] = useCache(rawLabeledValues)
 
     const displayValues = computed(() => {
-      return mergedValues.value
+      // 此处处理label可以是一个函数或者没有默认使用value当作label
+      return mergedValues.value.map((item) => {
+        return {
+          ...item,
+          label: (typeof item.label === 'function' ? item.label() : item.label) || item.value,
+        }
+      })
     })
 
     const convert2LabelValues = (draftValues) => {
@@ -149,22 +156,48 @@ export default defineComponent({
       const labeledValues = convert2LabelValues(values)
 
       setInternalValue(labeledValues)
-    }
 
-    const onInternalSelect = (value: RawValueType) => {
+      if (!!props.onChange) {
+        const returnValues = props.labelInValue
+          ? labeledValues.map((item) => ({
+              ...item,
+              originLabel: item.label,
+              label: typeof item.label === 'function' ? item.label() : item.label,
+            }))
+          : labeledValues.map((v) => v.value)
+
+        const returnOptions = labeledValues.map((v) => v.option)
+
+        props.onChange(
+          multiple.value ? returnValues : returnValues[0],
+          multiple.value ? returnOptions : returnOptions[0],
+        )
+      }
+    }
+    // ========================= Select ===========================
+    const onInternalSelect = (value: RawValueType, { selected }) => {
       // TODO
-      let cloneValues = []
-      triggerChange([value])
+      let cloneValues: any[] = []
+      const mergedSelect = multiple.value ? selected : true
+
+      if (mergedSelect) {
+        cloneValues = multiple.value ? [...mergedValues.value, value] : [value]
+      } else {
+        // 反选
+        cloneValues = mergedValues.value.filter((v) => v.value !== value)
+      }
+      triggerChange(cloneValues)
+      // triggerChange([value])
     }
 
-    const rawValues = computed(() => new Set(mergedValues.value.map((v) => v.value)))
+    const rawValues = computed(() => new Set(mergedValues.value.map((v) => v.value)) || [])
 
     useProvideSelectProps({
       flattenOptions: displayOptions,
       options: props.options,
       onSelect: onInternalSelect,
       listHeight,
-      rawValues,
+      rawValues: rawValues.value,
       listItemHeight: itemHeight,
       menuItemSelectedIcon: props.menuItemSelectedIcon,
     } as unknown as SelectContextProps)

@@ -5,6 +5,6 @@ import useBreakPoint from '../_utils/hooks/useBreakpoint'
 export { Row, Col }
 
 export type { RowProps } from './Row'
-export type { ColSize } from './Col'
+export type { ColSize, ColProps } from './Col'
 
 export default useBreakPoint

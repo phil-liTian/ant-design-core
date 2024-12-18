@@ -24,9 +24,13 @@ const Selector = defineComponent({
       props.onToggleOpen()
     }
 
+    const onMouseDown = (e) => {
+      e.preventDefault()
+      // props.onToggleOpen()
+    }
+
     return () => {
       const { mode, prefixCls, domRef } = props
-      console.log('mode', mode)
 
       const selectNode =
         mode === 'multiple' || mode === 'tags' ? (
@@ -36,7 +40,12 @@ const Selector = defineComponent({
         )
 
       return (
-        <div ref={domRef} onClick={handleClick} class={`${prefixCls}-selector`}>
+        <div
+          ref={domRef}
+          onMousedown={onMouseDown}
+          onClick={handleClick}
+          class={`${prefixCls}-selector`}
+        >
           {selectNode}
         </div>
       )

@@ -20,9 +20,19 @@ export default defineComponent({
       state.activeIndex = index
     }
 
+    // =========================== values ============================
+    const isSelected = (value) => {
+      return props.rawValues?.has(value)
+    }
+
     const onSelectValue = (value: RawValueType) => {
       if (value !== undefined) {
-        props.onSelect(value)
+        props.onSelect(value, { selected: !isSelected(value) })
+      }
+
+      // 单选选中后关闭
+      if (!baseProps.multiple) {
+        baseProps.toggleOpen(false)
       }
     }
 
@@ -30,11 +40,6 @@ export default defineComponent({
 
     const getLabel = (item: Record<string, any>) => {
       return typeof item.label === 'function' ? item.label() : item.label
-    }
-
-    const isSelected = (value) => {
-      // return props.rawValues?.has(value)
-      return false
     }
 
     return () => {

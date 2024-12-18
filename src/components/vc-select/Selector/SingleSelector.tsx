@@ -20,13 +20,19 @@ const SingleSelector = defineComponent({
 
     const title = computed(() => {
       const { values } = props
-      const item = values[0] || {}
+      const item = values[0] as any
 
-      return item.label
+      return item && (typeof item.label === 'number' || typeof item.label === 'string')
+        ? item.label.toString()
+        : undefined
     })
 
     return () => {
       const { prefixCls, values } = props
+      const item = values[0]
+      let titleNode = null
+      if (item) {
+      }
 
       return (
         <>

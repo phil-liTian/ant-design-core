@@ -135,7 +135,7 @@ const registerObserver = () => {
 
 ### Select
 
-#### 涉及组件vcAlign(实现dom定位), vcTrigger(实现点击处理popup)、vcVirtualList(虚拟列表)
+#### 涉及组件vcAlign(实现dom定位), vcTrigger(实现点击处理popup)、vcVirtualList(虚拟列表)、vcOverflow(mode为multiple时的省略逻辑)
 
 整体思路: Select是组件入口, 具体实现逻辑在VcSelect中. BaseSelect中的SelectTrigger的默认插槽实现Selector默认展示(包括组件单选、多选、tag、搜索等)逻辑; 另外一个插槽--popup,实现弹出选择框的逻辑。popup中接收一个默认插槽，默认插槽中的内容是BaseSelect传进来的OptionList. OptionList中使用virtualList实现虚拟列表。可满足渲染100000个items的场景。
 
@@ -170,6 +170,7 @@ const registerObserver = () => {
     1. 结构设计: 父容器固定高度, 子容器高度由itemHeight * dataLen计算得到, 溢出隐藏。自定义一个scrollBar组件, 高度由scrollHeight 和 height计算得到。距离顶部位置动态计算得到。
     2. 给父容器添加wheel事件，监听滚动事件, 动态计算偏移量。子容器添加transform: translateY(offset)实现虚拟列表效果。
   3.3 在渲染popupElement之前, 判断如果有dropdownRender则执行dropdownRender({ menuNode, props })，返回自定义的dropdown。
+  3.4 踩坑: Transition name对应的class如果未定义, dom结构上则不会有动态渲染class的表现！tips：调试动画延长动画时间 调试动画中效果
 
 4. mode: single 和 multiple 的实现逻辑？？ 如何实现tagRender 自定义tag内容？？
 
@@ -178,8 +179,10 @@ const registerObserver = () => {
 6. 如何实现自动分词
 
 7. 如何实现select-option的value与select绑定的value一致？？
+  useOptions hook通过props的children获取到options, 转化option的props成options
 
 9. labelInValue如何实现绑定的value是一个对象的？？
+  在triggerChange的时候，通过labelInValue判断此时往外抛出的是选中的value还是整个item对象, 另外这里label可以是一个函数, 抛出的对象包括originalLabel, label, value等
 ```
 
 ### Divider

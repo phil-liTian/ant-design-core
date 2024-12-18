@@ -51,10 +51,12 @@ export default defineComponent({
         attrs.style as CSSProperties,
       ]
 
-      const transitionProps = getTransitionProps('phil-slide-down')
+      const transitionProps = getTransitionProps('phil-slide-up')
+
       return (
         <Transition
           {...transitionProps}
+          // name="phil-slide-down"
           v-slots={{
             default: () => {
               return props.visible ? (

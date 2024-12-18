@@ -22,6 +22,9 @@ export default function useFrameWheel(
     if (!inVirtual.value) return
     const originScroll = useOriginScroll(isScrollAtTop, isScrollAtBottom)
 
+    // 防止整个页面有滚动的时候, 滚动list的时候触发整个page的滚动
+    e.preventDefault()
+
     wrapperRaf.cancel(nextFrame)
     const { deltaY } = e
 

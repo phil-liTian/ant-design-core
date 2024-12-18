@@ -41,7 +41,6 @@ const MultipleSelector = defineComponent({
       return (
         <span class={`${pre}-item`}>
           <span class={`${pre}-item-content`}>{content}</span>
-
           {closable && <TransBtn class={`${pre}-item-remove`}> x </TransBtn>}
         </span>
       )
@@ -69,7 +68,6 @@ const MultipleSelector = defineComponent({
     return () => {
       const { placeholder, values } = props
       const InputNode = <div class={`${pre}`}></div>
-      console.log('SelectionNode')
 
       const SelectionNode = <Overflow key="overflow" renderItem={renderItem} />
       return (

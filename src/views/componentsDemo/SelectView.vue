@@ -28,7 +28,16 @@
     </p-select>
 
     <p-tag color="#0a0">大数据渲染</p-tag>
-    <p-select placeholder="大数据" :options="options" />
+    <p-select placeholder="大数据" v-model:value="value3" :options="options3" />
+
+    <p-tag class="my-2" color="#0a0">自定义option</p-tag>
+    <p-select>
+      <p-select-option value="jack">Jack</p-select-option>
+      <p-select-option value="lucy">Lucy</p-select-option>
+    </p-select>
+
+    <!-- <p-tag color="red">multiple</p-tag>
+    <p-select mode="tags" placeholder="multiple" v-model:value="value4" :options="options3" /> -->
 
     <p-divider>select</p-divider>
     <div :style="{ width: '800px' }" class="my-2">
@@ -58,7 +67,8 @@
       </a-select>
       <br />
 
-      <a-select class="my-2" placement="topLeft" :options="options1" :style="{ width: '200px' }">
+      <!-- placement="topLeft"  -->
+      <a-select class="my-2" :options="options1" :style="{ width: '200px' }">
         <template #dropdownRender="{ menuNode: menu }">
           <v-nodes :vnodes="menu" />
           <a-divider style="margin: 4px 0" />
@@ -70,7 +80,13 @@
       </a-select>
 
       <!-- 大数据 -->
-      <a-select class="my-2" :open="true" :options="options" :style="{ width: '200px' }" />
+      <a-select
+        class="my-2"
+        v-model:value="value3"
+        :defaultOpen="true"
+        :options="options3"
+        :style="{ width: '200px' }"
+      />
       <br />
       <!-- 远程加载 -->
 
@@ -108,7 +124,7 @@
         @change="handleChange"
       ></a-select>
       <br />
-      <a-select :open="true" :value="[1]" :style="{ width: '200px' }">
+      <a-select :defaultOpen="true" :value="[1]" :style="{ width: '200px' }">
         <a-select-option :value="1">option 1</a-select-option>
       </a-select>
       <br />
@@ -138,6 +154,7 @@ import { UserOutlined } from '@ant-design/icons-vue'
 const value = ref(undefined)
 const value1 = ref('lucy')
 const value2 = ref(['a1', 'b2'])
+const value4 = ref([])
 const options1 = ref<SelectProps['options']>([
   {
     value: 'jack',
@@ -163,11 +180,13 @@ const options2 = computed(() => {
   })
 })
 
-const options: { value: string; disabled: boolean }[] = []
+const value3 = ref([])
 
-for (let i = 0; i < 100; i++) {
+const options3: { value: string; disabled: boolean }[] = []
+
+for (let i = 0; i < 1000; i++) {
   const value = `${i.toString(36)}${i}`
-  options.push({
+  options3.push({
     value,
     disabled: i === 10,
   })

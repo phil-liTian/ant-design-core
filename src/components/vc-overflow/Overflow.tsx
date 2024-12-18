@@ -21,7 +21,7 @@ const Overflow = defineComponent({
         return <Component>{slots.default?.()}</Component>
       }
 
-      return <ResizeObserver v-slots={{ default: '123' }}></ResizeObserver>
+      return <ResizeObserver v-slots={{ default: overflowNode }}></ResizeObserver>
     }
   },
 })

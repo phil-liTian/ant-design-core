@@ -56,6 +56,7 @@ export const baseSelectPrivateProps = () => ({
   clearIcon: PropTypes.any,
 
   // value
+  labelInValue: PropTypes.bool,
 
   // dropdown
   placement: StringType<Placement>('bottomLeft'),
@@ -121,7 +122,9 @@ export default defineComponent({
       { immediate: true, flush: 'post' },
     )
 
-    useProvideBaseSelectProps(toReactive({ ...toRefs(props) } as any))
+    useProvideBaseSelectProps(
+      toReactive({ ...toRefs(props), toggleOpen: onToggleOpen, multiple } as any),
+    )
 
     return () => {
       const {

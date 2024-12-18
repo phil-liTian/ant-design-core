@@ -1,9 +1,21 @@
-import { defineComponent } from 'vue'
+import { defineComponent, type FunctionalComponent } from 'vue'
+import { Col } from '../grid'
 
-const formItemLabel = defineComponent({
-  setup() {
-    return () => <div>formItemLabel</div>
-  },
-})
+export interface FormItemLabelProps {
+  label: string
+  htmlFor: string
+}
+
+const formItemLabel: FunctionalComponent<FormItemLabelProps> = (props, { slots }) => {
+  const { htmlFor } = props
+  const label = props.label || slots.label?.()
+  if (!label) return null
+
+  return (
+    <Col>
+      <label for={htmlFor}>{label}</label>
+    </Col>
+  )
+}
 
 export default formItemLabel
